@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://127.0.0.1:6474/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <script type="application/shiny-singletons"></script><style type="text/css"></style>
+  <script type="application/html-dependencies">json2[2014.02.04];jquery[1.11.0];shiny[0.12.2];selectize[0.11.2];ionrangeslider[2.0.12];strftime[0.9.2];bootstrap[3.3.1]</script>
+<script src="./Implementation_files/json2-min.js"></script>
+<script src="./Implementation_files/jquery.min.js"></script>
+<link href="./Implementation_files/shiny.css" rel="stylesheet">
+<script src="./Implementation_files/shiny.min.js"></script>
+<link href="./Implementation_files/selectize.bootstrap3.css" rel="stylesheet">
+<!--[if lt IE 9]>
+<script src="shared/selectize/js/es5-shim.min.js"></script>
+<![endif]-->
+<script src="./Implementation_files/selectize.min.js"></script>
+<link href="./Implementation_files/ion.rangeSlider.css" rel="stylesheet">
+<link href="./Implementation_files/ion.rangeSlider.skinShiny.css" rel="stylesheet">
+<script src="./Implementation_files/ion.rangeSlider.min.js"></script>
+<script src="./Implementation_files/strftime-min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./Implementation_files/bootstrap.min.css" rel="stylesheet">
+<script src="./Implementation_files/bootstrap.min.js"></script>
+<script src="./Implementation_files/html5shiv.min.js"></script>
+<script src="./Implementation_files/respond.min.js"></script>
+  <title>
+    &lt;h4 align="center"&gt;Student Dataset&lt;/h4&gt;
+  </title>
+</head>
+<body>
+  <div class="container-fluid">
+    <h2>
+      </h2><h4 align="center">Student Dataset</h4>
+    
+    <div class="row">
+      <div class="col-sm-4">
+        <form class="well">
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="var">1. Select the variable from the iris dataset</label>
+            <div>
+              <select id="var" tabindex="-1" class="selectized shiny-bound-input" style="display: none;"><option value="1" selected="selected"></option></select><div class="selectize-control single"><div class="selectize-input items full has-options has-items"><div data-value="1" class="item">Subject 1</div><input type="text" autocomplete="off" tabindex="" style="width: 4px;"></div><div class="selectize-dropdown single" style="display: none;"><div class="selectize-dropdown-content"></div></div></div>
+              <script type="application/json" data-for="var" data-nonempty="">{}</script>
+            </div>
+          </div>
+          <br>
+          <div class="form-group shiny-input-container">
+            <label class="control-label" for="bins">2. Select the no.of BINs for histogram</label>
+            <span class="irs js-irs-0 irs-with-grid"><span class="irs"><span class="irs-line" tabindex="-1"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span><span class="irs-min" style="visibility: visible;">5</span><span class="irs-max" style="visibility: visible;">25</span><span class="irs-from" style="visibility: hidden;">0</span><span class="irs-to" style="visibility: hidden;">0</span><span class="irs-single" style="left: 47.6623%;">15</span></span><span class="irs-grid" style="width: 94.2857%; left: 2.75714%;"><span class="irs-grid-pol" style="left: 0%"></span><span class="irs-grid-text js-grid-text-0" style="left: 0%; margin-left: -1.42857%;">5</span><span class="irs-grid-pol small" style="left: 6.666666667%"></span><span class="irs-grid-pol small" style="left: 3.333333333%"></span><span class="irs-grid-pol" style="left: 10%"></span><span class="irs-grid-text js-grid-text-1" style="left: 10%; visibility: visible; margin-left: -1.42857%;">7</span><span class="irs-grid-pol small" style="left: 16.666666667%"></span><span class="irs-grid-pol small" style="left: 13.333333333%"></span><span class="irs-grid-pol" style="left: 20%"></span><span class="irs-grid-text js-grid-text-2" style="left: 20%; visibility: visible; margin-left: -1.42857%;">9</span><span class="irs-grid-pol small" style="left: 26.666666667%"></span><span class="irs-grid-pol small" style="left: 23.333333333%"></span><span class="irs-grid-pol" style="left: 30%"></span><span class="irs-grid-text js-grid-text-3" style="left: 30%; visibility: visible; margin-left: -2.07792%;">11</span><span class="irs-grid-pol small" style="left: 36.666666667%"></span><span class="irs-grid-pol small" style="left: 33.333333333%"></span><span class="irs-grid-pol" style="left: 40%"></span><span class="irs-grid-text js-grid-text-4" style="left: 40%; margin-left: -2.07792%;">13</span><span class="irs-grid-pol small" style="left: 46.666666667%"></span><span class="irs-grid-pol small" style="left: 43.333333333%"></span><span class="irs-grid-pol" style="left: 50%"></span><span class="irs-grid-text js-grid-text-5" style="left: 50%; visibility: visible; margin-left: -2.07792%;">15</span><span class="irs-grid-pol small" style="left: 56.666666667%"></span><span class="irs-grid-pol small" style="left: 53.333333333%"></span><span class="irs-grid-pol" style="left: 60%"></span><span class="irs-grid-text js-grid-text-6" style="left: 60%; visibility: visible; margin-left: -2.07792%;">17</span><span class="irs-grid-pol small" style="left: 66.666666667%"></span><span class="irs-grid-pol small" style="left: 63.333333333%"></span><span class="irs-grid-pol" style="left: 70%"></span><span class="irs-grid-text js-grid-text-7" style="left: 70%; visibility: visible; margin-left: -2.07792%;">19</span><span class="irs-grid-pol small" style="left: 76.666666667%"></span><span class="irs-grid-pol small" style="left: 73.333333333%"></span><span class="irs-grid-pol" style="left: 80%"></span><span class="irs-grid-text js-grid-text-8" style="left: 80%; margin-left: -2.07792%;">21</span><span class="irs-grid-pol small" style="left: 86.666666667%"></span><span class="irs-grid-pol small" style="left: 83.333333333%"></span><span class="irs-grid-pol" style="left: 90%"></span><span class="irs-grid-text js-grid-text-9" style="left: 90%; visibility: visible; margin-left: -2.07792%;">23</span><span class="irs-grid-pol small" style="left: 96.666666667%"></span><span class="irs-grid-pol small" style="left: 93.333333333%"></span><span class="irs-grid-pol" style="left: 100%"></span><span class="irs-grid-text js-grid-text-10" style="left: 100%; visibility: visible; margin-left: -2.07792%;">25</span></span><span class="irs-bar" style="left: 2.85714%; width: 47.1429%;"></span><span class="irs-bar-edge"></span><span class="irs-shadow shadow-single" style="display: none;"></span><span class="irs-slider single" style="left: 47.1429%;"></span></span><input class="js-range-slider irs-hidden-input shiny-bound-input" id="bins" data-min="5" data-max="25" data-from="15" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-keyboard="true" data-keyboard-step="5" data-drag-interval="true" data-data-type="number" readonly="">
+          </div>
+          <br>
+          <div id="color" class="form-group shiny-input-radiogroup shiny-input-container shiny-bound-input">
+            <label class="control-label" for="color">3. Select the color of histogram</label>
+            <div class="shiny-options-group">
+              <div class="radio">
+                <label>
+                  <input type="radio" name="color" value="Green" checked="checked">
+                  <span>Green</span>
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="color" value="Red">
+                  <span>Red</span>
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="color" value="Yellow">
+                  <span>Yellow</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-sm-8">
+        <div class="tabbable tabs-above">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="http://127.0.0.1:6474/#tab-8774-1" data-toggle="tab" data-value="Summary">Summary</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:6474/#tab-8774-2" data-toggle="tab" data-value="Structure">Structure</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:6474/#tab-8774-3" data-toggle="tab" data-value="Data">Data</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:6474/#tab-8774-4" data-toggle="tab" data-value="Plot">Plot</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:6474/#tab-8774-5" data-toggle="tab" data-value="Compare total marks and timeSpent">Compare total marks and timeSpent</a>
+            </li>
+            <li>
+              <a href="http://127.0.0.1:6474/#tab-8774-6" data-toggle="tab"></a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" data-value="Summary" id="tab-8774-1">
+              <pre id="sum" class="shiny-text-output shiny-bound-output">      name         age          sub1           sub2         sub3            sub4           total         timeSpent    
+ dummy1 : 1   Min.   :21   Min.   :11.0   Min.   :10   Min.   :11.00   Min.   :10.00   Min.   :64.00   Min.   :6.000  
+ dummy10: 1   1st Qu.:21   1st Qu.:17.0   1st Qu.:17   1st Qu.:19.00   1st Qu.:19.00   1st Qu.:76.00   1st Qu.:7.000  
+ dummy11: 1   Median :21   Median :21.0   Median :21   Median :21.00   Median :21.00   Median :83.00   Median :8.000  
+ dummy12: 1   Mean   :21   Mean   :20.4   Mean   :20   Mean   :19.96   Mean   :20.08   Mean   :80.44   Mean   :7.616  
+ dummy13: 1   3rd Qu.:21   3rd Qu.:24.0   3rd Qu.:23   3rd Qu.:22.00   3rd Qu.:22.00   3rd Qu.:88.00   3rd Qu.:8.100  
+ dummy14: 1   Max.   :21   Max.   :25.0   Max.   :25   Max.   :25.00   Max.   :29.00   Max.   :93.00   Max.   :9.000  
+ (Other):19                                                                                                           </pre>
+            </div>
+            <div class="tab-pane" data-value="Structure" id="tab-8774-2">
+              <pre id="str" class="shiny-text-output shiny-bound-output"></pre>
+            </div>
+            <div class="tab-pane" data-value="Data" id="tab-8774-3">
+              <div id="data" class="shiny-html-output shiny-bound-output"></div>
+            </div>
+            <div class="tab-pane" data-value="Plot" id="tab-8774-4">
+              <div id="myhist" class="shiny-plot-output shiny-bound-output" style="width: 100% ; height: 400px"></div>
+            </div>
+            <div class="tab-pane" data-value="Compare total marks and timeSpent" id="tab-8774-5">
+              <div id="plot" class="shiny-plot-output shiny-bound-output" style="width: 100% ; height: 400px"></div>
+            </div>
+            <a href="http://127.0.0.1:6474/contactUs.html" id="tab-8774-6">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body></html>
