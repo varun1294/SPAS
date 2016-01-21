@@ -1,0 +1,8 @@
+Session Variables :
+$loginUsn = "2sd12cs133"; String
+$currentMonth = 1 or 2 or 3 or 4; int
+$currentYear = 2016; String
+$totalActivityDF; array init to zero /* doubt may be removed later*/
+$totalActivityVLR; array init to zero /* doubt may be removed later*/
+$totalActivityRLR; array init to zero /* doubt may be removed later*/
+$activeAssigns; int

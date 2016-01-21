@@ -1,0 +1,30 @@
+library(gdata)
+
+setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
+
+dummy <- read.xls("data.xls")
+
+var1 <- dummy$Total_Time_Invested_VLR
+var1 <- mean(var1)
+
+var2 <- dummy$Total_Time_Invested_RLR
+var2 <- mean(var2)
+
+var3 <- dummy$Total_Time_Invested_DF
+var3 <- mean(var3)
+
+var <- var1 + var2 + var3
+var <- var/3
+var
+
+var <- kmeans(dummy,3)
+
+sink("R_Result.txt")
+cat(var1)
+cat("\n")
+cat(var2)
+cat("\n")
+cat(var3)
+cat("\n")
+cat(var)
+sink()
