@@ -10,11 +10,6 @@
 	
 	$query = "SELECT usn,seed FROM student";
 	$data = mysql_query($query,$con);
-	
-	/*while($res = mysql_fetch_array($data)) {
-		echo $res['usn'];
-		echo $res['seed'].'<br />';
-	}*/
 
 ?> 
 <html> 
@@ -23,7 +18,7 @@
 
 input[type=range] {
   -webkit-appearance: none;
-  width: 40%;
+  width: 60%;
   margin: 3.3px 0;
 }
 input[type=range]:focus {
@@ -116,6 +111,8 @@ input[type=range]:focus::-ms-fill-upper {
 		<!--2SD12CS133<br />
 		<input type="range" value="4" name="points" min="0" max="10">-->
 		
+		<form id="form_990483" class="appnitro" name="spas" method="post" action="updateSeed.php">
+		
 		<table border="1" cellpadding="10" cellspacing="10" width="100%">
 			<tr>
 				<th>USN</th>
@@ -130,12 +127,17 @@ input[type=range]:focus::-ms-fill-upper {
 					echo "<tr align=\"center\">
 						<td>".$res['usn']."</td>
 						<td> <input type=\"range\" value=".$res['seed']." name=".$i." min=\"0\" max=\"10\"> </td>
-						<td> <input type=\"submit\" name=".$j."> </td>
+						<td> <input type=\"submit\" name=".$j." value=\"Update Seed\"> </td>
 					</tr>";
 					$i++;
 					$j++;
 				}
 			?>
 		<table>
+		
+		<br /><br />
+		<center> <input type="submit" name="submit" value="Update Seeds"> </center>
+		
+		</form>
 	</body> 
 </html> 

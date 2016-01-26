@@ -6,19 +6,15 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	$usn = "2sd12cs001";
-	$name = "dummy";
-	$email="dummy@dummy.com";
-	$sem = 7;
-	$pd = "abc";
-	$seed = 9;
-	
-	$i = 128;
-	while($i <= 132) {
-		$query = "INSERT INTO student values('$name','$usn','$email','$sem','$pd','$seed')";
-		$usn++;
-		$seed = rand(2,9);
-		mysql_query($query,$con);
+	$day = "day110";
+	$i = 110;
+	while($i <= 112) {
+		$sql = "ALTER TABLE `activity` ADD `$day` VARCHAR(100) NOT NULL";
+		$day++;
+		if(mysql_query($sql,$con))
+			echo 'Success<br />';
+		else
+			echo 'Fail<br />';
 		$i++;
 	}
 ?>
