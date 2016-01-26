@@ -1,0 +1,5 @@
+usn Consultation_Frequency Regularity_Of_Absence No_Of_Absents Quiz_Marks Negative_Points day1 day2 day3 day4 day5 day6 day7 day8 day9 day10      
+      <S1;D;Q;4> <S1;D;Q;5> <S1;D;Q;4> <S1;D;Q;3> <S1;D;Q;5> <S1;D;Q;3> <S1;D;Q;4> <S1;D;Q;4> <S1;D;Q;3> <S1;D;Q;3>      
+      <S1;D;Q;5> <S1;D;Q;5> <S1;D;Q;5> <S1;D;Q;4> <S1;D;Q;5> <S1;D;Q;4> <S1;D;Q;3> <S1;D;Q;4> <S1;D;Q;5> <S1;D;Q;2>      
+      <S1;D;Q;5> <S1;D;Q;3> <S1;D;Q;3> <S1;D;Q;3> <S1;D;Q;5> <S1;D;Q;3> <S1;D;Q;4> <S1;D;Q;3> <S1;D;Q;2> <S1;D;Q;4>      
+      <S1;D;Q;2> <S1;D;Q;4> <S1;D;Q;5> <S1;D;Q;3> <S1;D;Q;5> <S1;D;Q;5> <S1;D;Q;2> <S1;D;Q;5> <S1;D;Q;4> <S1;D;Q;3>      

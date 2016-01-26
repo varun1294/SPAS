@@ -6,17 +6,19 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	$dummy = "Dummy Notification";
-	$query = "SELECT * FROM notifications";
+	$usn = "2sd12cs001";
+	$name = "dummy";
+	$email="dummy@dummy.com";
+	$sem = 7;
+	$pd = "abc";
+	$seed = 9;
 	
-	for($i = 0; $i < 8; $i++) {
-		$dummy = "<a href=\"#\" class=\"list-group-item\">";
-		$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\">";
-		$dummy = $dummy."Dummy Notification";
-		$dummy = $dummy."</span>";
-		echo $dummy;
-		
-		echo'<br />';
-		echo'<br />';
+	$i = 128;
+	while($i <= 132) {
+		$query = "INSERT INTO student values('$name','$usn','$email','$sem','$pd','$seed')";
+		$usn++;
+		$seed = rand(2,9);
+		mysql_query($query,$con);
+		$i++;
 	}
 ?>
