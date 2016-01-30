@@ -13,10 +13,14 @@
 	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
-	$totalDF = $_SESSION['totalDF'];
+	/*$totalDF = $_SESSION['totalDF'];
 	$totalQuesDF = $_SESSION['totalQuesDF'];
 	$totalRepDF = $_SESSION['totalRepDF'];
-	$totalCommDF = $_SESSION['totalCommDF'];
+	$totalCommDF = $_SESSION['totalCommDF'];*/
+	$totalWeeklyAct = $_SESSION['totalWeeklyAct'];
+	$totalWeeklyActDF = $_SESSION['totalWeeklyActDF'];
+	$totalWeeklyActRLR = $_SESSION['totalWeeklyActRLR'];
+	$totalWeeklyActVLR = $_SESSION['totalWeeklyActVLR'];
 	$activeAssigns = $_SESSION['activeAssigns'];
 	$assignDaysRemPer = $_SESSION['assignDaysRemPer'];
 	$barColor = $_SESSION['barColor'];
@@ -451,7 +455,7 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $totalDF ?></div>
+                                    <div class="huge"><?php echo $totalWeeklyActDF ?></div>
                                     <div>DF - Activities</div>
                                 </div>
                             </div>
@@ -473,8 +477,8 @@
                                     <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>RLR - New Tasks!</div>
+                                    <div class="huge"><?php echo $totalWeeklyActRLR ?></div>
+                                    <div>RLR - Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -495,8 +499,8 @@
                                     <i class="fa fa-video-camera fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">22</div>
-                                    <div>VLR - New Orders!</div>
+                                    <div class="huge"><?php echo $totalWeeklyActVLR ?></div>
+                                    <div>VLR - Activities</div>
                                 </div>
                             </div>
                         </div>

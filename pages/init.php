@@ -3,6 +3,8 @@
 	$loginUsn = "2sd12cs133";
 	$month = "2016-01";
 	$loginName = "Varun";
+	$loginStdSlNo = 4;
+	$semCurrentWeek = 1;
 	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
@@ -10,26 +12,140 @@
                
 	mysql_select_db("discussionforum",$con);
 	
-	$query = "SELECT count(*) FROM question WHERE '$loginUsn' = question.usn and question.date like '%$month%'";
-	$data = mysql_query($query,$con);
-	$res = mysql_fetch_array($data);
-	$totalQuesDF = $res['count(*)'];
+	/* Read R-Results */
+	$allStdsTotalAct = 0;
+	$rArray = array();
+	$file = fopen("RScripts/rAllStdAllActs.txt","r");
+	$i = 0;
+	while(! feof($file)) {
+		$rArray[$i++] = fgets($file);
+		$allStdsTotalAct++;
+	}
+	fclose($file);
+	$allStdsTotalAct--;
+	/* ************** */
 	
-	$query = "SELECT count(*) FROM reply WHERE '$loginUsn' = reply.usn and reply.date like '%$month%'";
-	$data = mysql_query($query,$con);
-	$res = mysql_fetch_array($data);
-	$totalRepDF = $res['count(*)'];
+	/* Point to logged-in std's activity in R-Results */
+	$count = 1;
+	$stdPtrInFile = 0;
+	while(true) {
+		if($count == $loginStdSlNo)
+			break;
+		else {
+			if($rArray[$stdPtrInFile][0] == "Y") {
+				$count++;
+				$stdPtrInFile++;
+			}
+			else
+				$stdPtrInFile++;
+		}
+	}
+	//$stdPtrInFile++;
+	echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
+	/* ********************************************** */
 	
-	$query = "SELECT count(*) FROM comment WHERE '$loginUsn' = comment.usn and comment.date like '%$month%'";
-	$data = mysql_query($query,$con);
-	$res = mysql_fetch_array($data);
-	$totalCommDF = $res['count(*)'];
+	/* Point to current week in logged-in std's R-Results */
+	$count = 1;									/* *********************************************** */
+	$stdWeeklyPtrInFile = $stdPtrInFile;		/* Should be tested for more than one week of data */
+	while(true) {								/* *********************************************** */
+		if($count == $semCurrentWeek)
+			break;
+		else {
+			$count2 = 0;
+			while($count2 < 7) {
+				if($rArray[$stdWeeklyPtrInFile] == "X") {
+					$stdWeeklyPtrInFile++;
+					$count2++;
+				}
+			}
+			$count++;
+		}
+	}
+	//$stdWeeklyPtrInFile++;
+	echo 'stdWeeklyPtrInFile : '.$stdWeeklyPtrInFile.'<br />';
+	/* ************************************************** */
 	
-	/*echo $totalQuesDF.'<br />';
-	echo $totalRepDF.'<br />';
-	echo $totalCommDF.'<br />';*/
+	/* Count total logged-in std's activity in all 3 platforms */
+	$totalWeeklyActDF = 0;
+	$totalWeeklyActRLR = 0;
+	$totalWeeklyActVLR = 0;
 	
-	$totalDF = $totalQuesDF + $totalRepDF + $totalCommDF;
+	for($i = $stdWeeklyPtrInFile, $count=0, $cond = true; $cond; $i++) {
+		if($i >= $allStdsTotalAct)
+			$cond = false;
+		if($count == 7)
+			$cond = false;
+		
+		if($rArray[$i] == "X")
+			$count++;
+		else {
+			if($rArray[$i][2] == "D") {
+				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
+				$var = strlen($rArray[$i])-3;
+				$var2 = $var - 3;
+				$j = 1;
+				$sum = 0;
+				//echo'var : '.$var.'<br />';
+				//echo'var2 : '.$var2.'<br />';
+				while($var != $var2) {
+					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
+					$j = $j * 10;
+					$var --;
+				}
+				//echo 'Sum : '.$sum.'<br />';
+				
+				$totalWeeklyActDF += $sum;
+			}
+			
+			else if($rArray[$i][2] == "R") {
+				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
+				$var = strlen($rArray[$i])-3;
+				$var2 = $var - 3;
+				$j = 1;
+				$sum = 0;
+				//echo'var : '.$var.'<br />';
+				//echo'var2 : '.$var2.'<br />';
+				while($var != $var2) {
+					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
+					$j = $j * 10;
+					$var --;
+				}
+				//echo 'Sum : '.$sum.'<br />';
+				
+				$totalWeeklyActRLR += $sum;
+			}
+			
+			else if($rArray[$i][2] == "V") {
+				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
+				$var = strlen($rArray[$i])-3;
+				$var2 = $var - 3;
+				$j = 1;
+				$sum = 0;
+				//echo'var : '.$var.'<br />';
+				//echo'var2 : '.$var2.'<br />';
+				while($var != $var2) {
+					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
+					$j = $j * 10;
+					$var --;
+				}
+				//echo 'Sum : '.$sum.'<br />';
+				
+				$totalWeeklyActVLR += $sum;
+			}
+		}
+	}
+	
+	$totalWeeklyAct = $totalWeeklyActDF + $totalWeeklyActRLR + $totalWeeklyActVLR;
+	
+	echo '<br />totalWeeklyActDF : '.$totalWeeklyActDF.'<br />';
+	echo '<br />totalWeeklyActRLR : '.$totalWeeklyActRLR.'<br />';
+	echo '<br />totalWeeklyActVLR : '.$totalWeeklyActVLR.'<br />';
+	echo '<br />totalWeeklyAct : '.$totalWeeklyAct.'<br />';
+	/* ******************************************************* */
+	
+	/*echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
+	echo 'count : '.$count.'<br />';*/
+	
 	//echo $totalDF.'<br />';
 	
 	/* To calculate logged in student's total assignments and % days remaining*/
@@ -114,10 +230,14 @@
         session_start(); 
     }
 	
-	$_SESSION['totalDF'] = $totalDF;
+	/*$_SESSION['totalDF'] = $totalDF;
 	$_SESSION['totalQuesDF'] = $totalQuesDF;
 	$_SESSION['totalRepDF'] = $totalRepDF;
-	$_SESSION['totalCommDF'] = $totalCommDF;
+	$_SESSION['totalCommDF'] = $totalCommDF;*/
+	$_SESSION['totalWeeklyAct'] = $totalWeeklyAct;
+	$_SESSION['totalWeeklyActDF'] = $totalWeeklyActDF;
+	$_SESSION['totalWeeklyActRLR'] = $totalWeeklyActRLR;
+	$_SESSION['totalWeeklyActVLR'] = $totalWeeklyActVLR;
 	$_SESSION['activeAssigns'] = $activeAssigns;
 	$_SESSION['assignDaysRemPer'] = $assignDaysRemPer;
 	$_SESSION['barColor'] = $barColor;

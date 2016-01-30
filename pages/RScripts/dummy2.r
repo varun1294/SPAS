@@ -14,10 +14,11 @@ totalStds
 
 stdAct <- data.frame()
 
-
 i = 1
 j = 7
 k = 1;
+
+sink("rAllStdAllActs.txt")
 
 while(i != totalStds+1) {
     while(j != totalDays+7) {
@@ -39,38 +40,65 @@ while(i != totalStds+1) {
           stdAct[k,3] <- var2[3]
           stdAct[k,4] <- var2[4]
           
-          k = k+1
-          
           a = b + 4
           b = a + 7
+          
+          cat(stdAct[k,1],sep=" ")
+          cat(stdAct[k,2],sep=" ")
+          cat(stdAct[k,3],sep=" ")
+          cat(stdAct[k,4],sep=" ")
+          #cat("\t")
+          
+          k = k+1
+          
+          cat("\n")
         }
       }
       
-      #if(j != totalDays+6) {
+      if(j != totalDays+6) {
           #For New Day
           # X For New Day & Y For New Student
-          #stdAct[k,1] <- "X"
-          #stdAct[k,2] <- "X"
-          #stdAct[k,3] <- "X"
-          #stdAct[k,4] <- "X"
-      
-          #k = k+1
+          stdAct[k,1] <- "X"
+          stdAct[k,2] <- "X"
+          stdAct[k,3] <- "X"
+          stdAct[k,4] <- "X"
+          
+          cat(stdAct[k,1],sep=" ")
+          cat(stdAct[k,2],sep=" ")
+          cat(stdAct[k,3],sep=" ")
+          cat(stdAct[k,4],sep=" ")
+          #cat("\t")
+          
+          cat("\n")
+          
+          k = k+1
           #New Day
-      #}
+      }
       
       j = j + 1
     }
     
     #For New Student
     # X For New Day & Y For New Student
-    #stdAct[k,1] <- "Y"
-    #stdAct[k,2] <- "Y"
-    #stdAct[k,3] <- "Y"
-    #stdAct[k,4] <- "Y"
-  
-    #k = k+1
+    stdAct[k,1] <- "Y"
+    stdAct[k,2] <- "Y"
+    stdAct[k,3] <- "Y"
+    stdAct[k,4] <- "Y"
+    
     #New Student
   
     j = 7
     i = i + 1
+    
+    cat(stdAct[k,1],sep=" ")
+    cat(stdAct[k,2],sep=" ")
+    cat(stdAct[k,3],sep=" ")
+    cat(stdAct[k,4],sep=" ")
+    #cat("\t")
+    
+    cat("\n")
+    
+    k = k+1
 }
+
+sink()
