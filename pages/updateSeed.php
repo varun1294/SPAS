@@ -1,20 +1,24 @@
 <?php
 
+	/* Session Variables */
+	$totalDaysSinceBenOfSem = 4;
+	$stdUSN = "2sd12cs133";
+	$totalstds = 4;
+	/* ***************** */
+	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
 	mysql_select_db("SPAS",$con);
 	
-	$eleName = "seed001";
-	$subName = "subm001";
+	$eleName = 1;
 	
-	$usn = "2sd12cs001";
 	$i = 0;
-	while($i < 100) {
-		if(isset($_POST["$subName"])) {
+	while($i < $totalstds) {
+		if(isset($_POST["submit"])) {
 			$var = $_POST["$eleName"];
-			$query = "UPDATE student set seed='$var' WHERE usn='$usn'";
+			$query = "UPDATE activity set seed='$var' WHERE usn='$stdUSN' and day='$eleName'";
 			
 			if(mysql_query($query,$con)) {
 				echo'<script type="text/javascript">
@@ -28,6 +32,7 @@
 			}
 			
 			$i++;
+			$eleName++;
 		}
 		
 		else {

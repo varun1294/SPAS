@@ -5,23 +5,23 @@
 				element: 'morris-area-chart',
 				data: [{
 				period: '201611',
-				RLR: '5',
-				VLR: '8',
+				RLR: '2',
+				VLR: '3',
 				DF: '3'
 			},{
 				period: '201612',
-				RLR: '6',
-				VLR: '7',
+				RLR: '8',
+				VLR: '6',
 				DF: '7'
 			},{
 				period: '201613',
-				RLR: '9',
-				VLR: '7',
+				RLR: '3',
+				VLR: '5',
 				DF: '8'
 			},{
 				period: '201614',
-				RLR: '9',
-				VLR: '7',
+				RLR: '5',
+				VLR: '4',
 				DF: '9'
 			},{
 				period: '201621',
@@ -30,22 +30,22 @@
 				DF: '0'
 			},{
 				period: '201622',
-				RLR: '5',
-				VLR: '2',
+				RLR: '3',
+				VLR: '8',
 				DF: '4'
 			},{
 				period: '201623',
-				RLR: '2',
-				VLR: '5',
+				RLR: '5',
+				VLR: '2',
 				DF: '5'
 			},{
 				period: '201624',
-				RLR: '6',
+				RLR: '9',
 				VLR: '7',
 				DF: '5'
 			},{
 				period: '201631',
-				RLR: '5',
+				RLR: '7',
 				VLR: '6',
 				DF: '2'
 			},{
@@ -55,33 +55,33 @@
 				DF: '3'
 			},{
 				period: '201633',
-				RLR: '5',
-				VLR: '5',
+				RLR: '9',
+				VLR: '4',
 				DF: '5'
 			},{
 				period: '201634',
-				RLR: '4',
+				RLR: '5',
 				VLR: '7',
 				DF: '7'
 			},{
 				period: '201641',
-				RLR: '9',
-				VLR: '9',
+				RLR: '3',
+				VLR: '4',
 				DF: '2'
 			},{
 				period: '201642',
-				RLR: '4',
-				VLR: '9',
+				RLR: '5',
+				VLR: '5',
 				DF: '3'
 			},{
 				period: '201643',
-				RLR: '8',
-				VLR: '4',
+				RLR: '5',
+				VLR: '8',
 				DF: '4'
 			},{
 				period: '201644',
-				RLR: '8',
-				VLR: '7',
+				RLR: '5',
+				VLR: '9',
 				DF: '7'
 				}],
 				xkey: 'period',

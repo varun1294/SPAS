@@ -2,7 +2,17 @@
 	/* Session Variables */
 	$totalDaysSinceBenOfSem = 112;
 	$stdUSN = "2sd12cs133";
+	/* ***************** */
 	
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("SPAS",$con);
+	
+	$query = "SELECT * FROM activity,activityseed WHERE activity.usn = activityseed.usn and activity.usn = '$stdUSN' and activity.day = activityseed.day";
+	
+	$mydata = mysql_query($query,$con);
 ?>
 
 <html> 
@@ -10,9 +20,9 @@
 		<style type="text/css">
 
 input[type=range] {
-  -webkit-appearance: slider-vertical;
-  width: 53px;
-  height: 175px;
+  -webkit-appearance: none;
+  width: 200px;
+  height: 100px;
 
   margin: 3.3px 0;
 }
@@ -101,20 +111,34 @@ input[type=range]:focus::-ms-fill-upper {
 	</head>
 
 	<body>
-		2SD12CS133 <br /> <br />
-		<center>
-		<?php
-			$i = 0;
-			$day = "D001";
+		<center><?php USN : echo $stdUSN ?></center>
+		<form id="form_990483" name="spas" method="post" action="practise2.php">
+		
+		<table border="1" cellpadding="2" cellspacing="2" width="100%">
+			<tr>
+				<th>Day</th>
+				<th>Current Seed</th>
+				<th>Set Seed</th>
+			</tr>
 			
-			while($i < $totalDaysSinceBenOfSem) {
-				if($i % 12 == 0)
-					echo '<br /><br /><br />';
-				echo "$day <input type=\"range\" value=\"4\" name=\"points\" min=\"0\" max=\"10\">";
-				$i++;
-				$day++;
-			}
-		?>
-		</center>
+			<?php
+				$name = "id001";
+				while($res = mysql_fetch_array($mydata)) {
+					$dummy = "<tr align=\"center\">
+						<td>". $res['day'] ."</td>
+						<td>". $res['seed'] ."</td>
+						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"0\" max=\"10\">
+					</tr>";
+					echo $dummy;
+					$name++;
+				}
+			?>
+		<table>
+		
+		<br /><br />
+		
+		<center><input type="submit" value="Update Seeds" name="submit"></center>
+		
+		</form>
 	</body> 
 </html> 
