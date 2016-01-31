@@ -456,7 +456,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $totalWeeklyActDF ?></div>
-                                    <div>DF - Activities</div>
+                                    <div>DF - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -478,7 +478,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $totalWeeklyActRLR ?></div>
-                                    <div>RLR - Activities</div>
+                                    <div>RLR - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -500,7 +500,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div class="huge"><?php echo $totalWeeklyActVLR ?></div>
-                                    <div>VLR - Activities</div>
+                                    <div>VLR - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>

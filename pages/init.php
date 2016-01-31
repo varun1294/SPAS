@@ -79,58 +79,46 @@
 		if($rArray[$i] == "X")
 			$count++;
 		else {
-			if($rArray[$i][2] == "D") {
-				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
-				$var = strlen($rArray[$i])-3;
-				$var2 = $var - 3;
-				$j = 1;
-				$sum = 0;
-				//echo'var : '.$var.'<br />';
-				//echo'var2 : '.$var2.'<br />';
-				while($var != $var2) {
-					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
-					$j = $j * 10;
-					$var --;
-				}
-				//echo 'Sum : '.$sum.'<br />';
-				
-				$totalWeeklyActDF += $sum;
-			}
-			
-			else if($rArray[$i][2] == "R") {
-				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
-				$var = strlen($rArray[$i])-3;
-				$var2 = $var - 3;
-				$j = 1;
-				$sum = 0;
-				//echo'var : '.$var.'<br />';
-				//echo'var2 : '.$var2.'<br />';
-				while($var != $var2) {
-					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
-					$j = $j * 10;
-					$var --;
-				}
-				//echo 'Sum : '.$sum.'<br />';
-				
-				$totalWeeklyActRLR += $sum;
-			}
-			
-			else if($rArray[$i][2] == "V") {
-				/* Need to add more ifs', when we go from just Activity A to details like questions Q, Reply R, Comment C etc */
-				$var = strlen($rArray[$i])-3;
-				$var2 = $var - 3;
-				$j = 1;
-				$sum = 0;
-				//echo'var : '.$var.'<br />';
-				//echo'var2 : '.$var2.'<br />';
-				while($var != $var2) {
-					$sum = $sum + ((intval($rArray[$i][$var])) * $j);
-					$j = $j * 10;
-					$var --;
-				}
-				//echo 'Sum : '.$sum.'<br />';
-				
-				$totalWeeklyActVLR += $sum;
+			$choice = findPlatform($rArray[$i]);
+			switch($choice) {
+				case "D" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$totalWeeklyActDF += $sum;
+							break;
+							
+				case "R" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$totalWeeklyActRLR += $sum;
+							break;
+							
+				case "V" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$totalWeeklyActVLR += $sum;
+							break;
 			}
 		}
 	}
@@ -245,4 +233,15 @@
 	$_SESSION['notification'] = $notification;
 	$_SESSION['notificationCount'] = $notificationCount;
 	
+	function findPlatform($str) {
+		$len = strlen($str) - 2;
+		for($i = 2; $i < $len; $i++) {
+			if($str[$i] == "V")
+				return "V";
+			if($str[$i] == "D")
+				return "D";
+			if($str[$i] == "R")
+				return "R";
+		}
+	}
 ?>

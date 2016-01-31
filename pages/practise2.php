@@ -22,10 +22,13 @@
 	}
 	
 	function genAct($seed) {
+		GLOBAL $totalSessionsStd;
 		echo 'Seed : '.$seed.'<br />';
 		
 		/*<S1;D;A;5>,<S1;R;A;2>*/
-		$std = "<S";
+		$std = "<S".$totalSessionsStd.";";
+		$var = genDVR();
+		$std = $std.$var;
 
 	}
 	

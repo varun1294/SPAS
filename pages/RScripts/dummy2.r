@@ -4,6 +4,7 @@ library(stringr)
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
 dummy <- read.xls("Book2.xls")
+dummy <- data.frame(lapply(dummy, as.character), stringsAsFactors=FALSE)
 
 totalDays <- ncol(dummy)
 totalDays <- totalDays-6
@@ -24,10 +25,16 @@ while(i != totalStds+1) {
     while(j != totalDays+7) {
       var <- dummy[i,j]
       
-      a = 2
-      b = 9
+      l = 1;
+      a = 3
+      b = gregexpr(pattern =',',var)
+      b = as.vector(b[[1]])
+      count = length(b)
+      c = b[l] - 2
+      l = l + 1
+      
       while(TRUE) {
-        var2 <- substr(var,start=a,stop=b)
+        var2 <- substr(var,start=a,stop=c)
         var2 <- str_split_fixed(var2, ";", 4)
         
         if(var2 == '') {
@@ -40,14 +47,21 @@ while(i != totalStds+1) {
           stdAct[k,3] <- var2[3]
           stdAct[k,4] <- var2[4]
           
-          a = b + 4
-          b = a + 7
+          a = c + 5
+          if(count == 1) {
+            c = nchar(var) - 1
+          }
+          
+          else {
+            c = b[l] - 2
+            l = l + 1
+            count = count - 1;
+          }
           
           cat(stdAct[k,1],sep=" ")
           cat(stdAct[k,2],sep=" ")
           cat(stdAct[k,3],sep=" ")
           cat(stdAct[k,4],sep=" ")
-          #cat("\t")
           
           k = k+1
           
