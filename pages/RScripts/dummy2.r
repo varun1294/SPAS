@@ -3,7 +3,7 @@ library(stringr)
 
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
-dummy <- read.xls("Book2.xls")
+dummy <- read.xls("Book3.xls")
 dummy <- data.frame(lapply(dummy, as.character), stringsAsFactors=FALSE)
 
 totalDays <- ncol(dummy)

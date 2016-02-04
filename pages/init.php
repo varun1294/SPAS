@@ -79,6 +79,7 @@
 		if($rArray[$i] == "X")
 			$count++;
 		else {
+			print_r($rArray[$i]); echo '<br /><br /><br />';
 			$choice = findPlatform($rArray[$i]);
 			switch($choice) {
 				case "D" :	$len = strlen($rArray[$i])-2;
@@ -125,10 +126,10 @@
 	
 	$totalWeeklyAct = $totalWeeklyActDF + $totalWeeklyActRLR + $totalWeeklyActVLR;
 	
-	echo '<br />totalWeeklyActDF : '.$totalWeeklyActDF.'<br />';
+	/*echo '<br />totalWeeklyActDF : '.$totalWeeklyActDF.'<br />';
 	echo '<br />totalWeeklyActRLR : '.$totalWeeklyActRLR.'<br />';
 	echo '<br />totalWeeklyActVLR : '.$totalWeeklyActVLR.'<br />';
-	echo '<br />totalWeeklyAct : '.$totalWeeklyAct.'<br />';
+	echo '<br />totalWeeklyAct : '.$totalWeeklyAct.'<br />';*/
 	/* ******************************************************* */
 	
 	/*echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';

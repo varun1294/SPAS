@@ -10,13 +10,43 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	$query = "SELECT * FROM activity WHERE activity.usn = '$stdUSN'";
+	$query = "SELECT usn FROM studentsess";
 	
 	$mydata = mysql_query($query,$con);
 ?>
 
 <html> 
 	<head> 
+		<script>
+			var request;
+function sendInfo() {
+	var v=document.getElementById("opt").value;
+	var url="displaySeed.php?usn="+v;
+
+	if(window.XMLHttpRequest) {
+		request=new XMLHttpRequest();
+	}
+
+	else if(window.ActiveXObject) {
+		request=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	try {
+		request.onreadystatechange=getInfo;
+		request.open("GET",url,true);
+		request.send();
+	} catch(e) {
+		alert("Unable to connect to server");
+	}
+}
+
+function getInfo() {
+	if(request.readyState==4){
+		var val=request.responseText;
+		document.getElementById('underInput').innerHTML=val;
+	}
+}
+		</script>
 		<style type="text/css">
 
 input[type=range] {
@@ -111,7 +141,22 @@ input[type=range]:focus::-ms-fill-upper {
 	</head>
 
 	<body>
-		<center><?php USN : echo $stdUSN ?></center>
+		<br />
+		<center>
+			<select class="element select medium" id="opt" name="opt" onchange="sendInfo();">
+			<option value="" selected="selected"></option>
+			<?php
+				while($res = mysql_fetch_array($mydata)) {
+					$var = $res['usn'];
+					echo "<option value=".$var." >".$res['usn']."</option>";
+				}
+			?>
+			</select>
+		</center>
+		<br />
+		<div id="underInput" />
+		
+		<!--
 		<form id="form_990483" name="spas" method="post" action="updateSeed.php">
 		
 		<table border="1" cellpadding="2" cellspacing="2" width="100%">
@@ -122,16 +167,16 @@ input[type=range]:focus::-ms-fill-upper {
 			</tr>
 			
 			<?php
-				$name = 1;
+				/*$name = 1;
 				while($res = mysql_fetch_array($mydata)) {
 					$dummy = "<tr align=\"center\">
 						<td>". $res['day'] ."</td>
 						<td>". $res['seed'] ."</td>
-						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"4\" max=\"40\">
+						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"13\" max=\"56\">
 					</tr>";
 					echo $dummy;
 					$name++;
-				}
+				}*/
 			?>
 		<table>
 		
@@ -139,6 +184,6 @@ input[type=range]:focus::-ms-fill-upper {
 		
 		<center><input type="submit" value="Update Seeds" name="submit"></center>
 		
-		</form>
+		</form>-->
 	</body> 
 </html> 

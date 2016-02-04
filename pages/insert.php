@@ -6,27 +6,22 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	/*$day = "day110";
-	$i = 110;
-	while($i <= 112) {
-		$sql = "ALTER TABLE `activity` ADD `$day` VARCHAR(100) NOT NULL";
-		$day++;
+	$usn = "2sd12cs001";
+	$sess = 0;
+	
+	$i = 1;
+	while($i <= 6) {
+		$sql = "INSERT INTO studentsess VALUES ('$usn','$sess')";
 		if(mysql_query($sql,$con))
-			echo 'Success<br />';
+			echo 'success<br />';
 		else
-			echo 'Fail<br />';
+			echo 'fail<br />';
+		$usn++;
 		$i++;
-	}*/
-	
-	$usn = "2sd12cs133";
-	$day = 1;
-	$seed = 1;
-	
-	for($i = 0; $i < 4; $i++,$day++) {
-		$sql = "DELETE FROM activity";
-		if(mysql_query($sql,$con))
-			echo 'Success<br />';
-		else
-			echo 'Fail<br />';
 	}
+	/*$sql = "DELETE FROM studentsess";
+	if(mysql_query($sql,$con))
+			echo 'success<br />';
+		else
+			echo 'fail<br />';*/
 ?>
