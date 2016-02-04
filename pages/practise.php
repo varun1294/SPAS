@@ -1,5 +1,5 @@
 <?php
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
@@ -16,5 +16,13 @@
 		echo 'Day : '.$res['day'].' ';
 		echo 'Seed : '.$res['seed'];
 		echo '<br />';
-	}
+	}*/
 ?>
+
+<html>
+<head>
+</head>
+<body>
+	<input type="range" value="5" name="r" min="1" max="10" step = "2">
+</body>
+</html>

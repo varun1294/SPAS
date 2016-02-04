@@ -41,7 +41,7 @@
 		}
 	}
 	//$stdPtrInFile++;
-	echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
+	//echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
 	/* ********************************************** */
 	
 	/* Point to current week in logged-in std's R-Results */
@@ -62,7 +62,7 @@
 		}
 	}
 	//$stdWeeklyPtrInFile++;
-	echo 'stdWeeklyPtrInFile : '.$stdWeeklyPtrInFile.'<br />';
+	//echo 'stdWeeklyPtrInFile : '.$stdWeeklyPtrInFile.'<br />';
 	/* ************************************************** */
 	
 	/* Count total logged-in std's activity in all 3 platforms */
@@ -71,15 +71,19 @@
 	$totalWeeklyActVLR = 0;
 	
 	for($i = $stdWeeklyPtrInFile, $count=0, $cond = true; $cond; $i++) {
+		//echo 'Count : '.$count.'<br />';
 		if($i >= $allStdsTotalAct)
 			$cond = false;
 		if($count == 7)
 			$cond = false;
 		
-		if($rArray[$i] == "X")
+		//echo $rArray[$i][0].'<br />';
+		if((!strcmp($rArray[$i][0],"X"))) {
+			//echo $rArray[$i].'<br />';
 			$count++;
+		}
 		else {
-			print_r($rArray[$i]); echo '<br /><br /><br />';
+			//print_r($rArray[$i]); echo '<br /><br /><br />';
 			$choice = findPlatform($rArray[$i]);
 			switch($choice) {
 				case "D" :	$len = strlen($rArray[$i])-2;

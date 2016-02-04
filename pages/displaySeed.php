@@ -31,7 +31,7 @@ echo '<response>';
 					$dummy = $dummy."<tr align=\"center\">
 						<td>". $res['day'] ."</td>
 						<td>". $res['seed'] ."</td>
-						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"11\" max=\"59\">
+						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"11\" max=\"35\" step=\"2\">
 					</tr>";
 					$name++;
 				}

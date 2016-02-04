@@ -3,7 +3,7 @@ library(stringr)
 
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
-dummy <- read.xls("Book3.xls")
+dummy <- read.xls("Book4.xls")
 dummy <- data.frame(lapply(dummy, as.character), stringsAsFactors=FALSE)
 
 totalDays <- ncol(dummy)
@@ -14,12 +14,14 @@ totalStds <- nrow(dummy)
 totalStds
 
 stdAct <- data.frame()
+stdActDummy <- data.frame()
+sumDF = 0;
 
 i = 1
 j = 7
 k = 1;
 
-sink("rAllStdAllActs.txt")
+sink("dummy.txt")
 
 while(i != totalStds+1) {
     while(j != totalDays+7) {
@@ -42,6 +44,11 @@ while(i != totalStds+1) {
         }
         
         else {
+          
+          if(var2[2] == "D") {
+              stdActDF[DF,1] = var2[4]
+              DF = DF + 1
+          }
           stdAct[k,1] <- var2[1]
           stdAct[k,2] <- var2[2]
           stdAct[k,3] <- var2[3]
@@ -72,20 +79,20 @@ while(i != totalStds+1) {
       if(j != totalDays+6) {
           #For New Day
           # X For New Day & Y For New Student
-          stdAct[k,1] <- "X"
-          stdAct[k,2] <- "X"
-          stdAct[k,3] <- "X"
-          stdAct[k,4] <- "X"
+          #stdAct[k,1] <- "X"
+          #stdAct[k,2] <- "X"
+          #stdAct[k,3] <- "X"
+          #stdAct[k,4] <- "X"
           
-          cat(stdAct[k,1],sep=" ")
-          cat(stdAct[k,2],sep=" ")
-          cat(stdAct[k,3],sep=" ")
-          cat(stdAct[k,4],sep=" ")
+          #cat(stdAct[k,1],sep=" ")
+          #cat(stdAct[k,2],sep=" ")
+          #cat(stdAct[k,3],sep=" ")
+          #cat(stdAct[k,4],sep=" ")
           #cat("\t")
           
-          cat("\n")
+          #cat("\n")
           
-          k = k+1
+          #k = k+1
           #New Day
       }
       
@@ -94,10 +101,10 @@ while(i != totalStds+1) {
     
     #For New Student
     # X For New Day & Y For New Student
-    stdAct[k,1] <- "Y"
-    stdAct[k,2] <- "Y"
-    stdAct[k,3] <- "Y"
-    stdAct[k,4] <- "Y"
+    #stdAct[k,1] <- "Y"
+    #stdAct[k,2] <- "Y"
+    #stdAct[k,3] <- "Y"
+    #stdAct[k,4] <- "Y"
     
     #New Student
   
@@ -112,7 +119,9 @@ while(i != totalStds+1) {
     
     cat("\n")
     
-    k = k+1
+    #k = k+1
 }
 
 sink()
+
+stdAct

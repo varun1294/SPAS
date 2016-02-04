@@ -29,14 +29,14 @@
 	$notificationCount = $_SESSION['notificationCount'];
 	/* ************* */
 	
-	$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
+	/*$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
 	$totalTimeSpentRLR = $_SESSION['totalTimeSpentRLR'];
 	$totalTimeSpentDF = $_SESSION['totalTimeSpentDF'];
-	$totalTimeSpentMean = $_SESSION['totalTimeSpentMean'];
-	$loginStdCSVData = $_SESSION['loginStdCSVData'];
+	$totalTimeSpentMean = $_SESSION['totalTimeSpentMean'];*/
+	//$loginStdCSVData = $_SESSION['loginStdCSVData'];
 	
-	$loginStdTotalTimeSpentMean = ($loginStdCSVData[8] + $loginStdCSVData[12] + $loginStdCSVData[16])/3;
-	$loginStdTotalTimeSpentMean = round($loginStdTotalTimeSpentMean,2);
+	//$loginStdTotalTimeSpentMean = ($loginStdCSVData[8] + $loginStdCSVData[12] + $loginStdCSVData[16])/3;
+	//$loginStdTotalTimeSpentMean = round($loginStdTotalTimeSpentMean,2);
 
 ?>
 <html lang="en">
@@ -521,8 +521,8 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $loginStdTotalTimeSpentMean ?></div>
-                                    <div><?php echo $totalTimeSpentMean ?> Class Average</div>
+                                    <div class="huge"><?php //echo $loginStdTotalTimeSpentMean ?></div>
+                                    <div><?php //echo $totalTimeSpentMean ?> Class Average</div>
                                 </div>
                             </div>
                         </div>
