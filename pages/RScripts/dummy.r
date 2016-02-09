@@ -7,7 +7,7 @@ library(RColorBrewer)
 
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
-dummy <- read.xls("Book3.xls")
+dummy <- read.xls("Book4.xls")
 dummy <- data.frame(lapply(dummy, as.character), stringsAsFactors=FALSE)
 
 totalDays <- ncol(dummy)
@@ -29,7 +29,7 @@ i = 1
 j = 7
 k = 1;
 
-sink("dummy.txt")
+sink("rAllStdAllActs.txt")
 
 while(i != totalStds+1) {
   while(j != totalDays+7) {

@@ -10,15 +10,15 @@
 	$startDate = 90;
 	$endDate = 100;
 	
-	//$sql = "UPDATE studentsess set totalsess = 0";
-	//mysql_query($sql,$con);
+	$sql = "UPDATE studentsess set totalsess = 0";
+	mysql_query($sql,$con);
 
-	for($i = 0; $i < 112; $i++,$day++) {
+	/*for($i = 0; $i < 112; $i++,$day++) {
 		$seed = rand(11,35);
 		if($seed % 2 == 0)
 			$seed++;
 		
 		$sql ="UPDATE activity SET seed = '$seed' WHERE usn = '$usn' and day = '$day'";
 		$mydata = mysql_query($sql,$con);
-	}
+	}*/
 ?>
