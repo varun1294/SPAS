@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<head>
+	<title>HTML5 Bar Graph Example</title>
+</head>
+
+<body>
+	<!--[if IE]><script src="excanvas.js"></script><![endif]-->
+	
+	<center>
+		<h2>Graphs with single column of Data</h2>
+			
+		<div class="demo">
+		Please Select<br /><br />
+		<select class="element select medium" id="opt" name="opt" onchange="sendInfo();">
+			<option value="Select" selected="selected"></option>
+			
+			<option value="ia1">IA 1 Marks</option>
+			<option value="ia2">IA 2 Marks</option>
+			<option value="ia3">IA 3 Marks</option>
+			<option value="ese">ESE Marks</option>
+		</select>
+		</div>
+			
+		<div id="underInput"></div>
+		<div id="graphDiv1"></div>
+		<br />
+		<div id="graphDiv2"></div>
+			
+	</center>
+	
+	<script src="html5-canvas-bar-graph.js"></script>
+	<script>(function () {
+	
+		function createCanvas(divName) {
+			
+			var div = document.getElementById(divName);
+			var canvas = document.createElement('canvas');
+			div.appendChild(canvas);
+			if (typeof G_vmlCanvasManager != 'undefined') {
+				canvas = G_vmlCanvasManager.initElement(canvas);
+			}	
+			var ctx = canvas.getContext("2d");
+			return ctx;
+		}
+		
+		var ctx = createCanvas("graphDiv1");
+		
+		var graph = new BarGraph(ctx);
+		graph.maxValue = 30;
+		graph.margin = 2;
+		graph.colors = ["#49a0d8", "#d353a0", "#ffc527", "#df4c27"];
+		var labels = new Array("Varun", "Tuna", "Bacon", "Bucky");
+		var i = 0;
+		alert(labels[0]);
+		while(i != 4) {
+			graph.xAxisLabelArr = graph.xAxisLabelArr + labels[i];
+			//v = v + " " + labels[i];
+			i = i + 1;
+		}
+		//alert(v);
+		//graph.xAxisLabelArr = v;
+		
+		/*setInterval(function () {
+			graph.update([Math.random() * 30, Math.random() * 30, Math.random() * 30, Math.random() * 30]);
+		}, 1000);*/
+		graph.update([10,25,25,30]);
+		
+		var ctx2 = createCanvas("graphDiv2");
+		
+		var graph2 = new BarGraph(ctx2);
+		graph2.margin = 2;
+		graph2.width = 450;
+		graph2.height = 150;
+		graph2.xAxisLabelArr = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+		setInterval(function () {
+			graph2.update([Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20, Math.random() * 20]);
+		}, 1500);
+
+	}());</script>
+</body>
+</html>

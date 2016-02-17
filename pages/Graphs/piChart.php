@@ -17,10 +17,6 @@
 	  var4 = parseInt(var4);
 	  var5 = parseInt(var5);*/
 	  
-	  function dummy() {
-		drawStuff();
-	  }
-	  
 	  
 	  var request;
 function sendInfo() {
@@ -47,8 +43,6 @@ function sendInfo() {
 	} catch(e) {
 		alert("Unable to connect to server");
 	}
-	
-	drawStuff();
 }
 
 function getInfo() {
@@ -150,7 +144,7 @@ function getInfo() {
 			</select>
 			</div>
 			
-			<div id="underInput" style="width: 900px; height: 500px;"></div>
+			<div id="underInput"></div>
 			
 		</center>
   </body>

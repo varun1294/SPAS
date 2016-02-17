@@ -1,9 +1,5 @@
 library(gdata)
 library(stringr)
-library(rpart)
-library(rattle)
-library(rpart.plot)
-library(RColorBrewer)
 
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
@@ -18,12 +14,15 @@ totalStds <- nrow(dummy)
 totalStds
 
 stdAct <- data.frame()
-stdActDummy <- data.frame()
-stdActDummyCounter = 1
 
-sumDF = 0
-sumRLR = 0
-sumVLR = 0
+stdActDF <- data.frame()
+DF = 1;
+
+stdActVLR <- data.frame()
+VLR = 1;
+
+stdActRLR <- data.frame()
+RLR = 1;
 
 i = 1
 j = 7
@@ -54,17 +53,9 @@ while(i != totalStds+1) {
       else {
         
         if(var2[2] == "D") {
-          sumDF = sumDF + as.numeric(var2[4])
+          stdActDF[DF,1] = var2[4]
+          DF = DF + 1
         }
-        
-        else if(var2[2] == "V") {
-          sumVLR = sumVLR + as.numeric(var2[4])
-        }
-        
-        else if(var2[2] == "R") {
-          sumRLR = sumRLR + as.numeric(var2[4])
-        }
-        
         stdAct[k,1] <- var2[1]
         stdAct[k,2] <- var2[2]
         stdAct[k,3] <- var2[3]
@@ -104,7 +95,6 @@ while(i != totalStds+1) {
       cat(stdAct[k,2],sep=" ")
       cat(stdAct[k,3],sep=" ")
       cat(stdAct[k,4],sep=" ")
-      #cat("\t")
       
       cat("\n")
       
@@ -113,8 +103,6 @@ while(i != totalStds+1) {
     }
     
     j = j + 1
-    #print(j)
-    #cat("\n")
   }
   
   #For New Student
@@ -129,9 +117,6 @@ while(i != totalStds+1) {
   j = 7
   i = i + 1
   
-  #print(i)
-  #cat("\n")
-  
   cat(stdAct[k,1],sep=" ")
   cat(stdAct[k,2],sep=" ")
   cat(stdAct[k,3],sep=" ")
@@ -141,29 +126,6 @@ while(i != totalStds+1) {
   cat("\n")
   
   k = k+1
-  
-  stdActDummy[stdActDummyCounter,1] <- sumDF
-  stdActDummy[stdActDummyCounter,2] <- sumVLR
-  stdActDummy[stdActDummyCounter,3] <- sumRLR
-  stdActDummy[stdActDummyCounter,4] <- (sumDF + sumRLR + sumVLR)
-  
-  stdActDummyCounter = stdActDummyCounter + 1
-  
-  sumDF = 0
-  sumVLR = 0
-  sumRLR = 0
-  #print(sumDF)
-  #cat("\n")
-  #print(sumRLR)
-  #cat("\n")
-  #print(sumVLR)
-  #cat("\n")
-  
 }
 
 sink()
-
-stdActDummy
-
-z <- kmeans(stdActDummy$V4,3)
-z

@@ -93,21 +93,7 @@
         var chart = new google.charts.Bar(document.getElementById('underInput'));
         chart.draw(data, options);
 		
-		var myVar=setInterval(function () {myTimer()}, 3000);
-	  
-	  function myTimer() {
-		var var6 = localStorage.getItem("Refresh");
-		var6 = parseInt(var6);
-		var flag = localStorage.getItem("barFlag");
-		flag = parseInt(flag);
 		
-		if((var6 == 0) && (flag==1))
-		{
-			localStorage.setItem("barFlag", 0);
-			//localStorage.setItem("Refresh", 1);
-			window.location.reload();
-		}
-	  }
       };
     </script>
   </head>
@@ -115,9 +101,9 @@
 	<?php
 		echo '<response>';
 		
-		$var = '<div id="underInput" style="width: 900px; height: 500px;"></div>';
-		echo $var.'<br /><br />';
-		//echo 'Hello World';
+		//$var = '<div id="underInput" style="width: 900px; height: 500px;"></div>';
+		//echo $var;
+		echo 'Hello World';
 		
 		echo '</response>';
 	?>
