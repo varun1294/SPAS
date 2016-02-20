@@ -3,27 +3,89 @@
 	$loginUsn = "2sd12cs133";
 	$month = "2016-01";
 	$loginName = "Varun";
-	$loginStdSlNo = 4;
+	$loginStdSlNo = 10;
 	$semCurrentWeek = 1;
+	$totalNoOfStds = 10;
 	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
-               
+
 	mysql_select_db("discussionforum",$con);
 	
-	/* Read R-Results */
-	$allStdsTotalAct = 0;
-	$rArray = array();
-	$file = fopen("RScripts/rAllStdAllActs.txt","r");
-	$i = 0;
-	while(! feof($file)) {
-		$rArray[$i++] = fgets($file);
-		$allStdsTotalAct++;
-	}
-	fclose($file);
-	$allStdsTotalAct--;
-	/* ************** */
+	/* ******************************************** Read R-Results *********************************************** */
+		/* **** Read rAllStdAllActs **** */
+			$allStdsTotalAct = 0;
+			$rArray = array();
+			$file = fopen("RScripts/rAllStdAllActs.txt","r");
+			while(! feof($file)) {
+				$rArray[$allStdsTotalAct++] = fgets($file);
+			}
+			fclose($file);
+			$allStdsTotalAct--;
+		/* **************************** */
+		
+		/* **** Read rAllStdDFActs **** */
+			$allStdsDFAct = 0;
+			$file = fopen("RScripts/rAllStdDFActs.txt","r");
+			while(! feof($file)) {
+				$rArrayDF[$allStdsDFAct++] = fgets($file);
+			}
+			fclose($file);
+			$allStdsDFAct--;
+		/* ***************************** */
+		
+		/* **** Read rAllStdRLRActs **** */
+			$allStdsRLRAct = 0;
+			$file = fopen("RScripts/rAllStdRLRActs.txt","r");
+			while(! feof($file)) {
+				$rArrayRLR[$allStdsRLRAct++] = fgets($file);
+			}
+			fclose($file);
+			$allStdsRLRAct--;
+		/* ***************************** */
+		
+		/* **** Read rAllStdVLRActs **** */
+			$allStdsVLRAct = 0;
+			$file = fopen("RScripts/rAllStdVLRActs.txt","r");
+			while(! feof($file)) {
+				$rArrayVLR[$allStdsVLRAct++] = fgets($file);
+			}
+			fclose($file);
+			$allStdsVLRAct--;
+		/* ***************************** */
+		
+		/* **** Read DF-Clusters **** */
+			$dfCluster = 0;
+			$file = fopen("RScripts/DF_Clusters.txt","r");
+			while(! feof($file)) {
+				$rArrayDFCluster[$dfCluster++] = fgets($file);
+			}
+			fclose($file);
+			$dfCluster--;
+		/* ************************** */
+		
+		/* **** Read RLR-Clusters **** */
+			$rlrCluster = 0;
+			$file = fopen("RScripts/RLR_Clusters.txt","r");
+			while(! feof($file)) {
+				$rArrayRLRCluster[$rlrCluster++] = fgets($file);
+			}
+			fclose($file);
+			$rlrCluster--;
+		/* ************************** */
+		
+		/* **** Read VLR-Clusters **** */
+			$vlrCluster = 0;
+			$file = fopen("RScripts/VLR_Clusters.txt","r");
+			while(! feof($file)) {
+				$rArrayVLRCluster[$vlrCluster++] = fgets($file);
+			}
+			fclose($file);
+			$vlrCluster--;
+		/* ************************** */
+		
+	/* ************************************************************************************************************** */
 	
 	/* Point to logged-in std's activity in R-Results */
 	$count = 1;
@@ -218,6 +280,17 @@
 		$notificationCount++;
 	}
 	
+	/* ********************************************** Suggestion(s) to the logged in student *********************************************** */
+		/*echo 'DF : '.$rArrayDFCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayDF[$loginStdSlNo-1].'<br />';
+		echo 'VLR : '.$rArrayVLRCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayVLR[$loginStdSlNo-1].'<br />';
+		echo 'RLR : '.$rArrayRLRCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayRLR[$loginStdSlNo-1].'<br />';*/
+		/*echo 'DF <br />';
+		print_r($rArrayDFCluster);
+		echo '<br /><br />VLR';
+		print_r($rArrayVLRCluster);
+		echo '<br /><br />RLR';
+		print_r($rArrayRLRCluster);*/
+	/* ************************************************************************************************************************************* */
 	if(!isset($_SESSION)) 
     { 
         session_start(); 
@@ -227,6 +300,14 @@
 	$_SESSION['totalQuesDF'] = $totalQuesDF;
 	$_SESSION['totalRepDF'] = $totalRepDF;
 	$_SESSION['totalCommDF'] = $totalCommDF;*/
+	$_SESSION['rArrayDFCluster'] = $rArrayDFCluster;
+	$_SESSION['rArrayVLRCluster'] = $rArrayVLRCluster;
+	$_SESSION['rArrayRLRCluster'] = $rArrayRLRCluster;
+	$_SESSION['rArrayDF'] = $rArrayDF;
+	$_SESSION['rArrayVLR'] = $rArrayVLR;
+	$_SESSION['rArrayRLR'] = $rArrayRLR;
+	$_SESSION['loginStdSlNo'] = $loginStdSlNo;
+	
 	$_SESSION['totalWeeklyAct'] = $totalWeeklyAct;
 	$_SESSION['totalWeeklyActDF'] = $totalWeeklyActDF;
 	$_SESSION['totalWeeklyActRLR'] = $totalWeeklyActRLR;
@@ -237,6 +318,7 @@
 	$_SESSION['loginName']= $loginName;
 	$_SESSION['notification'] = $notification;
 	$_SESSION['notificationCount'] = $notificationCount;
+	$_SESSION['totalNoOfStds'] = $totalNoOfStds;
 	
 	function findPlatform($str) {
 		$len = strlen($str) - 2;

@@ -10,6 +10,7 @@
 	include("updateFlotData.php");
 	include("prepareCSVFile.php");
 	include("dataR_to_PHP.php");
+	include("suggestions.php");
 	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
@@ -27,6 +28,8 @@
 	$loginName = $_SESSION['loginName'];
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
+	$sugg = $_SESSION['sugg'];
+	$suggCount = $_SESSION['suggCount'];
 	/* ************* */
 	
 	/*$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
@@ -788,69 +791,37 @@
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                            <i class="fa fa-bell fa-fw"></i> Suggestions
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <!--<a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
                                     <i class="fa fa-money fa-fw"></i> Payment Received
                                     <span class="pull-right text-muted small"><em>Yesterday</em>
                                     </span>
                                 </a>-->
 								
 								<?php
-									for($i = 0; $i < $notificationCount; $i++) {
+									/*for($i = 0; $i < $notificationCount; $i++) {
 										$dummy = "<a href=\"#\" class=\"list-group-item\">";
 										$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\"></i>";
 										$dummy = $dummy.$notification[$i];
+										$dummy = $dummy."</span></a>";
+										echo $dummy;
+									}*/
+									
+									for($i = 0; $i < $suggCount; $i++) {
+										$dummy = "<a href=\"#\" class=\"list-group-item\">";
+										$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\"></i>";
+										$dummy = $dummy.$sugg[$i];
 										$dummy = $dummy."</span></a>";
 										echo $dummy;
 									}
 								?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                            <!--<a href="#" class="btn btn-default btn-block">View All Alerts</a>-->
                         </div>
                         <!-- /.panel-body -->
                     </div>

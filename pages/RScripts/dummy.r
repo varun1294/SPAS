@@ -3,7 +3,7 @@ library(stringr)
 
 setwd("C:/xampp/htdocs/SPAS/pages/RScripts")
 
-dummy <- read.xls("Book4.xls")
+dummy <- read.xls("Book3.xls")
 dummy <- data.frame(lapply(dummy, as.character), stringsAsFactors=FALSE)
 
 totalDays <- ncol(dummy)
@@ -14,6 +14,8 @@ totalStds <- nrow(dummy)
 totalStds
 
 stdAct <- data.frame()
+stdActX <- data.frame()
+kx = 1;
 
 stdActDF <- data.frame()
 DF = 1;
@@ -23,6 +25,10 @@ VLR = 1;
 
 stdActRLR <- data.frame()
 RLR = 1;
+
+sumDF = 0;
+sumVLR = 0;
+sumRLR = 0;
 
 i = 1
 j = 7
@@ -53,13 +59,27 @@ while(i != totalStds+1) {
       else {
         
         if(var2[2] == "D") {
-          stdActDF[DF,1] = var2[4]
-          DF = DF + 1
+          sumDF = sumDF + as.numeric(var2[4])
         }
+
+        else if(var2[2] == "R") {
+          sumRLR = sumRLR + as.numeric(var2[4])
+        }
+        
+        else if(var2[2] == "V") {
+          sumVLR = sumVLR + as.numeric(var2[4])
+        }
+        
         stdAct[k,1] <- var2[1]
         stdAct[k,2] <- var2[2]
         stdAct[k,3] <- var2[3]
         stdAct[k,4] <- var2[4]
+        
+        stdActX[kx,1] <- var2[1]
+        stdActX[kx,2] <- var2[2]
+        stdActX[kx,3] <- var2[3]
+        stdActX[kx,4] <- var2[4]
+        kx = kx + 1;
         
         a = c + 5
         if(count == 1) {
@@ -126,6 +146,101 @@ while(i != totalStds+1) {
   cat("\n")
   
   k = k+1
+  
+  stdActDF[DF,1] = sumDF
+  DF = DF + 1
+  
+  stdActVLR[VLR,1] = sumVLR
+  VLR = VLR + 1
+  
+  stdActRLR[RLR,1] = sumRLR
+  RLR = RLR + 1
+  
+  sumDF = 0;
+  sumVLR = 0;
+  sumRLR = 0;
+  
 }
 
+sink()
+
+sink("rAllStdDFActs.txt")
+i = 1;
+while(i != DF) {
+    cat(stdActDF[i,1])
+    cat("\n")
+    
+    i = i + 1;
+}
+
+i = 1;
+sink()
+
+sink("rAllStdRLRActs.txt")
+i = 1;
+while(i != RLR) {
+  cat(stdActRLR[i,1])
+  cat("\n")
+  
+  i = i + 1;
+}
+sink()
+
+sink("rAllStdVLRActs.txt")
+i = 1;
+while(i != VLR) {
+  cat(stdActVLR[i,1])
+  cat("\n")
+  
+  i = i + 1;
+}
+sink()
+
+var <- kmeans(stdActDF,3)
+var
+sink("DF_Clusters.txt")
+i = 1;
+
+while(!(is.na(var$cluster[i]))) {
+  cat(var$cluster[i])
+  cat("\n");
+  i = i + 1;
+}
+cat(var$centers[1])
+cat("\n");
+cat(var$centers[2])
+cat("\n");
+cat(var$centers[3])
+sink()
+
+var <- kmeans(stdActRLR,3)
+sink("RLR_Clusters.txt")
+i = 1;
+
+while(!(is.na(var$cluster[i]))) {
+  cat(var$cluster[i])
+  cat("\n");
+  i = i + 1;
+}
+cat(var$centers[1])
+cat("\n");
+cat(var$centers[2])
+cat("\n");
+cat(var$centers[3])
+sink()
+
+var <- kmeans(stdActVLR,3)
+sink("VLR_Clusters.txt")
+i = 1;
+
+while(!(is.na(var$cluster[i]))) {
+  cat(var$cluster[i])
+  cat("\n");
+  i = i + 1;
+}
+cat(var$centers[1])
+cat("\n");
+cat(var$centers[2])
+cat("\n");
+cat(var$centers[3])
 sink()
