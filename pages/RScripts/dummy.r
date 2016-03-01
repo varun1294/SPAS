@@ -14,6 +14,7 @@ totalStds <- nrow(dummy)
 totalStds
 
 stdAct <- data.frame()
+
 stdActX <- data.frame()
 kx = 1;
 
@@ -25,6 +26,9 @@ VLR = 1;
 
 stdActRLR <- data.frame()
 RLR = 1;
+
+#stdActAll <- data.frame()
+#all = 1;
 
 sumDF = 0;
 sumVLR = 0;
@@ -75,11 +79,11 @@ while(i != totalStds+1) {
         stdAct[k,3] <- var2[3]
         stdAct[k,4] <- var2[4]
         
-        stdActX[kx,1] <- var2[1]
-        stdActX[kx,2] <- var2[2]
-        stdActX[kx,3] <- var2[3]
-        stdActX[kx,4] <- var2[4]
-        kx = kx + 1;
+        #stdActX[kx,1] <- var2[1]
+        #stdActX[kx,2] <- var2[2]
+        #stdActX[kx,3] <- var2[3]
+        #stdActX[kx,4] <- var2[4]
+        #kx = kx + 1;
         
         a = c + 5
         if(count == 1) {
@@ -156,10 +160,12 @@ while(i != totalStds+1) {
   stdActRLR[RLR,1] = sumRLR
   RLR = RLR + 1
   
+  stdActX[kx,1] = sumDF + sumVLR + sumRLR;
+  kx = kx + 1;
+  
   sumDF = 0;
   sumVLR = 0;
   sumRLR = 0;
-  
 }
 
 sink()
@@ -231,6 +237,32 @@ sink()
 
 var <- kmeans(stdActVLR,3)
 sink("VLR_Clusters.txt")
+i = 1;
+
+while(!(is.na(var$cluster[i]))) {
+  cat(var$cluster[i])
+  cat("\n");
+  i = i + 1;
+}
+cat(var$centers[1])
+cat("\n");
+cat(var$centers[2])
+cat("\n");
+cat(var$centers[3])
+sink()
+
+stdActX$V1
+sink("rAllActs.txt")
+i = 1;
+while(i <= totalStds) {
+    cat(stdActX$V1[i])
+    cat("\n")
+    i = i + 1;
+}
+sink()
+
+var <- kmeans(stdActX,3)
+sink("ALL_Clusters.txt")
 i = 1;
 
 while(!(is.na(var$cluster[i]))) {

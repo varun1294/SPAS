@@ -336,18 +336,35 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
+						
+						<img src="Images/Varun.png" width="250px" height="250px">
+						<br /><br />
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-bell fa-fw"></i> Suggestions
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="list-group">
+                                
+								
+								<?php
+									
+									$sug = '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+									$sug = $sug.$sugg2;
+									$sug = $sug.'</a>';
+							
+									echo $sug;
+								?>
+								</div>
+								<!-- /.list-group -->
+								<!--<a href="#" class="btn btn-default btn-block">View All Alerts</a>-->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						
+						
+                        <!--<li>
                             <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
@@ -361,7 +378,7 @@
                                 </li>
                             </ul>-->
                             <!-- /.nav-second-level -->
-                        </li>
+                        <!--</li>
                         <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>
@@ -418,8 +435,8 @@
                                         </li>
                                     </ul>
                                     <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
+                                <!--</li>-->
+                            <!--</ul>-->
                             <!-- /.nav-second-level -->
                         <!--</li>-->
                         <!--<li>

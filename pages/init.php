@@ -85,6 +85,26 @@
 			$vlrCluster--;
 		/* ************************** */
 		
+		/* **** Read ALL-Clusters **** */
+			$allCluster = 0;
+			$file = fopen("RScripts/ALL_Clusters.txt","r");
+			while(! feof($file)) {
+				$rArrayALLCluster[$allCluster++] = fgets($file);
+			}
+			fclose($file);
+			$allCluster--;
+		/* ************************** */
+		
+		/* **** Read rAllActs **** */
+			$allAct = 0;
+			$file = fopen("RScripts/rAllActs.txt","r");
+			while(! feof($file)) {
+				$rArrayALL[$allAct++] = fgets($file);
+			}
+			fclose($file);
+			$allAct--;
+		/* ***************************** */
+		
 	/* ************************************************************************************************************** */
 	
 	/* Point to logged-in std's activity in R-Results */
@@ -127,7 +147,7 @@
 	//echo 'stdWeeklyPtrInFile : '.$stdWeeklyPtrInFile.'<br />';
 	/* ************************************************** */
 	
-	/* Count total logged-in std's activity in all 3 platforms */
+	/* Count total weekly logged-in std's activity in all 3 platforms */
 	$totalWeeklyActDF = 0;
 	$totalWeeklyActRLR = 0;
 	$totalWeeklyActVLR = 0;
@@ -279,18 +299,46 @@
 		$notification[$i++] = $res['notification'];
 		$notificationCount++;
 	}
-	
-	/* ********************************************** Suggestion(s) to the logged in student *********************************************** */
-		/*echo 'DF : '.$rArrayDFCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayDF[$loginStdSlNo-1].'<br />';
-		echo 'VLR : '.$rArrayVLRCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayVLR[$loginStdSlNo-1].'<br />';
-		echo 'RLR : '.$rArrayRLRCluster[$loginStdSlNo-1]; echo ' Std Act : '.$rArrayRLR[$loginStdSlNo-1].'<br />';*/
-		/*echo 'DF <br />';
-		print_r($rArrayDFCluster);
-		echo '<br /><br />VLR';
-		print_r($rArrayVLRCluster);
-		echo '<br /><br />RLR';
-		print_r($rArrayRLRCluster);*/
-	/* ************************************************************************************************************************************* */
+
+	/* *************************** Load the IA and ESE Marks of all students *************************** */
+	/* ************************************************************************************************* */
+		$query = "SELECT ia1,ia2,ia3,ese FROM student";
+		$data = mysql_query($query,$con);
+		
+		$ia1Marks = array();
+		$ia2Marks = array();
+		$ia3Marks = array();
+		$eseMarks = array();
+		
+		$marksPresence = array();
+		for($s = 0; $s < 4; $s++)
+			$marksPresence[$s] = false;
+		
+		$marksCounter = 0;
+		while($res = mysql_fetch_array($data)) {
+			if($res['ia1'] != 0) {
+				$ia1Marks[$marksCounter] = $res['ia1'];
+				$marksPresence[0] = true;
+			}
+			
+			if($res['ia2'] != 0) {
+				$ia2Marks[$marksCounter] = $res['ia2'];
+				$marksPresence[1] = true;
+			}
+			
+			if($res['ia3'] != 0) {
+				$ia3Marks[$marksCounter] = $res['ia3'];
+				$marksPresence[2] = true;
+			}
+			
+			if($res['ese'] != 0) {
+				$eseMarks[$marksCounter] = $res['ese'];
+				$marksPresence[3] = true;
+			}
+			
+			$marksCounter++;
+		}
+	/* ************************************************************************************************* */
 	if(!isset($_SESSION)) 
     { 
         session_start(); 
@@ -307,6 +355,8 @@
 	$_SESSION['rArrayVLR'] = $rArrayVLR;
 	$_SESSION['rArrayRLR'] = $rArrayRLR;
 	$_SESSION['loginStdSlNo'] = $loginStdSlNo;
+	$_SESSION['rArrayALLCluster'] = $rArrayALLCluster;
+	$_SESSION['rArrayALL'] = $rArrayALL;
 	
 	$_SESSION['totalWeeklyAct'] = $totalWeeklyAct;
 	$_SESSION['totalWeeklyActDF'] = $totalWeeklyActDF;
@@ -319,6 +369,13 @@
 	$_SESSION['notification'] = $notification;
 	$_SESSION['notificationCount'] = $notificationCount;
 	$_SESSION['totalNoOfStds'] = $totalNoOfStds;
+	
+	$_SESSION['ia1Marks'] = $ia1Marks;
+	$_SESSION['ia2Marks'] = $ia2Marks;
+	$_SESSION['ia3Marks'] = $ia3Marks;
+	$_SESSION['eseMarks'] = $eseMarks;
+	$_SESSION['marksCounterarks'] = $marksCounter;
+	$_SESSION['marksPresence'] = $marksPresence;
 	
 	function findPlatform($str) {
 		$len = strlen($str) - 2;
