@@ -5,88 +5,88 @@
 				element: 'morris-area-chart',
 				data: [{
 				period: '201611',
-				RLR: '165',
-				VLR: '176',
-				DF: '148'
+				RLR2: '5',
+				VLR: '9',
+				DF: '3'
 			},{
 				period: '201612',
-				RLR: '195',
-				VLR: '204',
-				DF: '257'
+				RLR2: '7',
+				VLR: '4',
+				DF: '7'
 			},{
 				period: '201613',
-				RLR: '191',
-				VLR: '158',
-				DF: '141'
+				RLR2: '2',
+				VLR: '7',
+				DF: '8'
 			},{
 				period: '201614',
-				RLR: '152',
-				VLR: '141',
-				DF: '108'
+				RLR2: '9',
+				VLR: '9',
+				DF: '9'
 			},{
 				period: '201621',
-				RLR: '208',
-				VLR: '147',
-				DF: '198'
+				RLR2: '3',
+				VLR: '4',
+				DF: '0'
 			},{
 				period: '201622',
-				RLR: '117',
-				VLR: '77',
-				DF: '96'
+				RLR2: '7',
+				VLR: '5',
+				DF: '4'
 			},{
 				period: '201623',
-				RLR: '165',
-				VLR: '159',
-				DF: '113'
+				RLR2: '4',
+				VLR: '9',
+				DF: '5'
 			},{
 				period: '201624',
-				RLR: '180',
-				VLR: '157',
-				DF: '142'
+				RLR2: '9',
+				VLR: '5',
+				DF: '5'
 			},{
 				period: '201631',
-				RLR: '181',
-				VLR: '160',
-				DF: '151'
+				RLR2: '7',
+				VLR: '2',
+				DF: '2'
 			},{
 				period: '201632',
-				RLR: '180',
-				VLR: '79',
-				DF: '117'
+				RLR2: '7',
+				VLR: '5',
+				DF: '3'
 			},{
 				period: '201633',
-				RLR: '228',
-				VLR: '124',
-				DF: '110'
+				RLR2: '5',
+				VLR: '9',
+				DF: '5'
 			},{
 				period: '201634',
-				RLR: '171',
-				VLR: '104',
-				DF: '230'
+				RLR2: '9',
+				VLR: '4',
+				DF: '7'
 			},{
 				period: '201641',
-				RLR: '99',
-				VLR: '128',
-				DF: '103'
+				RLR2: '8',
+				VLR: '3',
+				DF: '2'
 			},{
 				period: '201642',
-				RLR: '138',
-				VLR: '155',
-				DF: '97'
+				RLR2: '6',
+				VLR: '3',
+				DF: '3'
 			},{
 				period: '201643',
-				RLR: '100',
-				VLR: '130',
-				DF: '105'
+				RLR2: '2',
+				VLR: '7',
+				DF: '4'
 			},{
 				period: '201644',
-				RLR: '202',
-				VLR: '120',
-				DF: '223'
+				RLR2: '7',
+				VLR: '3',
+				DF: '7'
 				}],
 				xkey: 'period',
-				ykeys: ['RLR', 'VLR', 'DF'],
-				labels: ['RLR', 'VLR', 'DF'],
+				ykeys: ['RLR2', 'VLR', 'DF'],
+				labels: ['RLR2', 'VLR', 'DF'],
 				pointSize: 2,
 				hideHover: 'auto',
 				resize: true

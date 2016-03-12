@@ -37,7 +37,7 @@
 	
 	/* ************************************************* Basic Suggestions in DF ************************************************** */
 		$var = 'You are in ';
-		if($rArrayDFCluster[$loginStdSlNo-1] == 3)
+		if($rArrayDFCluster[$loginStdSlNo-1] == 1)
 			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of DF';
 		else if($rArrayDFCluster[$loginStdSlNo-1] == 2)
 			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of DF';
@@ -60,7 +60,7 @@
 	
 	/* ************************************************* Basic Suggestions in RLR ************************************************* */
 		$var = 'You are in ';
-		if($rArrayRLRCluster[$loginStdSlNo-1] == 3)
+		if($rArrayRLRCluster[$loginStdSlNo-1] == 1)
 			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of RLR';
 		else if($rArrayRLRCluster[$loginStdSlNo-1] == 2)
 			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of RLR';
@@ -83,7 +83,7 @@
 	
 	/* ************************************************* Basic Suggestions in RLR ************************************************* */
 		$var = 'You are in ';
-		if($rArrayVLRCluster[$loginStdSlNo-1] == 3)
+		if($rArrayVLRCluster[$loginStdSlNo-1] == 1)
 			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of VLR';
 		else if($rArrayVLRCluster[$loginStdSlNo-1] == 2)
 			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of VLR';

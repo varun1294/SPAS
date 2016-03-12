@@ -1,96 +1,182 @@
 <?php
 
+	//include("init.php");
 	if(!isset($_SESSION)) 
     { 
         session_start(); 
     }
 	
+	$stdPtrInFile = $_SESSION['stdPtrInFile'];
+	$rArray = $_SESSION['rArray'];
 	
-
 	$loginUsn = "2sd12cs133";
 	$currentMonth = 4;
 	$currentYear = "2016";
 	
-	for($i = 0; $i < 16; $i++)
-		$totalActivityDF[$i] = 0;
+	$actDF = array();
+	$actRLR = array();
+	$actVLR = array();
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
-	if(!$con)
-		die("Reason : ".mysql_error());
-               
-	mysql_select_db("discussionforum",$con);
-	
-	$i = 1;
-	
-	$date = $currentYear;
-	$result = array(16);
-	$count = 1;
-	$j = -1;
-	$l = 0;
-	
-	while($i <= $currentMonth) {
-		$dummyVar1 = $date."-0".$count;
-		
-		$count++;
-		$i++;
-		
-		$dummyVar2 = 0;
-		for($k = 1; $k <= 4; $k++) {
-			$j++;
-			$query = "SELECT count(*) FROM question WHERE '$loginUsn' = question.usn and question.date like '%$dummyVar1%' and question.week like '%$k%'";
-			$data = mysql_query($query,$con);
-			$res = mysql_fetch_array($data);
-			$dummyVar2 += $res['count(*)'];
-		
-			$j++;
-			$query = "SELECT count(*) FROM reply WHERE '$loginUsn' = reply.usn and reply.date like '%$dummyVar1%' and reply.week like '%$k%'";
-			$data = mysql_query($query,$con);
-			$res = mysql_fetch_array($data);
-			$dummyVar2 += $res['count(*)'];
-		
-			$j++;
-			$query = "SELECT count(*) FROM comment WHERE '$loginUsn' = comment.usn and comment.date like '%$dummyVar1%' and comment.week like '%$k%'";
-			$data = mysql_query($query,$con);
-			$res = mysql_fetch_array($data);
-			$dummyVar2 += $res['count(*)'];
-			
-			$result[$l++] = $dummyVar2;
-		}
-	}
-	
-	$i=0; $j=0;
-	/*while($i < $currentMonth) {
-		$totalActivityDF[$i] = $result[$j++];
-		$totalActivityDF[$i] += $result[$j++];
-		$totalActivityDF[$i] += $result[$j++];
-		$i++;
-	}*/
-	
-	for($i = 0; $i < 16; $i++)
-		$totalActivityDF[$i] = $result[$i];
-		
 	for($i = 0; $i < 16; $i++) {
-		$totalActivityRLR[$i] = rand(2,9);
-		$totalActivityVLR[$i] = rand(2,9);
+		$actDF[$i] = 0;
+		$actRLR[$i] = 0;
+		$actVLR[$i] = 0;
 	}
+
+	$weekCount = 0;
+	$counter = 0;
 	
-	/*for($i = 0; $i < $currentMonth; $i++)
-		echo 'totalActivityDF['.$i.'] : '.$totalActivityDF[$i].'<br />';*/
-	
-	$period = array(16);
-	$j = 1; $k = 1;
-	for($i = 0; $i < 16; $i++,$k++) {
-		$dummyVar1 = $date.$j.$k;
-		$period[$i] = $dummyVar1;
-		if($i == 3 || $i == 7 || $i == 11) {
-			$j++;
-			$k = 0;
+	echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
+	for($i = $stdPtrInFile+1; $rArray[$i] != null ; $i++) {
+		if($rArray[$i][0] == "Y")
+			break;
+		else if($rArray[$i][0] == "X") {
+			$weekCount++;
+			if($weekCount == 7) {
+				$weekCount = 0;
+				$counter++;
+				//echo'rArray[$i-1] : '.$rArray[$i-1].'<br />';
+				//echo'Week '.$counter.' completed<br />';
+				//break;
+			}
 		}
-		//echo '$period['.$i.'] : '.$period[$i].'<br />';
+		else {
+		//echo'rArray[$i] : '.$rArray[$i].'<br />';
+		//echo'weekCount : '.$weekCount.'<br />';;
+			$choice = findPlatform($rArray[$i]);
+			//echo '$var : '.$var.'<br />';
+		
+			switch($choice) {
+				case "D" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actDF[$counter] += $sum;
+							break;
+							
+				case "R" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actRLR[$counter] += $sum;
+							break;
+							
+				case "V" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actVLR[$counter] += $sum;
+							break;
+			}
+		}
 	}
 	
+	if($counter == 15) {
+		$counter++;
+		while($rArray[$i][0] != "Y") {
+			if($rArray[$i][0] != "X") {
+				$choice = findPlatform($rArray[$i]);
+			//echo '$var : '.$var.'<br />';
+		
+			switch($choice) {
+				case "D" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actDF[$counter] += $sum;
+							break;
+							
+				case "R" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actRLR[$counter] += $sum;
+							break;
+							
+				case "V" :	$len = strlen($rArray[$i])-2;
+							for($k = 2; $rArray[$i][$k]!="A"; $k++);
+							$k++;
+							$j = 1;
+							$sum = 0;
+							while($k < $len) {
+								$sum = $sum + ((intval($rArray[$i][$len-1])) * $j);
+								$j = $j * 10;
+								$len--;
+							}
+							$actVLR[$counter] += $sum;
+							break;
+			}
+			}
+		}
+	}
+	
+	/*echo'rArray[$i-1] : '.$rArray[$i-1].'<br />';
+				echo'Week '.$counter.' completed<br />';
+				
+	echo'DF : <br />';
+	print_r($actDF);
+	echo'<br /><br />RLR : <br />';
+	print_r($actRLR);
+	echo'<br /><br />VLR : <br />';
+	print_r($actVLR);*/
+	
+	$period = array();
+	
+	$period[0] = $currentYear.'11';
+	$period[1] = $currentYear.'12';
+	$period[2] = $currentYear.'13';
+	$period[3] = $currentYear.'14';
+	
+	$period[4] = $currentYear.'21';
+	$period[5] = $currentYear.'22';
+	$period[6] = $currentYear.'23';
+	$period[7] = $currentYear.'24';
+	
+	$period[8] = $currentYear.'31';
+	$period[9] = $currentYear.'32';
+	$period[10] = $currentYear.'33';
+	$period[11] = $currentYear.'34';
+	
+	$period[12] = $currentYear.'41';
+	$period[13] = $currentYear.'42';
+	$period[14] = $currentYear.'43';
+	$period[15] = $currentYear.'44';
 	
 	for($i = 0; $i < ($currentMonth * 4); $i++) {
+		echo 'actDF[i] : '.$actDF[$i].'<br />';
+		echo 'actRLR[i] : '.$actRLR[$i].'<br />';
+		echo 'actVLR[i] : '.$actVLR[$i].'<br />';
+		
 		if($i == 0) {
 			$dummy = "
 				$(function() {
@@ -101,18 +187,18 @@
 				
 			$dummy = $dummy."{
 				period: '$period[$i]',
-				RLR: '$totalActivityRLR[$i]',
-				VLR: '$totalActivityVLR[$i]',
-				DF: '$totalActivityDF[$i]'
+				RLR: '$actRLR[$i]',
+				VLR: '$actVLR[$i]',
+				DF: '$actDF[$i]'
 			},";
 		}
 		
 		else if($i == (($currentMonth * 4)-1)) {
 			$dummy = $dummy."{
 				period: '$period[$i]',
-				RLR: '$totalActivityRLR[$i]',
-				VLR: '$totalActivityVLR[$i]',
-				DF: '$totalActivityDF[$i]'
+				RLR: '$actRLR[$i]',
+				VLR: '$actVLR[$i]',
+				DF: '$actDF[$i]'
 				}],
 				xkey: 'period',
 				ykeys: ['RLR', 'VLR', 'DF'],
@@ -126,9 +212,9 @@
 		else {
 			$dummy = $dummy."{
 				period: '$period[$i]',
-				RLR: '$totalActivityRLR[$i]',
-				VLR: '$totalActivityVLR[$i]',
-				DF: '$totalActivityDF[$i]'
+				RLR: '$actRLR[$i]',
+				VLR: '$actVLR[$i]',
+				DF: '$actDF[$i]'
 			},";
 		}
 		

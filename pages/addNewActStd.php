@@ -38,6 +38,8 @@
 		GLOBAL $totalSessionsStd;
 		
 		$var = intval($seed / 10);
+		if($var == 1)
+			$var = 2;
 		
 		$a = "";
 		$count = 0;

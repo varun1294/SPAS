@@ -3,7 +3,7 @@
 	$loginUsn = "2sd12cs133";
 	$month = "2016-01";
 	$loginName = "Varun";
-	$loginStdSlNo = 10;
+	$loginStdSlNo = 3;
 	$semCurrentWeek = 1;
 	$totalNoOfStds = 10;
 	
@@ -345,9 +345,9 @@
     }
 	
 	/*$_SESSION['totalDF'] = $totalDF;
-	$_SESSION['totalQuesDF'] = $totalQuesDF;
-	$_SESSION['totalRepDF'] = $totalRepDF;
-	$_SESSION['totalCommDF'] = $totalCommDF;*/
+	$_SESSION['totalQuesDF'] = $totalQuesDF;*/
+	$_SESSION['stdPtrInFile'] = $stdPtrInFile;
+	$_SESSION['rArray'] = $rArray;
 	$_SESSION['rArrayDFCluster'] = $rArrayDFCluster;
 	$_SESSION['rArrayVLRCluster'] = $rArrayVLRCluster;
 	$_SESSION['rArrayRLRCluster'] = $rArrayRLRCluster;

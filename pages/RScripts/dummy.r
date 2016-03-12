@@ -48,14 +48,23 @@ while(i != totalStds+1) {
     a = 3
     b = gregexpr(pattern =',',var)
     b = as.vector(b[[1]])
+    
+    ff = b[1];
     count = length(b)
+    
     c = b[l] - 2
     l = l + 1
+    
+    #if(isTRUE(all.equal(ff,-1))) {
+    #  nchar(var);
+    #  a = 3;
+    #  c = 10;
+    #}
     
     while(TRUE) {
       var2 <- substr(var,start=a,stop=c)
       var2 <- str_split_fixed(var2, ";", 4)
-      
+
       if(var2 == '') {
         break;
       }
