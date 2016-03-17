@@ -1,6 +1,5 @@
 <?php
 
-	//include("init.php");
 	if(!isset($_SESSION)) 
     { 
         session_start(); 
@@ -35,16 +34,10 @@
 			if($weekCount == 7) {
 				$weekCount = 0;
 				$counter++;
-				//echo'rArray[$i-1] : '.$rArray[$i-1].'<br />';
-				//echo'Week '.$counter.' completed<br />';
-				//break;
 			}
 		}
 		else {
-		//echo'rArray[$i] : '.$rArray[$i].'<br />';
-		//echo'weekCount : '.$weekCount.'<br />';;
 			$choice = findPlatform($rArray[$i]);
-			//echo '$var : '.$var.'<br />';
 		
 			switch($choice) {
 				case "D" :	$len = strlen($rArray[$i])-2;
@@ -94,7 +87,6 @@
 		while($rArray[$i][0] != "Y") {
 			if($rArray[$i][0] != "X") {
 				$choice = findPlatform($rArray[$i]);
-			//echo '$var : '.$var.'<br />';
 		
 			switch($choice) {
 				case "D" :	$len = strlen($rArray[$i])-2;
@@ -140,18 +132,10 @@
 		}
 	}
 	
-	/*echo'rArray[$i-1] : '.$rArray[$i-1].'<br />';
-				echo'Week '.$counter.' completed<br />';
-				
-	echo'DF : <br />';
-	print_r($actDF);
-	echo'<br /><br />RLR : <br />';
-	print_r($actRLR);
-	echo'<br /><br />VLR : <br />';
-	print_r($actVLR);*/
-	
 	$period = array();
 	
+	/* This needs to be programmed */
+	/* *************************** */
 	$period[0] = $currentYear.'11';
 	$period[1] = $currentYear.'12';
 	$period[2] = $currentYear.'13';
@@ -171,6 +155,7 @@
 	$period[13] = $currentYear.'42';
 	$period[14] = $currentYear.'43';
 	$period[15] = $currentYear.'44';
+	/* *************************** */
 	
 	for($i = 0; $i < ($currentMonth * 4); $i++) {
 		echo 'actDF[i] : '.$actDF[$i].'<br />';

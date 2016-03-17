@@ -7,7 +7,7 @@
 	
 	include("init.php");
 	include("updateMorrisData.php");
-	include("updateFlotData.php");
+	//include("updateFlotData.php");
 	include("prepareCSVFile.php");
 	include("dataR_to_PHP.php");
 	include("suggestions.php");
