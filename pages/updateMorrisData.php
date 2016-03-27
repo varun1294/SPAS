@@ -25,7 +25,7 @@
 	$weekCount = 0;
 	$counter = 0;
 	
-	echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
+	//echo 'stdPtrInFile : '.$stdPtrInFile.'<br />';
 	for($i = $stdPtrInFile+1; $rArray[$i] != null ; $i++) {
 		if($rArray[$i][0] == "Y")
 			break;
@@ -158,9 +158,9 @@
 	/* *************************** */
 	
 	for($i = 0; $i < ($currentMonth * 4); $i++) {
-		echo 'actDF[i] : '.$actDF[$i].'<br />';
+		/*echo 'actDF[i] : '.$actDF[$i].'<br />';
 		echo 'actRLR[i] : '.$actRLR[$i].'<br />';
-		echo 'actVLR[i] : '.$actVLR[$i].'<br />';
+		echo 'actVLR[i] : '.$actVLR[$i].'<br />';*/
 		
 		if($i == 0) {
 			$dummy = "

@@ -257,7 +257,7 @@
 	$assignDaysRem = array($activeAssigns);
 	$barColor = array($activeAssigns);*/
 	
-	for($i = 0; $i < $activeAssigns; $i++) {
+	/*for($i = 0; $i < $activeAssigns; $i++) {
 		
 		$timeDiff = abs($endTimeStamp[$i] - $todayDate);
 		$numberDays = $timeDiff/86400;  // 86400 seconds in one day
@@ -266,10 +266,6 @@
 		$timeDiff = abs($startTimeStamp[$i] - $endTimeStamp[$i]);
 		$numberDays = $timeDiff/86400;  // 86400 seconds in one day
 		$dummyVar2[$i] = intval($numberDays);
-		
-		/*echo '$dummyVar1[$i]/$dummyVar2[$i] : '.($dummyVar1[$i]/$dummyVar2[$i]).'<br />';
-		echo '$dummyVar1[$i] : '.$dummyVar1[$i].'<br />';
-		echo '$dummyVar2[$i] : '.$dummyVar2[$i].'<br />';*/
 		
 		$assignDaysRemPer[$i] = (100 * $dummyVar1[$i]) / $dummyVar2[$i];
 		$assignDaysRemPer[$i] = round($assignDaysRemPer[$i],0);
@@ -284,7 +280,7 @@
 			$barColor[$i] = "success";
 			
 		$assignDaysRem[$i] = $dummyVar1[$i];
-	}
+	}*/
 	//print_r($assignDaysRemPer);
 	/* ************************************************************************************************************************************** */
 	/* ************************************************************************************************************************************** */
@@ -362,9 +358,9 @@
 	$_SESSION['totalWeeklyActDF'] = $totalWeeklyActDF;
 	$_SESSION['totalWeeklyActRLR'] = $totalWeeklyActRLR;
 	$_SESSION['totalWeeklyActVLR'] = $totalWeeklyActVLR;
-	$_SESSION['activeAssigns'] = $activeAssigns;
+	/*$_SESSION['activeAssigns'] = $activeAssigns;
 	$_SESSION['assignDaysRemPer'] = $assignDaysRemPer;
-	$_SESSION['barColor'] = $barColor;
+	$_SESSION['barColor'] = $barColor;*/
 	$_SESSION['loginName']= $loginName;
 	$_SESSION['notification'] = $notification;
 	$_SESSION['notificationCount'] = $notificationCount;

@@ -30,11 +30,11 @@
 		$k = 0;
 	}
 	
-	/*for($j = 0; $j < $count; $j++) {
+	for($j = 0; $j < $count; $j++) {
 		for($k = 0; $k < 3; $k++)
 			echo $var[$j][$k].' ';
 		echo'<br />';
-	}*/
+	}
 	
 	/*echo 'DF Acts : '.$rArrayDF[$loginStdSlNo-1].'<br />';
 	echo 'RLR Acts : '.$rArrayRLR[$loginStdSlNo-1].'<br />';
@@ -51,6 +51,9 @@
 	
 	//echo $rArrayDF[$loginStdSlNo-1].'<br />';
 	$partsDF = array();
+	
+	$sql = "DELETE FROM studenttopicdist";
+	mysql_query($sql,$con);
 	
 	for($i = 0,$usn="2sd12cs001"; $i < $totalNoOfStds; $i++,$usn++) {
 		$totalActsDF = $rArrayDF[$i];

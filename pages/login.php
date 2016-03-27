@@ -16,13 +16,29 @@
 		
 		while($record = mysql_fetch_array($mydata)) {
 			
-			$var1 = $record['email'];
+			$var1 = $record['usn'];
 			$var2 = $record['password'];
 			
 			if(($var1 == $userName) && ($var2 == $passwd)) {
 				$_SESSION['loginUsn']=$record['usn'];
 				$_SESSION['loginName'] = $record['name'];
 				include("index.php");
+			}
+		}
+		
+		$sql = "SELECT * FROM faculty";
+		$mydata = mysql_query($sql,$con);
+		
+		while($record = mysql_fetch_array($mydata)) {
+			
+			$var1 = $record['fac_id'];
+			$var2 = $record['password'];
+			
+			if(($var1 == $userName) && ($var2 == $passwd)) {
+				$_SESSION['loginFacId']=$record['fac_id'];
+				$_SESSION['loginFacName'] = $record['name'];
+				$_SESSION['courseId'] = $record['courseid'];
+				include("faculty.php");
 			}
 		}
 	}

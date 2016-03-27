@@ -5,8 +5,10 @@
 		session_start(); 
 	}
 	
-	//include("init.php");
-
+	include("init.php");
+	
+	//$loginUsn = $_SESSION['loginUsn'];
+	$loginUsn = "2sd12cs010";
 	$rArrayDFCluster = $_SESSION['rArrayDFCluster'];
 	$rArrayVLRCluster = $_SESSION['rArrayVLRCluster'];
 	$rArrayRLRCluster = $_SESSION['rArrayRLRCluster'];
@@ -30,6 +32,12 @@
 	$loggedInStdCluster = array();
 	
 	$arrCount = 0;
+	
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+
+	mysql_select_db("spas",$con);
 	
 	/*$arr[$arrCount++] = 'You are in Cluster '.$rArrayDFCluster[$loginStdSlNo-1].'of DF';
 	$arr[$arrCount++] = 'You are in Cluster '.$rArrayRLRCluster[$loginStdSlNo-1].'of RLR';
@@ -124,9 +132,9 @@
 
 		$_SESSION['overAllPerformance'] = $var;
 		
-		echo 'Var : '.$var.'<br />';
+		//echo 'Var : '.$var.'<br />';
 		$loggedInStdCluster[3] = $rArrayALLCluster[$loginStdSlNo-1];
-		echo 'loggedInStdCluster[3]'.$loggedInStdCluster[3].'<br />';
+		//echo 'loggedInStdCluster[3]'.$loggedInStdCluster[3].'<br />';
 	/* **************************************************************************************************************************** */
 	
 	/* ************************************************ Basic Suggestions on Marks ************************************************ */
@@ -150,7 +158,62 @@
 			}
 		}
 		
-		echo 'Sugg2 : '.$sugg2.'<br />';
+		//echo 'Sugg2 : '.$sugg2.'<br />';
+	/* **************************************************************************************************************************** */
+	
+	/* ************************************************ Suggestions based on Topics *********************************************** */
+		$sql = "SELECT * FROM studenttopicdist WHERE usn = '$loginUsn' ORDER BY courseid";
+		$mydata = mysql_query($sql,$con);
+		
+		$sql = "SELECT * FROM topiccoverage WHERE coverage != 1 ORDER BY courseid";
+		$data = mysql_query($sql,$con);
+		
+		$var1 = array();
+		$count1 = 0;
+		while($res = mysql_fetch_array($mydata)) {
+				$var1[$count1][0] = $res['courseid'];
+				$var1[$count1][1] = $res['topic'];
+				$var1[$count1][2] = $res['actsdf'];
+				$var1[$count1][3] = $res['actsrlr'];
+				$var1[$count1][4] = $res['actsvlr'];
+				
+				echo $var1[$count1][0].'<br />';
+				echo $var1[$count1][1].'<br />';
+				echo $var1[$count1][2].'<br />';
+				echo $var1[$count1][3].'<br />';
+				echo $var1[$count1][4].'<br /><br />';
+				
+				$count1++;
+		}
+		
+		$var2 = array();
+		$count2 = 0;
+		while($res = mysql_fetch_array($data)) {
+			$var2[$count2][0] = $res['courseid'];
+			$var2[$count2][1] = $res['topic'];
+			$var2[$count2][2] = $res['deficulty'];
+			
+			echo $var2[$count2][0].'<br />';
+			echo $var2[$count2][1].'<br />';
+			echo $var2[$count2][2].'<br /><br />';
+			
+			$count2++;
+		}
+		
+		for($i = 0; $i < $count2; $i++) {
+			for($j = 0; $j < $count1; $j++) {
+				if( ($var1[$j][0] == $var2[$j][0]) && ($var1[$j][1] == $var2[$j][1]) ) {
+					$var1[$i][5] = $var2[$j][2];
+					break;
+				}
+			}
+		}
+		
+		/*for($i = 0; $i < $count1; $i++) {
+			for($j = 0; $j < 6; $j++)
+				echo $var1[$i][$j].'<br />';
+			echo '<br />';
+		}*/
 	/* **************************************************************************************************************************** */
 	$_SESSION['sugg'] = $arr;
 	$_SESSION['suggCount'] = $arrCount;
