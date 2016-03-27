@@ -1,6 +1,6 @@
 <?php
 	
-	$loginUsn = "2sd12cs133";
+	$loginUsn = "2sd12cs010";
 	$month = "2016-01";
 	$loginName = "Varun";
 	$loginStdSlNo = 3;
@@ -230,7 +230,7 @@
 	
 	mysql_select_db("spas",$con);
 	
-	$query = "SELECT count(*) FROM std_course, assignment WHERE '$loginUsn' = std_course.usn and std_course.course_id = assignment.course_id";
+	/*$query = "SELECT count(*) FROM std_course, assignment WHERE '$loginUsn' = std_course.usn and std_course.course_id = assignment.course_id";
 	$data = mysql_query($query,$con);
 	$res = mysql_fetch_array($data);
 	$activeAssigns = $res['count(*)'];
@@ -255,7 +255,7 @@
 	$dummyVar2 = array($activeAssigns);
 	$assignDaysRemPer = array($activeAssigns);
 	$assignDaysRem = array($activeAssigns);
-	$barColor = array($activeAssigns);
+	$barColor = array($activeAssigns);*/
 	
 	for($i = 0; $i < $activeAssigns; $i++) {
 		
@@ -344,8 +344,8 @@
         session_start(); 
     }
 	
-	/*$_SESSION['totalDF'] = $totalDF;
-	$_SESSION['totalQuesDF'] = $totalQuesDF;*/
+	/*$_SESSION['totalDF'] = $totalDF;*/
+	$_SESSION['loginUsn'] = $loginUsn;
 	$_SESSION['stdPtrInFile'] = $stdPtrInFile;
 	$_SESSION['rArray'] = $rArray;
 	$_SESSION['rArrayDFCluster'] = $rArrayDFCluster;

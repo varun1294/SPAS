@@ -6,7 +6,7 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	$usn = "2sd12cs001";
+	/*$usn = "2sd12cs001";
 	$sess = 0;
 	
 	for($i = 0; $i < 6; $i++,$usn++) {
@@ -15,12 +15,11 @@
 			echo 'success<br />';
 		else
 			echo 'fail<br />';
-	}
+	}*/
 	
-	
-	/*$sql = "DELETE FROM studentsess";
+	$sql = "DELETE FROM studenttopicdist";
 	if(mysql_query($sql,$con))
-			echo 'success<br />';
-		else
-			echo 'fail<br />';*/
+		echo 'success<br />';
+	else
+		echo 'fail<br />';
 ?>
