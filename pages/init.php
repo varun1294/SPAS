@@ -3,9 +3,17 @@
 	$loginUsn = "2sd12cs010";
 	$month = "2016-01";
 	$loginName = "Varun";
-	$loginStdSlNo = 3;
+	//$loginStdSlNo = 3;
 	$semCurrentWeek = 1;
 	$totalNoOfStds = 10;
+	
+	if(!isset($_SESSION)) { 
+		session_start(); 
+	}
+	
+	$loginStdSlNo = $_SESSION['loginStdSlNo'];
+	
+	echo '$loginStdSlNo : '.$loginStdSlNo.'<br />';
 	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
@@ -372,7 +380,7 @@
 	$_SESSION['eseMarks'] = $eseMarks;
 	$_SESSION['marksCounterarks'] = $marksCounter;
 	$_SESSION['marksPresence'] = $marksPresence;
-	
+
 	function findPlatform($str) {
 		$len = strlen($str) - 2;
 		for($i = 2; $i < $len; $i++) {

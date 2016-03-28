@@ -28,8 +28,12 @@
 	$loginName = $_SESSION['loginName'];
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
+	
 	$sugg = $_SESSION['sugg'];
 	$suggCount = $_SESSION['suggCount'];
+	$sugg2 = $_SESSION['sugg2'];
+	$sugg2Counter = $_SESSION['sugg2Counter'];
+	
 	/* ************* */
 	
 	/*$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
@@ -349,11 +353,13 @@
 								
 								<?php
 									
-									$sug = '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
-									$sug = $sug.$sugg2;
-									$sug = $sug.'</a>';
+									for($i = 0; $i < $sugg2Counter; $i++) {
+										$sug = '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										$sug = $sug.$sugg2[$i];
+										$sug = $sug.'</a>';
 							
-									echo $sug;
+										echo $sug;
+									}
 								?>
 								</div>
 								<!-- /.list-group -->

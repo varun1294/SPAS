@@ -14,16 +14,28 @@
 		$sql = "SELECT * FROM  student";
 		$mydata = mysql_query($sql,$con);
 		
+		$loginStdSlNo = 0;
+		
 		while($record = mysql_fetch_array($mydata)) {
 			
 			$var1 = $record['usn'];
 			$var2 = $record['password'];
 			
 			if(($var1 == $userName) && ($var2 == $passwd)) {
+				if(!isset($_SESSION)) { 
+					session_start(); 
+				}
+				
 				$_SESSION['loginUsn']=$record['usn'];
 				$_SESSION['loginName'] = $record['name'];
+				
+				$loginStdSlNo++;
+				$_SESSION['loginStdSlNo'] = $loginStdSlNo;
+				
 				include("index.php");
 			}
+			
+			$loginStdSlNo++;
 		}
 		
 		$sql = "SELECT * FROM faculty";
