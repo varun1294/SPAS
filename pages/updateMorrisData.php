@@ -9,7 +9,7 @@
 	$rArray = $_SESSION['rArray'];
 	
 	$loginUsn = "2sd12cs133";
-	$currentMonth = 4;
+	$currentMonth = 1;
 	$currentYear = "2016";
 	
 	$actDF = array();

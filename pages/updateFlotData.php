@@ -25,16 +25,27 @@
 		$allAct--;
 	/* ***************************** */
 	
-	$totalNoOfStds = 10;
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("SPAS",$con);
 	
-	$min = $rArrayALL[0]; $max = $rArrayALL[0];
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
+	
+	$min = intval($rArrayALL[0]); $max = intval($rArrayALL[0]);
+	
 	for($i = 1; $i < $totalNoOfStds; $i++) {
-		if($rArrayALL[$i] < $min)
-			$min = $rArrayALL[$i];
-		if($rArrayALL[$i] > $max)
-			$max = $rArrayALL[$i];
+		if((intval($rArrayALL[$i])) < $min)
+			$min = intval($rArrayALL[$i]);
+		else if((intval($rArrayALL[$i])) > $max)
+			$max = intval($rArrayALL[$i]);
 	}
-	
 	/*print_r($rArrayALLCluster);
 	echo'<br /><br />';
 	print_r($rArrayALL);*/
@@ -49,7 +60,7 @@
             cos = [],
 			tan = [];";
 		
-		for($i = 0; $i < $totalNoOfStds; $i++) {
+		for($i = 0,$usn='2sd12cs001'; $i < $totalNoOfStds; $i++,$usn++) {
 			if($rArrayALLCluster[$i] == 1)
 				$dummy = $dummy."sin.push([".($i+1).",".$rArrayALL[$i]."]);";
 			else if($rArrayALLCluster[$i] == 2)

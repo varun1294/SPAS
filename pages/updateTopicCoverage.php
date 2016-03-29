@@ -1,7 +1,7 @@
 <?php
 
-	/*header('Content-Type: text/xml');
-	echo'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';*/
+	header('Content-Type: text/xml');
+	echo'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)

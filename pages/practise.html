@@ -1,103 +1,60 @@
 <!DOCTYPE html>
 <html> 
 	<head> 
-		<style type="text/css">
+		<title>SPAS</title>
+		
+		<script>
+			var request;
+function sendInfo() {
+	var v=document.getElementById("v").value;
+	if(v == 1)
+		var d = "2sd12cs001";
+	var url="practise2.php?usn="+d;
+	url = url+"&courseid=CS1";
+	
+	alert(url);
 
-input[type=range] {
-  -webkit-appearance: slider-vertical;
-  width: 55px;
-  height: 175px;
+	if(window.XMLHttpRequest) {
+		request=new XMLHttpRequest();
+	}
 
-  margin: 3.3px 0;
-}
-input[type=range]:focus {
-  outline: none;
-}
-input[type=range]::-webkit-slider-runnable-track {
-  width: 40%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 2.4px #000000, 0px 0px 1px #0d0d0d;
-  background: #6cff67;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
-}
-input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0.8px 0.8px 9.5px #86c06e, 0px 0px 0.8px #95c880;
-  border: 2.7px solid rgba(255, 0, 0, 0.78);
-  height: 15px;
-  width: 29px;
-  border-radius: 10px;
-  background: #e7e700;
-  cursor: pointer;
-  -webkit-appearance: slider-vertical;
-  margin-top: -3.5px;
-}
-input[type=range]:focus::-webkit-slider-runnable-track {
-  background: #d9ffd7;
-}
-input[type=range]::-moz-range-track {
-  width: 40%;
-  height: 8.4px;
-  cursor: pointer;
-  box-shadow: 1px 1px 2.4px #000000, 0px 0px 1px #0d0d0d;
-  background: #6cff67;
-  border-radius: 1.3px;
-  border: 0.2px solid #010101;
-}
-input[type=range]::-moz-range-thumb {
-  box-shadow: 0.8px 0.8px 9.5px #86c06e, 0px 0px 0.8px #95c880;
-  border: 2.7px solid rgba(255, 0, 0, 0.78);
-  height: 15px;
-  width: 29px;
-  border-radius: 10px;
-  background: #e7e700;
-  cursor: pointer;
-}
-input[type=range]::-ms-track {
-  width: 40%;
-  height: 8.4px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type=range]::-ms-fill-lower {
-  background: #08f600;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 2.4px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range]::-ms-fill-upper {
-  background: #6cff67;
-  border: 0.2px solid #010101;
-  border-radius: 2.6px;
-  box-shadow: 1px 1px 2.4px #000000, 0px 0px 1px #0d0d0d;
-}
-input[type=range]::-ms-thumb {
-  box-shadow: 0.8px 0.8px 9.5px #86c06e, 0px 0px 0.8px #95c880;
-  border: 2.7px solid rgba(255, 0, 0, 0.78);
-  height: 15px;
-  width: 29px;
-  border-radius: 10px;
-  background: #e7e700;
-  cursor: pointer;
-  height: 8.4px;
-}
-input[type=range]:focus::-ms-fill-lower {
-  background: #6cff67;
-}
-input[type=range]:focus::-ms-fill-upper {
-  background: #d9ffd7;
+	else if(window.ActiveXObject) {
+		request=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	try {
+		request.onreadystatechange=getInfo;
+		request.open("GET",url,true);
+		request.send();
+	} catch(e) {
+		alert("Unable to connect to server");
+	}
 }
 
+function getInfo() {
+	if(request.readyState==4){
+		var val=request.responseText;
+		document.write(val);
+		document.getElementById('underInput').innerText=val;
+	}
+}
 
-		</style>
-
+function dummy() {
+	alert('Varun');
+}
+		</script>
 	</head>
 
 	<body>
-		2SD12CS133<br />
-		<input type="range" value="4" name="points" min="0" max="10">
+		<select id="v" name="v" onchange="sendInfo();">
+			<option value="" selected="selected"></option>
+			<option value="1" >2sd12cs001</option>
+			<option value="1" >2sd12cs002</option>
+		</select>
+		
+		<br />
+		<br />
+		
+		<div id="underInput" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
 	</body> 
 </html> 

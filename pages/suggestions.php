@@ -256,30 +256,22 @@
 			}
 		}
 		
-		/*echo '$diff1DF : '.$diff1DF.'<br />';
-		echo '$diff1RLR : '.$diff1RLR.'<br />';
-		echo '$diff1VLR : '.$diff1VLR.'<br />';
-		echo '$diff1All : '.$diff1All.'<br /><br />';
-		
-		echo '$diff2DF : '.$diff2DF.'<br />';
-		echo '$diff2RLR : '.$diff2RLR.'<br />';
-		echo '$diff2VLR : '.$diff2VLR.'<br />';
-		echo '$diff2All : '.$diff2All.'<br /><br />';
-		
-		echo '$diff3DF : '.$diff3DF.'<br />';
-		echo '$diff3RLR : '.$diff3RLR.'<br />';
-		echo '$diff3VLR : '.$diff3VLR.'<br />';
-		echo '$diff3All : '.$diff3All.'<br /><br />';*/
-		
-		if( ($diff1All > $diff2All) || ($diff1All > $diff3All) )
+		/* Consider Std's performance in DF, RLR and VLR too... Coding for this part is remaining */
+		/* ************************************************************************************** */
+		if( ($diff1All > $diff2All) || ($diff1All > $diff3All) ) {
+		/* ************************************************************************************** */
 			$sugg2[$sugg2Counter++] = 'You Are <font color="red"><strong>Very Slow Learner</strong></font>. Please <strong>Improve</strong> Your Grasping Ability';
+		}
 		
-		else if ($diff2All > $diff3All)
+		else if ($diff2All > $diff3All) {
 			$sugg2[$sugg2Counter++] = 'You Are Doing Good, But Try To <strong>Improve</strong> Your Learning To Obtain Best Grades';
+		}
 		
-		else
+		else {
 			$sugg2[$sugg2Counter++] = 'You Are Doing <font color="green"><strong>Great</strong>. You Have <strong>Better Chances</strong> Of Getting Best Grade';
+		}
 	/* **************************************************************************************************************************** */
+	
 	$_SESSION['sugg'] = $arr;
 	$_SESSION['suggCount'] = $arrCount;
 	$_SESSION['sugg2'] = $sugg2;

@@ -21,6 +21,8 @@
 		}
 	}
 	
+	include("prepareCSVFile.php");
+	
 	/* Below Code generates random activities for a given USN, startDate and endDate */
 	
 	/* *************************************************************************************************************************** */

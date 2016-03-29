@@ -1,19 +1,47 @@
 <?php
 
-	include("init.php");
-	$loginStdSlNo = $_SESSION['loginStdSlNo'];
-	$loginUsn = $_SESSION['loginUsn'];
-	$totalNoOfStds = $_SESSION['totalNoOfStds'];
-	
-	$rArrayDF = $_SESSION['rArrayDF'];
-	$rArrayVLR = $_SESSION['rArrayVLR'];
-	$rArrayRLR = $_SESSION['rArrayRLR'];
-	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
 
 	mysql_select_db("spas",$con);
+	
+	/* **** Read rAllStdDFActs **** */
+		$allStdsDFAct = 0;
+		$file = fopen("RScripts/rAllStdDFActs.txt","r");
+		while(! feof($file)) {
+			$rArrayDF[$allStdsDFAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsDFAct--;
+	/* ***************************** */
+		
+	/* **** Read rAllStdRLRActs **** */
+		$allStdsRLRAct = 0;
+		$file = fopen("RScripts/rAllStdRLRActs.txt","r");
+		while(! feof($file)) {
+			$rArrayRLR[$allStdsRLRAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsRLRAct--;
+	/* ***************************** */
+		
+	/* **** Read rAllStdVLRActs **** */
+		$allStdsVLRAct = 0;
+		$file = fopen("RScripts/rAllStdVLRActs.txt","r");
+		while(! feof($file)) {	
+			$rArrayVLR[$allStdsVLRAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsVLRAct--;
+	/* ***************************** */
+
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
 	
 	$sql = "SELECT * FROM topiccoverage WHERE coverage != 1";
 	
@@ -30,15 +58,10 @@
 		$k = 0;
 	}
 	
-	for($j = 0; $j < $count; $j++) {
-		for($k = 0; $k < 3; $k++)
-			echo $var[$j][$k].' ';
-		echo'<br />';
+	for($rr = 0; $rr < $count; $rr++) {
+		print_r($var[$rr]);
+		echo '<br /><br />';
 	}
-	
-	/*echo 'DF Acts : '.$rArrayDF[$loginStdSlNo-1].'<br />';
-	echo 'RLR Acts : '.$rArrayRLR[$loginStdSlNo-1].'<br />';
-	echo 'VLR Acts : '.$rArrayVLR[$loginStdSlNo-1].'<br />';*/
 	
 	$randArr = array();
 	
@@ -49,10 +72,9 @@
 		$sum += $r;
 	}
 	
-	//echo $rArrayDF[$loginStdSlNo-1].'<br />';
 	$partsDF = array();
 	
-	$sql = "DELETE FROM studenttopicdist";
+	$sql = "DELETE FROM studenttopicdist WHERE ";
 	mysql_query($sql,$con);
 	
 	for($i = 0,$usn="2sd12cs001"; $i < $totalNoOfStds; $i++,$usn++) {
@@ -74,19 +96,13 @@
 			$r1 = $var[$k][0];
 			$r2 = $var[$k][1];
 			
-			/*echo $r1.'<br />';
-			echo $r2.'<br />';*/
-			
 			$sql = "INSERT INTO studenttopicdist VALUES ('$usn','$r1','$r2','$partsDF[$k]','$partsRLR[$k]','$partsVLR[$k]')";
 			
 			if(mysql_query($sql,$con)) {}
-				//echo 'Success 1<br />';
 			else {
 				$sql = "UPDATE studenttopicdist SET actsdf = '$partsDF[$k]', actsrlr = '$partsRLR[$k]', actsvlr = '$partsVLR[$k]' WHERE usn = '$usn' and courseid = '$r1' and topic = '$r2'";
 				if(mysql_query($sql,$con)){}
-					//echo 'Success 2<br />';
 				else {}
-					//echo 'Fail 2<br />';
 			}
 		}
 	}

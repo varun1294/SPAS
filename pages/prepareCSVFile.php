@@ -1,5 +1,18 @@
 <?php
 
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("SPAS",$con);
+	
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
+	
 	require_once 'Classes/PHPExcel.php';
 	$objPHPExcel = new PHPExcel(); 
 
@@ -17,7 +30,7 @@
 	
 	
 	for($i = 0; $i < 5; $i++)
-		for($j = 0; $j < 11; $j++)
+		for($j = 0; $j < $totalNoOfStds; $j++)
 			$arr[$i][$j] = "";
 			
 	$arr[0][0] = "usn";
@@ -76,7 +89,7 @@
 	}*/
 	
 	$objPHPExcel->setActiveSheetIndex(0);
-	for($i=0, $column='A', $rowCount = 1; $i < 11; $i++, $rowCount++) {
+	for($i=0, $column='A', $rowCount = 1; $i < $totalNoOfStds+1; $i++, $rowCount++) {
 		for($j = 0; $j < 119; $j++,$column++) {
 			//if($j == 1)
 				//$j = 7;

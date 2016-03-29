@@ -3,6 +3,8 @@
 		session_start(); 
 	}
 	
+	include("updateFlotData.php");
+	
 	$loginFacName = "Prof. ";
 	
 	$fac_id = $_SESSION['loginFacId'];
@@ -28,6 +30,11 @@
 		$var[$i][1] = $res['actsdf'];
 		$var[$i][2] = $res['actsrlr'];
 		$var[$i][3] = $res['actsvlr'];
+		
+		/*echo '$var[$i][0] : '.$var[$i][0].'<br />';
+		echo '$var[$i][1] : '.$var[$i][1].'<br />';
+		echo '$var[$i][2] : '.$var[$i][2].'<br />';
+		echo '$var[$i][3] : '.$var[$i][3].'<br />';*/
 		$i++;
 	}
 	
@@ -88,7 +95,7 @@
 ${demo.css}
 		</style>
 		<script type="text/javascript">
-$(function () {
+function drawChart() {
     $('#container').highcharts({
         chart: {
             type: 'scatter',
@@ -158,12 +165,28 @@ $(function () {
 			$ll = $ll."data: [";
 			
 			for($j = 0; $j < $i ; $j++) {
-				$ll = $ll.'['.$var[$j][1].', '.$var[$j][0][1].'], ';
-				
+				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][1].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
 			}
 			
 			if($i > 0) {
-				$ll = $ll.'['.$var[$j][1].', '.$var[$j][0][1].']]},';
+				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].']]},';
+				$ll = $ll.'['.$var[$j][1].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}, ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]}, ';
+				}
 			}
 			
 			echo $ll;
@@ -173,12 +196,28 @@ $(function () {
 			$ll = $ll."name: 'VLR', color: 'rgba(119, 152, 191, .5)', data: [";
 			
 			for($j = 0; $j < $i ; $j++) {
-				$ll = $ll.'['.$var[$j][3].', '.$var[$j][0][1].'], ';
-				
+				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][3].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
 			}
 			
 			if($i > 0) {
-				$ll = $ll.'['.$var[$j][3].', '.$var[$j][0][1].']]},';
+				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].']]},';
+				$ll = $ll.'['.$var[$j][3].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}, ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]},';
+				}
 			}
 			
 			echo $ll;
@@ -187,33 +226,36 @@ $(function () {
 			$ll = $ll."name: 'RLR', color: 'rgba(200, 110, 150, .5)', data: [";
 			
 			for($j = 0; $j < $i ; $j++) {
-				$ll = $ll.'['.$var[$j][3].', '.$var[$j][0][1].'], ';
-				
+				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][2].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
 			}
 			
 			if($i > 0) {
-				$ll = $ll.'['.$var[$j][3].', '.$var[$j][0][1].']]}]';
+				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].']]}]';
+				$ll = $ll.'['.$var[$j][2].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}]';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]}]';
+				}
 			}
 			
 			echo $ll;
 		?>
-		
-        /*series: [{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',
-            data: [[161.2, 1], [167.5, 3], [159.5, 2], [157.0, 6], [155.8, 5]]
-
-        }, {
-            name: 'VLR',
-            color: 'rgba(119, 152, 191, .5)',
-            data: [[174.0, 3], [175.3, 5], [193.5, 7], [186.5, 2], [187.2, 1],[180.3, 5], [180.3, 4]]
-        }, {
-			name: 'RLR',
-			color: 'rgba(200, 110, 150, .5)',
-			data: [[162.1, 2], [170.0, 1], [160.2, 7], [161.3, 9], [166.4, 6]]
-		}]*/
     });
-});
+	
+	g2sd12cs001();
+}
 
 	var request;
 			
@@ -296,6 +338,230 @@ $(function () {
 			function dummy() {
 				document.getElementById('underInput').innerText="";
 			}
+			
+			function sendInfo2() {
+				var usn=document.getElementById("selectUSN").value;
+				switch(usn) {
+					<?php
+						$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+
+						$mydata2 = mysql_query($sql,$con);
+						$res = mysql_fetch_array($mydata2);
+	
+						$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
+					
+						for($i = 0,$usn='2sd12cs001'; $i < $totalNoOfStds; $i++,$usn++) {
+							$dummy = 'case "'.$usn.'" : g'.$usn.'();break;';
+							echo $dummy;
+						}
+
+					?>
+					//case "2sd12cs001" : g2sd12cs001();
+						//				break;
+				}
+			}
+			
+			
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		
+		<?php
+		for($m = 0, $usn = '2sd12cs001'; $m < $totalNoOfStds; $m++,$usn++) {
+	
+			$sql = "SELECT * FROM studenttopicdist WHERE courseid='$courseId' and usn = '$usn' and actsdf != 0";
+			$data = mysql_query($sql,$con);
+	
+			$var = array();
+			$i = 0;
+	
+			while($res = mysql_fetch_array($data)) {
+				$var[$i][0] = $res['topic'];
+				$var[$i][1] = $res['actsdf'];
+				$var[$i][2] = $res['actsrlr'];
+				$var[$i][3] = $res['actsvlr'];
+				$i++;
+			}
+	
+			$i--;
+			$ll = "
+		
+		function g".$usn."() {
+		$('#container2').highcharts({
+        chart: {
+            type: 'scatter',
+            zoomType: 'xy'
+        },
+        title: {
+            text: 'Activities of student ".$usn." on all topics'
+        },
+        subtitle: {
+            text: 'Course : <?php echo $courseId ?>'
+        },
+        xAxis: {
+            title: {
+                enabled: true,
+                text: 'Activities'
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true
+        },
+        yAxis: {
+            title: {
+                text: 'Topics'
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'left',
+            verticalAlign: 'top',
+            x: 100,
+            y: 70,
+            floating: true,
+            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
+            borderWidth: 1
+        },
+        plotOptions: {
+            scatter: {
+                marker: {
+                    radius: 5,
+                    states: {
+                        hover: {
+                            enabled: true,
+                            lineColor: 'rgb(100,100,100)'
+                        }
+                    }
+                },
+                states: {
+                    hover: {
+                        marker: {
+                            enabled: false
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>{series.name}</b><br>',
+                    //pointFormat: '{point.x} cm, {point.y} kg'
+					pointFormat: '{point.x} activities, Topic : {point.y}'
+                }
+            }
+        },";
+		
+			$ll = $ll."series: [{
+            name: 'DF',
+            color: 'rgba(223, 83, 83, .5)',";
+			
+			$ll = $ll."data: [";
+			
+			for($j = 0; $j < $i ; $j++) {
+				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][1].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
+			}
+			
+			if($i > 0) {
+				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].']]},';
+				$ll = $ll.'['.$var[$j][1].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}, ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]}, ';
+				}
+			}
+			
+			echo $ll;
+			
+			$ll = "{";
+			
+			$ll = $ll."name: 'VLR', color: 'rgba(119, 152, 191, .5)', data: [";
+			
+			for($j = 0; $j < $i ; $j++) {
+				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][3].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
+			}
+			
+			if($i > 0) {
+				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].']]},';
+				$ll = $ll.'['.$var[$j][3].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}, ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]},';
+				}
+			}
+			
+			echo $ll;
+			
+			$ll = "{";
+			$ll = $ll."name: 'RLR', color: 'rgba(200, 110, 150, .5)', data: [";
+			
+			for($j = 0; $j < $i ; $j++) {
+				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].'], ';
+				$ll = $ll.'['.$var[$j][2].', ';
+				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].'], ';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.'], ';
+				}
+			}
+			
+			if($i > 0) {
+				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].']]}]';
+				$ll = $ll.'['.$var[$j][2].', ';
+				$len = strlen($var[$j][0])-1;
+				if($len == 1)
+					$ll = $ll.$var[$j][0][1].']]}]';
+				else {
+					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
+					$ll = $ll.$sum.']]}]';
+				}
+			}
+			
+			echo $ll;
+			
+			echo "});}";
+		}
+		?>
+
+
+
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+		/* ********************************************************************************************************************************** */
+
+		
+		
 		</script>
 		
 		
@@ -390,7 +656,7 @@ input[type=range]:focus::-ms-fill-upper {
 		
 		
 	</head>
-	<body>
+	<body onload="drawChart();">
 	<div class="row">
         <div class="col-lg-12">
 			<center><h1 class="page-header">SPAS v1.1 &nbsp; &nbsp; Welcome <?php echo $loginFacName ?> <br />Dashboard</h1></center>
@@ -464,6 +730,30 @@ input[type=range]:focus::-ms-fill-upper {
 	<br />
 	
 	<div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+	<br />
+	
+	<center>
+		Select USN :
+		<select id="selectUSN" name="v" onchange="sendInfo2();">
+			<!--<option value="" selected="selected"></option>-->
+		<?php
+	
+			$sql = "SELECT usn FROM student";
+		
+			$mydata = mysql_query($sql,$con);
+		
+			while($res = mysql_fetch_array($mydata)) {
+				echo '<option value='.$res['usn'].'>'.$res['usn'].'</option>';
+			}
+	
+		?>
+		</select>
+	</center>
+	
+	<br />
+	<div id="container2" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+	<br />
+	
 	<br />
 	<div class="row">
 				
