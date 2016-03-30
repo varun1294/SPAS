@@ -7,10 +7,34 @@
 	
 	$stdPtrInFile = $_SESSION['stdPtrInFile'];
 	$rArray = $_SESSION['rArray'];
+	$rArrayDF = $_SESSION['rArrayDF'];
+	$rArrayVLR = $_SESSION['rArrayVLR'];
+	$rArrayRLR = $_SESSION['rArrayRLR'];
+	$loginStdSlNo = $_SESSION['loginStdSlNo'];
+	$loginUsn = $_SESSION['loginUsn'];
 	
-	$loginUsn = "2sd12cs133";
+	$loginStdSlNo--;
+	
+	$rArrayDFCluster = $_SESSION['rArrayDFCluster'];
+	$rArrayVLRCluster = $_SESSION['rArrayVLRCluster'];
+	$rArrayRLRCluster = $_SESSION['rArrayRLRCluster'];
+	$rArrayALLCluster = $_SESSION['rArrayALLCluster'];
+	
 	$currentMonth = 1;
 	$currentYear = "2016";
+	
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("SPAS",$con);
+	
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
 	
 	$actDF = array();
 	$actRLR = array();
@@ -208,14 +232,14 @@
 	$dummy = $dummy."Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
-            label: \"Download Sales\",
-            value: 12
+            label: \"Discussion Forum\",
+            value: ".$rArrayDF[$loginStdSlNo]."
         }, {
-            label: \"In-Store Sales\",
-            value: 30
+            label: \"RLR\",
+            value: ".$rArrayRLR[$loginStdSlNo]."
         }, {
-            label: \"Mail-Order Sales\",
-            value: 20
+            label: \"VLR\",
+            value: ".$rArrayVLR[$loginStdSlNo]."
         }],
         resize: true
     });
@@ -223,37 +247,83 @@
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-            y: '2006',
-            a: 100,
-            b: 90
+            y: 'DF',
+            a: ".$rArrayDF[$loginStdSlNo].",
+            b: ";
+			
+			if($rArrayDFCluster[$loginStdSlNo] == 1) {
+				$ss = round($rArrayDFCluster[$totalNoOfStds]);
+				$dummy = $dummy.$ss;
+			}
+			else if($rArrayDFCluster[$loginStdSlNo] == 2) {
+				$ss = round($rArrayDFCluster[$totalNoOfStds + 1]);
+				$dummy = $dummy.$ss;
+			}
+			else {
+				$ss = round($rArrayDFCluster[$totalNoOfStds + 2]);
+				$dummy = $dummy.$ss;
+			}			
+	$dummy = $dummy."
         }, {
-            y: '2007',
-            a: 75,
-            b: 65
+            y: 'RLR',
+            a: ".$rArrayRLR[$loginStdSlNo].",
+            b: ";
+			
+			if($rArrayRLRCluster[$loginStdSlNo] == 1) {
+				$ss = round($rArrayRLRCluster[$totalNoOfStds]);
+				$dummy = $dummy.$ss;
+			}
+			else if($rArrayRLRCluster[$loginStdSlNo] == 2) {
+				$ss = round($rArrayRLRCluster[$totalNoOfStds + 1]);
+				$dummy = $dummy.$ss;
+			}
+			else {
+				$ss = round($rArrayRLRCluster[$totalNoOfStds + 2]);
+				$dummy = $dummy.$ss;
+			}
+			
+	$dummy = $dummy."
         }, {
-            y: '2008',
-            a: 50,
-            b: 40
+            y: 'VLR',
+            a: ".$rArrayVLR[$loginStdSlNo].",
+            b: ";
+			
+			if($rArrayVLRCluster[$loginStdSlNo] == 1) {
+				$ss = round($rArrayVLRCluster[$totalNoOfStds]);
+				$dummy = $dummy.$ss;
+			}
+			else if($rArrayVLRCluster[$loginStdSlNo] == 2) {
+				$ss = round($rArrayVLRCluster[$totalNoOfStds + 1]);
+				$dummy = $dummy.$ss;
+			}
+			else {
+				$ss = round($rArrayVLRCluster[$totalNoOfStds + 2]);
+				$dummy = $dummy.$ss;
+			}
+	/*$dummy = $dummy."		
         }, {
-            y: '2009',
-            a: 75,
-            b: 65
-        }, {
-            y: '2010',
-            a: 50,
-            b: 40
-        }, {
-            y: '2011',
-            a: 75,
-            b: 65
-        }, {
-            y: '2012',
-            a: 100,
-            b: 90
+            y: 'ALL',
+            a: ".$rArrayALLCluster[$loginStdSlNo].",
+            b: ";
+			
+			if($rArrayALLCluster[$loginStdSlNo] == 1) {
+				$ss = round($rArrayALLCluster[$totalNoOfStds]);
+				$dummy = $dummy.$ss;
+			}
+			else if($rArrayALLCluster[$loginStdSlNo] == 2) {
+				$ss = round($rArrayALLCluster[$totalNoOfStds + 1]);
+				$dummy = $dummy.$ss;
+			}
+			else {
+				$ss = round($rArrayALLCluster[$totalNoOfStds + 2]);
+				$dummy = $dummy.$ss;
+			}*/
+			
+	$dummy = $dummy."
         }],
         xkey: 'y',
         ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
+        labels: ['Your Activity', 'Cluster Activity'],
         hideHover: 'auto',
         resize: true
     });

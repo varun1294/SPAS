@@ -22,9 +22,9 @@
 	$totalWeeklyActDF = $_SESSION['totalWeeklyActDF'];
 	$totalWeeklyActRLR = $_SESSION['totalWeeklyActRLR'];
 	$totalWeeklyActVLR = $_SESSION['totalWeeklyActVLR'];
-	$activeAssigns = $_SESSION['activeAssigns'];
+	/*$activeAssigns = $_SESSION['activeAssigns'];
 	$assignDaysRemPer = $_SESSION['assignDaysRemPer'];
-	$barColor = $_SESSION['barColor'];
+	$barColor = $_SESSION['barColor'];*/
 	$loginName = $_SESSION['loginName'];
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
@@ -696,11 +696,10 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="panel panel-default">
+                    <!--<div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
                                 <li>
@@ -805,8 +804,8 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- /.panel-body -->
-                    </div>
+                        
+                    </div>-->
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-8 -->
@@ -850,16 +849,15 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Your Activities
                         </div>
                         <div class="panel-body">
                             <div id="morris-donut-chart"></div>
-                            <a href="#" class="btn btn-default btn-block">View Details</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="chat-panel panel panel-default">
+                    <!--<div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
                             Chat
@@ -897,7 +895,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat">
                                 <li class="left clearfix">
@@ -963,7 +960,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
                                 <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
@@ -973,9 +969,8 @@
                                     </button>
                                 </span>
                             </div>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
+                        </div> 
+                    </div>-->
                     <!-- /.panel .chat-panel -->
                 </div>
                 <!-- /.col-lg-4 -->

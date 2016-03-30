@@ -40,6 +40,11 @@
 	$arr[0][4] = "Points";
 	$arr[0][5] = "Negative_Points";
 	
+	for($m = 1; $m < $totalNoOfStds+1; $m++) {
+		for($n = 0; $n < 7; $n++)
+			$arr[$m][$n] = 0;
+	}
+	
 	$i = 1;
 	while($res = mysql_fetch_array($mydata)) {
 		$usn = $res['usn'];

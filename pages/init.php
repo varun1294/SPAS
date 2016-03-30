@@ -1,19 +1,73 @@
 <?php
 	
-	$loginUsn = "2sd12cs010";
-	$month = "2016-01";
-	$loginName = "Varun";
-	//$loginStdSlNo = 3;
-	$semCurrentWeek = 1;
-	$totalNoOfStds = 10;
-	
 	if(!isset($_SESSION)) { 
 		session_start(); 
 	}
 	
+	$loginUsn = $_SESSION['loginUsn'];
+	$month = "2016-01";
+	$loginName = 	$_SESSION['loginName'];
+	
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+
+	mysql_select_db("SPAS",$con);
+	
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
+	
+	/* Due to some reason below code makes the file to go to infinite loop. Should figure out why */
+	/* ****************************************************************************************** */
+	/*$sql = "SELECT count(*) FROM activity WHERE act='' and usn='2sd12cs001'";
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	$gg = $res['count(*)'];
+	$gg = 112 - $gg;
+	
+	if($gg >= 1 && $gg <= 7)
+		$semCurrentWeek = 1;
+	else if($gg >= 8 && $gg <= 14)
+		$semCurrentWeek = 2;
+	else if($gg >= 15 && $gg <= 21)
+		$semCurrentWeek = 3;
+	else if($gg >= 22 && $gg <= 28)
+		$semCurrentWeek = 4;
+	else if($gg >= 29 && $gg <= 35)
+		$semCurrentWeek = 5;
+	else if($gg >= 36 && $gg <= 42)
+		$semCurrentWeek = 6;
+	else if($gg >= 43 && $gg <= 49)
+		$semCurrentWeek = 7;
+	else if($gg >= 50 && $gg <= 56)
+		$semCurrentWeek = 8;
+	else if($gg >= 57 && $gg <= 63)
+		$semCurrentWeek = 9;
+	else if($gg >= 64 && $gg <= 70)
+		$semCurrentWeek = 10;
+	else if($gg >= 71 && $gg <= 77)
+		$semCurrentWeek = 11;
+	else if($gg >= 78 && $gg <= 84)
+		$semCurrentWeek = 12;
+	else if($gg >= 85 && $gg <= 91)
+		$semCurrentWeek = 13;
+	else if($gg >= 92 && $gg <= 98)
+		$semCurrentWeek = 14;
+	else if($gg >= 99 && $gg <= 105)
+		$semCurrentWeek = 15;
+	else
+		$semCurrentWeek = 16;*/
+	/* ****************************************************************************************** */
+		
+	$semCurrentWeek = 1;
+	
 	$loginStdSlNo = $_SESSION['loginStdSlNo'];
 	
-	echo '$loginStdSlNo : '.$loginStdSlNo.'<br />';
+	echo 'loginStdSlNo : '.$loginStdSlNo.'<br />';
 	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)

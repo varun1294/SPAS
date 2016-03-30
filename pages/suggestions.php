@@ -7,8 +7,7 @@
 	
 	//include("init.php");
 	
-	//$loginUsn = $_SESSION['loginUsn'];
-	$loginUsn = "2sd12cs010";
+	$loginUsn = $_SESSION['loginUsn'];
 	$rArrayDFCluster = $_SESSION['rArrayDFCluster'];
 	$rArrayVLRCluster = $_SESSION['rArrayVLRCluster'];
 	$rArrayRLRCluster = $_SESSION['rArrayRLRCluster'];

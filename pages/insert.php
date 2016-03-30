@@ -17,19 +17,7 @@
 			echo 'fail<br />';
 	}*/
 	
-	$sql = "DELETE FROM activity WHERE usn = '2sd12cs042'";
-	if(mysql_query($sql,$con))
-		echo 'success<br />';
-	else
-		echo 'fail<br />';
-		
-	$sql = "DELETE FROM student WHERE usn = '2sd12cs042'";
-	if(mysql_query($sql,$con))
-		echo 'success<br />';
-	else
-		echo 'fail<br />';
-		
-	$sql = "DELETE FROM studentsess WHERE usn = '2sd12cs042'";
+	$sql = "DELETE FROM studenttopicdist WHERE actsdf = 0";
 	if(mysql_query($sql,$con))
 		echo 'success<br />';
 	else
