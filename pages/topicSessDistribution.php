@@ -63,12 +63,28 @@
 		echo '<br /><br />';
 	}
 	
-	$randArr = array();
+	$randArr1 = array();
+	$randArr2 = array();
+	$randArr3 = array();
 	
 	$sum = 0;
 	for($k = 0; $k < $count; $k++) {
 		$r = rand(2,9);
-		$randArr[$k] = $r;
+		$randArr1[$k] = $r;
+		$sum += $r;
+	}
+	
+	$sum = 0;
+	for($k = 0; $k < $count; $k++) {
+		$r = rand(2,9);
+		$randArr2[$k] = $r;
+		$sum += $r;
+	}
+	
+	$sum = 0;
+	for($k = 0; $k < $count; $k++) {
+		$r = rand(2,9);
+		$randArr3[$k] = $r;
 		$sum += $r;
 	}
 	
@@ -84,13 +100,13 @@
 		
 		for($k = 0; $k < $count; $k++) {
 			
-			$r = ($randArr[$k]/$sum) * $rArrayDF[$i];
+			$r = ($randArr1[$k]/$sum) * $rArrayDF[$i];
 			$partsDF[$k] = intval($r);
 			
-			$r = ($randArr[$k]/$sum) * $rArrayRLR[$i];
+			$r = ($randArr2[$k]/$sum) * $rArrayRLR[$i];
 			$partsRLR[$k] = intval($r);
 			
-			$r = ($randArr[$k]/$sum) * $rArrayVLR[$i];
+			$r = ($randArr3[$k]/$sum) * $rArrayVLR[$i];
 			$partsVLR[$k] = intval($r);
 			
 			$r1 = $var[$k][0];

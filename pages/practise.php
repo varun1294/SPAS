@@ -1,355 +1,72 @@
+<?php
 
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
+	$loginUsn = '2sd12cs001';
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
 
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<style type="text/css">
-${demo.css}
-		</style>
-		<script type="text/javascript">
-$(function () {
-	alert("Call");
-    $('#container1').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
-        },
-        xAxis: {
-            title: {
-                enabled: true,
-                text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-        },
-        yAxis: {
-            title: {
-                text: 'Weight (kg)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
-                    states: {
-                        hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
-                        }
-                    }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
-                }
-            }
-        },
-        series: [{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',
-            data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6]]
-
-        }, {
-            name: 'VLR',
-            color: 'rgba(119, 152, 191, .5)',
-            data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],[180.3, 83.2], [180.3, 83.2]]
-        }, {
-			name: 'RLR',
-			color: 'rgba(200, 110, 150, .5)',
-			data: [[162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
-                [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3]]
-		}]
-    });
-});
-
-$(function () {
-    $('#container2').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
-        },
-        xAxis: {
-            title: {
-                enabled: true,
-                text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-        },
-        yAxis: {
-            title: {
-                text: 'Weight (kg)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
-                    states: {
-                        hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
-                        }
-                    }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
-                }
-            }
-        },
-        series: [{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',
-            data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6]]
-
-        }]
-    });
-});
-
-
-$(function () {
-    $('#container3').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
-        },
-        xAxis: {
-            title: {
-                enabled: true,
-                text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-        },
-        yAxis: {
-            title: {
-                text: 'Weight (kg)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
-                    states: {
-                        hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
-                        }
-                    }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
-                }
-            }
-        },
-        series: [/*{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',
-            data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6]]
-
-        } */{
-            name: 'VLR',
-            color: 'rgba(119, 152, 191, .5)',
-            data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],[180.3, 83.2], [180.3, 83.2]]
-        } /*{
-			name: 'RLR',
-			color: 'rgba(200, 110, 150, .5)',
-			data: [[162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
-                [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3]]
-		}*/]
-    });
-});
-
-
-$(function () {
-    $('#container4').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
-        },
-        xAxis: {
-            title: {
-                enabled: true,
-                text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-        },
-        yAxis: {
-            title: {
-                text: 'Weight (kg)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
-                    states: {
-                        hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
-                        }
-                    }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
-                }
-            }
-        },
-        series: [/*{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',
-            data: [[161.2, 51.6], [167.5, 59.0], [159.5, 49.2], [157.0, 63.0], [155.8, 53.6]]
-
-        } {
-            name: 'VLR',
-            color: 'rgba(119, 152, 191, .5)',
-            data: [[174.0, 65.6], [175.3, 71.8], [193.5, 80.7], [186.5, 72.6], [187.2, 78.8],[180.3, 83.2], [180.3, 83.2]]
-        } */{
-			name: 'RLR',
-			color: 'rgba(200, 110, 150, .5)',
-			data: [[162.1, 53.6], [170.0, 73.2], [160.2, 52.1], [161.3, 67.9], [166.4, 56.6],
-                [168.9, 62.3], [163.8, 58.5], [167.6, 54.5], [160.0, 50.2], [161.3, 60.3]]
-		}]
-    });
-});
-
-
-	function toggle_visibility() {
-		var e = document.getElementById('container1');
-		if(e.style.display == 'block') {
-			e.style.display = 'none';
-		}
-		else {
-			e.style.display = 'block';
-		}
-   }
-   
-	var toggle = true;
-	function dummy() {
-		var e = document.getElementById('container2');
-		if(toggle) {
-			e.style.display = 'none';
-			toggle = false;
-		}
-		else {
-			e.style.display = 'block';
-			toggle = true;
-		}
+	mysql_select_db("SPAS",$con);
+	
+	$sql = "SELECT DISTINCT(courseid) FROM topiccoverage WHERE coverage != 1";
+	
+	$mydata = mysql_query($sql,$con);
+	
+	$courseIds = array();
+	$i = 0;
+	while($res = mysql_fetch_array($mydata)) {
+		$courseIds[$i++] = $res['courseid'];
 	}
+	
+	$maxDFTopic = array();
+	$maxRLRTopic = array();
+	$maxVLRTopic = array();
+	
+	for($j = 0; $j < $i; $j++) {
+		$var = $courseIds[$j];
+		
+		/* To Select Topic Which Has MAXIMUM DF Activity On It */
+		$sql = "SELECT courseid, topic 
+				FROM studenttopicdist 
+				WHERE actsdf =(
+					SELECT max(actsdf) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+				)";
+	
+		$mydata = mysql_query($sql,$con);
+		$res = mysql_fetch_array($mydata);
+	
+		$maxDFTopic[$j][0] = $res['courseid'];
+		$maxDFTopic[$j][1] = $res['topic'];
+		
+		/* To Select Topic Which Has MAXIMUM RLR Activity On It */
+		$sql = "SELECT courseid, topic 
+				FROM studenttopicdist 
+				WHERE actsrlr =(
+					SELECT max(actsrlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+				)";
 
-		</script>
-	</head>
-	<body onload="dummy()">
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<div id="container1" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
-<div id="container2" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
-<div id="container3" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
-<div id="container4" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+		$mydata = mysql_query($sql,$con);
+		$res = mysql_fetch_array($mydata);
+	
+		$maxRLRTopic[$j][0] = $res['courseid'];
+		$maxRLRTopic[$j][1] = $res['topic'];
+		
+		/* To Select Topic Which Has MAXIMUM VLR Activity On It */
+		$sql = "SELECT courseid, topic 
+				FROM studenttopicdist 
+				WHERE actsvlr =(
+					SELECT max(actsvlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+				)";
 
-	<input type="button" value="Toggle" onclick="function();">
-	</body>
-</html>
+		$mydata = mysql_query($sql,$con);
+		$res = mysql_fetch_array($mydata);
+	
+		$maxVLRTopic[$j][0] = $res['courseid'];
+		$maxVLRTopic[$j][1] = $res['topic'];
+	}
+	
+	$_SESSION['maxDFTopic'] = $maxDFTopic;
+	$_SESSION['maxRLRTopic'] = $maxRLRTopic;
+	$_SESSION['maxVLRTopic'] = $maxVLRTopic;
+	$_SESSION['maxTopicCount'] = $j;
+
+?>

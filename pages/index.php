@@ -14,17 +14,11 @@
 	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
-	/*$totalDF = $_SESSION['totalDF'];
-	$totalQuesDF = $_SESSION['totalQuesDF'];
-	$totalRepDF = $_SESSION['totalRepDF'];
-	$totalCommDF = $_SESSION['totalCommDF'];*/
+
 	$totalWeeklyAct = $_SESSION['totalWeeklyAct'];
 	$totalWeeklyActDF = $_SESSION['totalWeeklyActDF'];
 	$totalWeeklyActRLR = $_SESSION['totalWeeklyActRLR'];
 	$totalWeeklyActVLR = $_SESSION['totalWeeklyActVLR'];
-	/*$activeAssigns = $_SESSION['activeAssigns'];
-	$assignDaysRemPer = $_SESSION['assignDaysRemPer'];
-	$barColor = $_SESSION['barColor'];*/
 	$loginName = $_SESSION['loginName'];
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
@@ -33,6 +27,11 @@
 	$suggCount = $_SESSION['suggCount'];
 	$sugg2 = $_SESSION['sugg2'];
 	$sugg2Counter = $_SESSION['sugg2Counter'];
+	
+	$maxDFTopic = $_SESSION['maxDFTopic'];
+	$maxRLRTopic = $_SESSION['maxRLRTopic'];
+	$maxVLRTopic = $_SESSION['maxVLRTopic'];
+	$maxTopicCount = $_SESSION['maxTopicCount'];
 	
 	/* ************* */
 	
@@ -359,6 +358,18 @@
 										$sug = $sug.'</a>';
 							
 										echo $sug;
+									}
+									echo '<br />';
+									
+									for($i = 0; $i < $maxTopicCount; $i++) {
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in DF : <font color="#74743A"><strong>'.$maxDFTopic[$i][1].'</font></strong> of Chapter : <font color="#74743A"><strong>'.$maxDFTopic[$i][0].'</strong></font>';
+										
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in RLR : <font color="#74743A"><strong>'.$maxRLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxRLRTopic[$i][0].'</strong></font>';
+										
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in VLR : <font color="#74743A"><strong>'.$maxVLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxVLRTopic[$i][0].'</strong></font>';
 									}
 								?>
 								</div>
