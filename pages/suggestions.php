@@ -38,18 +38,113 @@
 
 	mysql_select_db("spas",$con);
 	
-	/*$arr[$arrCount++] = 'You are in Cluster '.$rArrayDFCluster[$loginStdSlNo-1].'of DF';
-	$arr[$arrCount++] = 'You are in Cluster '.$rArrayRLRCluster[$loginStdSlNo-1].'of RLR';
-	$arr[$arrCount++] = 'You are in Cluster '.$rArrayVLRCluster[$loginStdSlNo-1].'of VLR';*/
+	$clusterZone = array();
+	$clusterZone1 = array();
+	$clusterZone2 = array();
+	$clusterZone3 = array();
+	
+	$clusterZone1[0] = $rArrayDFCluster[$totalNoOfStds];
+	$clusterZone1[1] = $rArrayDFCluster[$totalNoOfStds+1];
+	$clusterZone1[2] = $rArrayDFCluster[$totalNoOfStds+2];
+	
+	$clusterZone2[0] = $rArrayRLRCluster[$totalNoOfStds];
+	$clusterZone2[1] = $rArrayRLRCluster[$totalNoOfStds+1];
+	$clusterZone2[2] = $rArrayRLRCluster[$totalNoOfStds+2];
+	
+	$clusterZone3[0] = $rArrayVLRCluster[$totalNoOfStds];
+	$clusterZone3[1] = $rArrayVLRCluster[$totalNoOfStds+1];
+	$clusterZone3[2] = $rArrayVLRCluster[$totalNoOfStds+2];
+	
+	sort($clusterZone1);
+	sort($clusterZone2);
+	sort($clusterZone3);
+	
+	for($i = $totalNoOfStds, $j = 0; $j < 3; $j++,$i++) {
+		if($rArrayDFCluster[$i] == $clusterZone1[0]) {
+			$clusterZone[$j][0] = $j+1;
+			$clusterZone[$j][1] = 'UNSAFE';
+			$clusterZone[$j][2] = 'RED';
+		}
+		else if($rArrayDFCluster[$i] == $clusterZone1[1]) {
+			$clusterZone[$j][0] = $j+1;
+			$clusterZone[$j][1] = 'MODERATELY SAFE';
+			$clusterZone[$j][2] = 'YELLOW';
+		}
+		else {
+			$clusterZone[$j][1] = 'SAFE';
+			$clusterZone[$j][0] = $j+1;
+			$clusterZone[$j][2] = 'GREEN';
+		}
+	}
+	
+	for($i = $totalNoOfStds, $j = 0; $j < 3; $j++,$i++) {
+		if($rArrayRLRCluster[$i] == $clusterZone2[0]) {
+			$clusterZone[$j+3][0] = $j+1;
+			$clusterZone[$j+3][1] = 'UNSAFE';
+			$clusterZone[$j+3][2] = 'RED';
+		}
+		else if($rArrayRLRCluster[$i] == $clusterZone2[1]) {
+			$clusterZone[$j+3][0] = $j+1;
+			$clusterZone[$j+3][1] = 'MODERATELY SAFE';
+			$clusterZone[$j+3][2] = 'YELLOW';
+		}
+		else {
+			$clusterZone[$j+3][1] = 'SAFE';
+			$clusterZone[$j+3][0] = $j+1;
+			$clusterZone[$j+3][2] = 'GREEN';
+		}
+	}
+	
+	for($i = $totalNoOfStds, $j = 0; $j < 3; $j++,$i++) {
+		if($rArrayVLRCluster[$i] == $clusterZone3[0]) {
+			$clusterZone[$j+6][0] = $j+1;
+			$clusterZone[$j+6][1] = 'UNSAFE';
+			$clusterZone[$j+6][2] = 'RED';
+		}
+		else if($rArrayVLRCluster[$i] == $clusterZone3[1]) {
+			$clusterZone[$j+6][0] = $j+1;
+			$clusterZone[$j+6][1] = 'MODERATELY SAFE';
+			$clusterZone[$j+6][2] = 'YELLOW';
+		}
+		else {
+			$clusterZone[$j+6][1] = 'SAFE';
+			$clusterZone[$j+6][0] = $j+1;
+			$clusterZone[$j+6][2] = 'GREEN';
+		}
+	}
 	
 	/* ************************************************* Basic Suggestions in DF ************************************************** */
 		$var = 'You are in ';
-		if($rArrayDFCluster[$loginStdSlNo-1] == 1)
-			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of DF';
-		else if($rArrayDFCluster[$loginStdSlNo-1] == 2)
-			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of DF';
-		else
-			$var = $var.'<font color="green"><strong>SAFE</strong></font> Cluster of DF';
+		if($rArrayDFCluster[$loginStdSlNo-1] == 1) {
+			for($j = 0; $j < 3; $j++) {
+				if($clusterZone[$j][0] == 1) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of DF';
+		}
+		else if($rArrayDFCluster[$loginStdSlNo-1] == 2) {
+			for($j = 0; $j < 3; $j++) {
+				if($clusterZone[$j][0] == 2) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of DF';
+		}
+		else {
+			for($j = 0; $j < 3; $j++) {
+				if($clusterZone[$j][0] == 3) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of DF';
+		}
 		$var = $var.' Performing ';
 		
 		$dummy = $rArrayDF[$loginStdSlNo-1] / $rArrayDFCluster[$totalNoOfStds + $rArrayDFCluster[$loginStdSlNo-1]-1];
@@ -67,12 +162,38 @@
 	
 	/* ************************************************* Basic Suggestions in RLR ************************************************* */
 		$var = 'You are in ';
-		if($rArrayRLRCluster[$loginStdSlNo-1] == 1)
-			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of RLR';
-		else if($rArrayRLRCluster[$loginStdSlNo-1] == 2)
-			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of RLR';
-		else
-			$var = $var.'<font color="green"><strong>SAFE</strong></font> Cluster of RLR';
+		if($rArrayRLRCluster[$loginStdSlNo-1] == 1) {
+			print_r($clusterZone[3]);
+			echo '<br />';
+			for($j = 3; $j < 6; $j++) {
+				if($clusterZone[$j][0] == 1) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of RLR';
+		}
+		else if($rArrayRLRCluster[$loginStdSlNo-1] == 2) {
+			for($j = 3; $j < 6; $j++) {
+				if($clusterZone[$j][0] == 2) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of RLR';
+		}
+		else {
+			for($j = 3; $j < 6; $j++) {
+				if($clusterZone[$j][0] == 3) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of RLR';
+		}
 		$var = $var.' Performing ';
 		
 		$dummy = $rArrayRLR[$loginStdSlNo-1] / $rArrayRLRCluster[$totalNoOfStds + $rArrayRLRCluster[$loginStdSlNo-1]-1];
@@ -88,14 +209,38 @@
 		$loggedInStdCluster[1] = $rArrayRLRCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
 	
-	/* ************************************************* Basic Suggestions in RLR ************************************************* */
+	/* ************************************************* Basic Suggestions in VLR ************************************************* */
 		$var = 'You are in ';
-		if($rArrayVLRCluster[$loginStdSlNo-1] == 1)
-			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster of VLR';
-		else if($rArrayVLRCluster[$loginStdSlNo-1] == 2)
-			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster of VLR';
-		else
-			$var = $var.'<font color="green"><strong>SAFE</strong></font> Cluster of VLR';
+		if($rArrayVLRCluster[$loginStdSlNo-1] == 1) {
+			for($j = 6; $j < 9; $j++) {
+				if($clusterZone[$j][0] == 1) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of VLR';
+		}
+		else if($rArrayVLRCluster[$loginStdSlNo-1] == 2) {
+			for($j = 6; $j < 9; $j++) {
+				if($clusterZone[$j][0] == 2) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of VLR';
+		}
+		else {
+			for($j = 6; $j < 9; $j++) {
+				if($clusterZone[$j][0] == 3) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster of VLR';
+		}
 		$var = $var.' Performing ';
 		
 		$dummy = $rArrayRLR[$loginStdSlNo-1] / $rArrayVLRCluster[$totalNoOfStds + $rArrayVLRCluster[$loginStdSlNo-1]-1];
@@ -113,12 +258,15 @@
 	
 	/* ************************************************ Basic Suggestions Overall ************************************************* */
 		$var = 'You are in ';
-		if($rArrayALLCluster[$loginStdSlNo-1] == 1)
+		if($rArrayALLCluster[$loginStdSlNo-1] == 1) {
 			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster';
-		else if($rArrayALLCluster[$loginStdSlNo-1] == 2)
+		}
+		else if($rArrayALLCluster[$loginStdSlNo-1] == 2) {
 			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster';
-		else
+		}
+		else {
 			$var = $var.'<font color="green"><strong>SAFE</strong></font> Cluster';
+		}
 		$var = $var.' Performing ';
 		
 		$dummy = $rArrayALL[$loginStdSlNo-1] / $rArrayALLCluster[$totalNoOfStds + $rArrayALLCluster[$loginStdSlNo-1]-1];
@@ -131,9 +279,7 @@
 
 		$_SESSION['overAllPerformance'] = $var;
 		
-		//echo 'Var : '.$var.'<br />';
 		$loggedInStdCluster[3] = $rArrayALLCluster[$loginStdSlNo-1];
-		//echo 'loggedInStdCluster[3]'.$loggedInStdCluster[3].'<br />';
 	/* **************************************************************************************************************************** */
 	
 	$sugg2 = array();

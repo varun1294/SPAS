@@ -81,9 +81,88 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+	<script>
+		var v1 = <?php echo $totalWeeklyActDF ?>;
+		var v2 = <?php echo $totalWeeklyActRLR ?>;
+		var v3 = <?php echo $totalWeeklyActVLR ?>;
+		
+		var sum = 0;
+		var count = 0;
+			
+		var arr = new Array();
+		
+		var res1 = new Array();
+		var res2 = new Array();
+		var res3 = new Array();
+			
+		function randomNum() {
+			for(var i = 0; i < 7; i++) {
+				arr[i] = Math.floor((Math.random() * 10) + 1);
+				sum = sum + arr[i];
+			}
+				
+			j1 = 0;
+			j2 = 0;
+			j3 = 0;
+			
+			for(var i = 0; i < 7; i++) {
+				if(i == 0) {
+					res1[i] = Math.floor((arr[i]/sum) * v1);
+					j1 = j1 + res1[i];
+					
+					res2[i] = Math.floor((arr[i]/sum) * v2);
+					j2 = j2 + res2[i];
+					
+					res3[i] = Math.floor((arr[i]/sum) * v3);
+					j3 = j3 + res3[i];
+				}
+					
+				else if(i == 6) {
+					res1[i] = (v1 - j1) + res1[i-1];
+					res2[i] = (v2 - j2) + res2[i-1];
+					res3[i] = (v3 - j3) + res3[i-1];
+				}
+					
+				else {
+					var f1 = (Math.floor((arr[i]/sum) * v1));
+					res1[i] = f1 + res1[i - 1];
+					j1 = j1 + f1;
+					
+					var f2 = (Math.floor((arr[i]/sum) * v2));
+					res2[i] = f2 + res2[i - 1];
+					j2 = j2 + f2;
+					
+					var f3 = (Math.floor((arr[i]/sum) * v3));
+					res3[i] = f3 + res3[i - 1];
+					j3 = j3 + f3;
+				}
+			}
+				
+			dummy();
+		}
+			
+		function dummy() {
+			document.getElementById('DF_Acts').innerText=res1[count];
+			document.getElementById('RLR_Acts').innerText=res2[count];
+			document.getElementById('VLR_Acts').innerText=res3[count++];
+			
+			myVar = setInterval(myFunction, 250);
+		}
+			
+		function myFunction() {
+			document.getElementById('DF_Acts').innerText=res1[count];
+			document.getElementById('RLR_Acts').innerText=res2[count];
+			document.getElementById('VLR_Acts').innerText=res3[count++];
+				
+			if(count == 7) {
+				clearInterval(myVar);
+			}
+		}
+	</script>
 </head>
 
-<body>
+<body onload="randomNum()">
 
     <div id="wrapper">
 
@@ -491,7 +570,7 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $totalWeeklyActDF ?></div>
+                                    <div class="huge" id="DF_Acts"><?php echo $totalWeeklyActDF ?></div>
                                     <div>DF - Weekly Activities</div>
                                 </div>
                             </div>
@@ -513,7 +592,7 @@
                                     <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $totalWeeklyActRLR ?></div>
+                                    <div class="huge" id="RLR_Acts"><?php echo $totalWeeklyActRLR ?></div>
                                     <div>RLR - Weekly Activities</div>
                                 </div>
                             </div>
@@ -535,7 +614,7 @@
                                     <i class="fa fa-video-camera fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $totalWeeklyActVLR ?></div>
+                                    <div class="huge" id="VLR_Acts"><?php echo $totalWeeklyActVLR ?></div>
                                     <div>VLR - Weekly Activities</div>
                                 </div>
                             </div>

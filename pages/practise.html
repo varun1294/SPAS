@@ -4,57 +4,55 @@
 		<title>SPAS</title>
 		
 		<script>
-			var request;
-function sendInfo() {
-	var v=document.getElementById("v").value;
-	if(v == 1)
-		var d = "2sd12cs001";
-	var url="practise2.php?usn="+d;
-	url = url+"&courseid=CS1";
-	
-	alert(url);
-
-	if(window.XMLHttpRequest) {
-		request=new XMLHttpRequest();
-	}
-
-	else if(window.ActiveXObject) {
-		request=new ActiveXObject("Microsoft.XMLHTTP");
-	}
-
-	try {
-		request.onreadystatechange=getInfo;
-		request.open("GET",url,true);
-		request.send();
-	} catch(e) {
-		alert("Unable to connect to server");
-	}
-}
-
-function getInfo() {
-	if(request.readyState==4){
-		var val=request.responseText;
-		document.write(val);
-		document.getElementById('underInput').innerText=val;
-	}
-}
-
-function dummy() {
-	alert('Varun');
-}
+			var v1 = 250;
+			var sum = 0;
+			var count = 0;
+			
+			var arr = new Array();
+			var res = new Array();
+			
+			function randomNum() {
+				for(var i = 0; i < 7; i++) {
+					arr[i] = Math.floor((Math.random() * 10) + 1);
+					sum = sum + arr[i];
+				}
+				
+				j = 0;
+				for(var i = 0; i < 7; i++) {
+					if(i == 0) {
+						res[i] = Math.floor((arr[i]/sum) * v1);
+						j = j + res[i];
+					}
+					
+					else if(i == 6) {
+						res[i] = (v1 - j) + res[i-1];
+					}
+					
+					else {
+						var f = (Math.floor((arr[i]/sum) * v1));
+						res[i] = f + res[i - 1];
+						j = j + f;
+					}
+				}
+				
+				dummy();
+			}
+			function dummy() {
+				document.getElementById('underInput').innerText=res[count++];
+				myVar = setInterval(myFunction, 300);
+			}
+			
+			function myFunction() {
+				document.getElementById('underInput').innerText=res[count++];
+				
+				if(count == 7) {
+					clearInterval(myVar);
+				}
+			}
 		</script>
 	</head>
 
-	<body>
-		<select id="v" name="v" onchange="sendInfo();">
-			<option value="" selected="selected"></option>
-			<option value="1" >2sd12cs001</option>
-			<option value="1" >2sd12cs002</option>
-		</select>
-		
-		<br />
-		<br />
-		
-		<div id="underInput" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+	<body onload="randomNum()">
+		<div id="underInput"></div>
 	</body> 
 </html> 

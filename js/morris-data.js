@@ -5,19 +5,19 @@
 				element: 'morris-area-chart',
 				data: [{
 				period: '201611',
-				RLR: '197',
-				VLR: '158',
-				DF: '123'
+				RLR: '205',
+				VLR: '134',
+				DF: '93'
 			},{
 				period: '201612',
-				RLR: '119',
-				VLR: '174',
-				DF: '147'
+				RLR: '115',
+				VLR: '182',
+				DF: '164'
 			},{
 				period: '201613',
 				RLR: '113',
-				VLR: '169',
-				DF: '189'
+				VLR: '144',
+				DF: '86'
 			},{
 				period: '201614',
 				RLR: '0',
@@ -34,15 +34,15 @@
         element: 'morris-donut-chart',
         data: [{
             label: "Discussion Forum",
-            value: 459
+            value: 343
 
         }, {
             label: "RLR",
-            value: 429
+            value: 433
 
         }, {
             label: "VLR",
-            value: 501
+            value: 460
 
         }],
         resize: true
@@ -52,19 +52,19 @@
         element: 'morris-bar-chart',
         data: [{
             y: 'DF',
-            a: 459
+            a: 343
 ,
-            b: 490
+            b: 354
         }, {
             y: 'RLR',
-            a: 429
+            a: 433
 ,
             b: 440
         }, {
             y: 'VLR',
-            a: 501
+            a: 460
 ,
-            b: 513
+            b: 451
         }],
         xkey: 'y',
         ykeys: ['a', 'b'],

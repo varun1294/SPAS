@@ -221,11 +221,13 @@ while(!(is.na(var$cluster[i]))) {
   cat("\n");
   i = i + 1;
 }
-cat(var$centers[1])
-cat("\n");
-cat(var$centers[2])
-cat("\n");
-cat(var$centers[3])
+
+    cat(var$centers[1])
+    cat("\n");
+    cat(var$centers[2])
+    cat("\n");
+    cat(var$centers[3])
+
 sink()
 
 var <- kmeans(stdActRLR,3)
@@ -237,11 +239,13 @@ while(!(is.na(var$cluster[i]))) {
   cat("\n");
   i = i + 1;
 }
-cat(var$centers[1])
-cat("\n");
-cat(var$centers[2])
-cat("\n");
-cat(var$centers[3])
+
+  cat(var$centers[1])
+  cat("\n");
+  cat(var$centers[2])
+  cat("\n");
+  cat(var$centers[3])
+  
 sink()
 
 var <- kmeans(stdActVLR,3)
@@ -253,11 +257,13 @@ while(!(is.na(var$cluster[i]))) {
   cat("\n");
   i = i + 1;
 }
-cat(var$centers[1])
-cat("\n");
-cat(var$centers[2])
-cat("\n");
-cat(var$centers[3])
+
+  cat(var$centers[1])
+  cat("\n");
+  cat(var$centers[2])
+  cat("\n");
+  cat(var$centers[3])
+
 sink()
 
 stdActX$V1
@@ -279,9 +285,11 @@ while(!(is.na(var$cluster[i]))) {
   cat("\n");
   i = i + 1;
 }
-cat(var$centers[1])
-cat("\n");
-cat(var$centers[2])
-cat("\n");
-cat(var$centers[3])
+
+  cat(var$centers[1])
+  cat("\n");
+  cat(var$centers[2])
+  cat("\n");
+  cat(var$centers[3])
+
 sink()

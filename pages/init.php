@@ -167,6 +167,13 @@
 			$allAct--;
 		/* ***************************** */
 		
+		/*echo 'DF : <br />';
+		print_r($rArrayDFCluster);
+		echo '<br /> RLR : <br />';
+		print_r($rArrayRLRCluster);
+		echo '<br /> VLR : <br />';
+		print_r($rArrayVLRCluster);*/
+		
 	/* ************************************************************************************************************** */
 	
 	/* Point to logged-in std's activity in R-Results */
