@@ -1,188 +1,109 @@
 <?php
 
-	$loginUsn = "2sd12cs133";
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("SPAS",$con);
+	
+	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
+	
+	$mydata = mysql_query($sql,$con);
+	$res = mysql_fetch_array($mydata);
+	
+	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
 	
 	require_once 'Classes/PHPExcel.php';
 	$objPHPExcel = new PHPExcel(); 
 
-	$objPHPExcel->setActiveSheetIndex(0);
-
-	$totalRegisteredStudents = 25;
-	$totalVariables = 22;
+	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	if(!$con)
+		die("Reason : ".mysql_error());
+               
+	mysql_select_db("spas",$con);
 	
-	$dummy = array();
+	$sql = $sql = "SELECT * FROM activity ORDER BY usn,day";
 	
-	/* 2D array to generate CSV File */
-	$arr = array($dummy,$dummy,$dummy,$dummy,$dummy,
-				 $dummy,$dummy,$dummy,$dummy,$dummy,
-				 $dummy,$dummy,$dummy,$dummy,$dummy,
-				 $dummy,$dummy,$dummy,$dummy,$dummy,
-				 $dummy);
-				 
-	for($i = 0; $i < $totalRegisteredStudents; $i++)
-		for($j = 0; $j < $totalVariables; $j++)
+	$mydata = mysql_query($sql,$con);
+	
+	$arr = array();
+	
+	
+	for($i = 0; $i < 5; $i++)
+		for($j = 0; $j < $totalNoOfStds; $j++)
 			$arr[$i][$j] = "";
-	$usn = "2sd12cs130";
-	$num = 1;
-	
-	$arr[0][0] = "Consultation_Frequency";
-	$arr[0][1] = "Regularity_Of_Absence";
+			
+	$arr[0][0] = "usn";
+	$arr[0][1] = "Consultation_Frequency";
 	$arr[0][2] = "No_Of_Absents";
 	$arr[0][3] = "Quiz_Marks";
-	$arr[0][4] = "Negative_Points";
-	$arr[0][5] = "Points";
-	$arr[0][6] = "Sessions";
-	$arr[0][7] = "Session_Hours";
-	$arr[0][8] = "Total_Time_Invested_VLR";
-	$arr[0][9] = "Total_No_Of_Videos_Watched";
-	$arr[0][10] = "Total_No_Of_EBooks_Refered";
-	$arr[0][11] = "Total_Annotations_Done";
-	$arr[0][12] = "Total_Time_Invested_RLR";
-	$arr[0][13] = "Total_No_Of_Questions_Raised";
-	$arr[0][14] = "Total_No_Of_Replies";
-	$arr[0][15] = "Total_No_Of_Comments";
-	$arr[0][16] = "Total_Time_Invested_DF";
-	$arr[0][17] = "IA_1_Marks";
-	$arr[0][18] = "IA_2_Marks";
-	$arr[0][19] = "IA_3_Marks";
-	$arr[0][20] = "ESE_Marks";
-	$arr[0][21] = "USN";
+	$arr[0][4] = "Points";
+	$arr[0][5] = "Negative_Points";
 	
-	for($i = 1; $i <= 5; $i++) {
-		for($j = 0; $j < $totalVariables; $j++) {
-			switch($j) {
-				case 0 : $arr[$i][$j]=rand(9,10); break;
-				case 1 : $arr[$i][$j]=rand(15,20); break;
-				case 2 : $arr[$i][$j]=rand(0,2); break;
-				case 3 : $arr[$i][$j]=rand(8,9); break;
-				case 4 : $arr[$i][$j]=rand(0,1); break;
-				case 5 : $arr[$i][$j]=rand(29,32); break;
-				case 6 : $arr[$i][$j]=rand(22,24); break;
-				case 7 : $arr[$i][$j]=rand(1,2); break;
-				case 8 : $arr[$i][$j]=rand(3,4); break;
-				case 9 : $arr[$i][$j]=rand(9,10); break;
-				case 10 : $arr[$i][$j]=rand(13,15); break;
-				case 11 : $arr[$i][$j]=rand(83,100); break;
-				case 12 : $arr[$i][$j]=rand(3,4); break;
-				case 13 : $arr[$i][$j]=rand(8,10); break;
-				case 14 : $arr[$i][$j]=rand(5,6); break;
-				case 15 : $arr[$i][$j]=rand(0,3); break;
-				case 16 : $arr[$i][$j]=rand(3,4); break;
-				case 17 : $arr[$i][$j]=rand(17,18); break;
-				case 18 : $arr[$i][$j]=rand(18,20); break;
-				case 19 : $arr[$i][$j]=rand(17,20); break;
-				case 20 : $arr[$i][$j]=rand(80,95); break;
-				case 21 : $arr[$i][$j]=$usn;$usn++;break;
-			}
-		}
+	for($m = 1; $m < $totalNoOfStds+1; $m++) {
+		for($n = 0; $n < 7; $n++)
+			$arr[$m][$n] = 0;
 	}
 	
-	for($i = 6; $i <= 10; $i++) {
-		for($j = 0; $j < $totalVariables; $j++) {
-			switch($j) {
-				case 0 : $arr[$i][$j]=rand(7,8); break;
-				case 1 : $arr[$i][$j]=rand(11,12); break;
-				case 2 : $arr[$i][$j]=rand(3,4); break;
-				case 3 : $arr[$i][$j]=rand(6,7); break;
-				case 4 : $arr[$i][$j]=rand(0,1); break;
-				case 5 : $arr[$i][$j]=rand(22,24); break;
-				case 6 : $arr[$i][$j]=rand(18,19); break;
-				case 7 : $arr[$i][$j]=rand(1,2); break;
-				case 8 : $arr[$i][$j]=rand(2,3); break;
-				case 9 : $arr[$i][$j]=rand(8,7); break;
-				case 10 : $arr[$i][$j]=rand(10,11); break;
-				case 11 : $arr[$i][$j]=rand(63,77); break;
-				case 12 : $arr[$i][$j]=rand(1,3); break;
-				case 13 : $arr[$i][$j]=rand(7,9); break;
-				case 14 : $arr[$i][$j]=rand(3,4); break;
-				case 15 : $arr[$i][$j]=rand(0,2); break;
-				case 16 : $arr[$i][$j]=rand(1,3); break;
-				case 17 : $arr[$i][$j]=rand(13,14); break;
-				case 18 : $arr[$i][$j]=rand(14,15); break;
-				case 19 : $arr[$i][$j]=rand(13,15); break;
-				case 20 : $arr[$i][$j]=rand(60,79); break;
-				case 21 : $arr[$i][$j]=$usn;$usn++;break;
-			}
+	$i = 1;
+	while($res = mysql_fetch_array($mydata)) {
+		$usn = $res['usn'];
+		
+		$day = $res['day'];
+		$act = $res['act'];
+		
+		$arr[$i][0] = $usn;
+		
+		$arr[$i][$day+6] = $act;
+		
+		$sql = "SELECT max(day) FROM activity WHERE usn = '$usn'";
+		$data = mysql_query($sql,$con);
+		$res = mysql_fetch_array($data);
+		$maxDay = $res[0];
+		
+		for($j = 1; $j < $maxDay; $j++) {
+			$res = mysql_fetch_array($mydata);
+			
+			$act = $res['act'];
+			$day = $res['day'];
+
+			$arr[$i][$day+6] = $act;
 		}
+		
+		$i++;
 	}
 	
-	for($i = 11; $i <= 15; $i++) {
-		for($j = 0; $j < $totalVariables; $j++) {
-			switch($j) {
-				case 0 : $arr[$i][$j]=rand(4,6); break;
-				case 1 : $arr[$i][$j]=rand(8,9); break;
-				case 2 : $arr[$i][$j]=rand(6,7); break;
-				case 3 : $arr[$i][$j]=rand(5,6); break;
-				case 4 : $arr[$i][$j]=rand(0,2); break;
-				case 5 : $arr[$i][$j]=rand(18,20); break;
-				case 6 : $arr[$i][$j]=rand(15,16); break;
-				case 7 : $arr[$i][$j]=rand(1,2); break;
-				case 8 : $arr[$i][$j]=rand(1,3); break;
-				case 9 : $arr[$i][$j]=rand(4,5); break;
-				case 10 : $arr[$i][$j]=rand(7,9); break;
-				case 11 : $arr[$i][$j]=rand(39,50); break;
-				case 12 : $arr[$i][$j]=rand(1,3); break;
-				case 13 : $arr[$i][$j]=rand(4,6); break;
-				case 14 : $arr[$i][$j]=rand(1,2); break;
-				case 15 : $arr[$i][$j]=rand(0,3); break;
-				case 16 : $arr[$i][$j]=rand(1,3); break;
-				case 17 : $arr[$i][$j]=rand(8,10); break;
-				case 18 : $arr[$i][$j]=rand(9,11); break;
-				case 19 : $arr[$i][$j]=rand(8,11); break;
-				case 20 : $arr[$i][$j]=rand(45,69); break;
-				case 21 : $arr[$i][$j]=$usn;$usn++;break;
-			}
-		}
+	$sql = "SELECT DISTINCT day FROM activity";
+	$data = mysql_query($sql,$con);
+	$dayString = "day1";
+	while($res = mysql_fetch_array($data)) {
+		$day = $res['day'];
+		$arr[0][$day+6] = $dayString;
+
+		if(!(strcmp($dayString,"day9")))
+			$dayString = "day10";
+		else if(!(strcmp($dayString,"day99")))
+			$dayString = "day100";
+		else
+			$dayString++;
 	}
 	
-	for($i = 16; $i <= 20; $i++) {
-		for($j = 0; $j < $totalVariables; $j++) {
-			switch($j) {
-				case 0 : $arr[$i][$j]=rand(1,3); break;
-				case 1 : $arr[$i][$j]=rand(4,5); break;
-				case 2 : $arr[$i][$j]=rand(8,9); break;
-				case 3 : $arr[$i][$j]=rand(2,4); break;
-				case 4 : $arr[$i][$j]=rand(0,2); break;
-				case 5 : $arr[$i][$j]=rand(11,13); break;
-				case 6 : $arr[$i][$j]=rand(11,13); break;
-				case 7 : $arr[$i][$j]=rand(1,2); break;
-				case 8 : $arr[$i][$j]=rand(1,4); break;
-				case 9 : $arr[$i][$j]=rand(2,3); break;
-				case 10 : $arr[$i][$j]=rand(1,4); break;
-				case 11 : $arr[$i][$j]=rand(18,20); break;
-				case 12 : $arr[$i][$j]=rand(1,4); break;
-				case 13 : $arr[$i][$j]=rand(0,2); break;
-				case 14 : $arr[$i][$j]=rand(0,1); break;
-				case 15 : $arr[$i][$j]=rand(0,2); break;
-				case 16 : $arr[$i][$j]=rand(1,4); break;
-				case 17 : $arr[$i][$j]=rand(4,6); break;
-				case 18 : $arr[$i][$j]=rand(5,8); break;
-				case 19 : $arr[$i][$j]=rand(4,8); break;
-				case 20 : $arr[$i][$j]=rand(35,42); break;
-				case 21 : $arr[$i][$j]=$usn;$usn++;break;
-			}
-		}
-	}
+	/*for($i = 0; $i < 10; $i++) {
+		print_r($arr);
+		echo '<br /><br /><br /><br /><br />';
+	}*/
 	
-	for($i=0, $column='A', $rowCount = 1; $i < $totalRegisteredStudents; $i++, $rowCount++) {
-		for($j = 0; $j < $totalVariables; $j++,$column++) {
+	$objPHPExcel->setActiveSheetIndex(0);
+	for($i=0, $column='A', $rowCount = 1; $i < $totalNoOfStds+1; $i++, $rowCount++) {
+		for($j = 0; $j < 119; $j++,$column++) {
+			//if($j == 1)
+				//$j = 7;
 			$objPHPExcel->getActiveSheet()->setCellValue($column.$rowCount, $arr[$i][$j]);
 		}
 		$column='A';
-	}	 
+	}
 
 	$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5'); 
-	$objWriter->save('C:\xampp\htdocs\SPAS\pages\RScripts\data.xls');
-	
-	if(!isset($_SESSION)) 
-	{ 
-		session_start(); 
-	}
-	
-	for($i = 0; $i < $totalRegisteredStudents; $i++) {
-		if($arr[$i][21] == $loginUsn) {
-			$_SESSION['loginStdCSVData'] = $arr[$i];
-			break;
-		}
-	}
+	$objWriter->save('C:\xampp\htdocs\SPAS\pages\RScripts\Book3.xls');
+
 ?> 

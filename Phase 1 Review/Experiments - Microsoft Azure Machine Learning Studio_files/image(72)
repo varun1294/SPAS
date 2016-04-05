@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="238px"
+	 height="159px" viewBox="0 0 238 159" enable-background="new 0 0 238 159" xml:space="preserve">
+<g id="Background">
+	<rect fill="#EEEEEE" width="238" height="159"/>
+</g>
+<g id="Work">
+	<rect x="48" y="26.7" opacity="0.5" fill="#FFFFFF" width="148.7" height="95.3"/>
+	<g>
+		<g>
+			<circle fill="#89C33F" cx="129.4" cy="71.4" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="133.5" cy="65.7" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="137.6" cy="60" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="141.7" cy="54.3" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="145.7" cy="48.6" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="149.8" cy="42.9" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="159.4" cy="42" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="153.6" cy="37.4" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="164.4" cy="46.9" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="169.4" cy="51.8" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="174.4" cy="56.7" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="179.4" cy="61.5" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="189.8" cy="62" r="2.1"/>
+		</g>
+		<g>
+			<circle fill="#89C33F" cx="184" cy="65.4" r="2.1"/>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="#3C454F" d="M111.9,135.3h-2.6v7h-1.5v-7h-2.6v-1.2h6.7V135.3z"/>
+			<path fill="#3C454F" d="M114.7,142.3h-1.6v-8.2h1.6V142.3z"/>
+			<path fill="#3C454F" d="M126.8,142.3h-1.5V137c0-0.4,0-1,0.1-1.6h0c-0.1,0.4-0.2,0.6-0.2,0.8l-2.7,6.1h-1l-2.7-6.1
+				c-0.1-0.2-0.2-0.5-0.2-0.8h0c0,0.3,0.1,0.9,0.1,1.6v5.3H117v-8.2h2.1l2.4,5.5c0.2,0.4,0.3,0.7,0.4,0.9h0c0.2-0.4,0.3-0.8,0.4-1
+				l2.4-5.4h2.1V142.3z"/>
+			<path fill="#3C454F" d="M134.1,142.3H129v-8.2h4.9v1.2h-3.4v2.3h3.1v1.1h-3.1v2.4h3.6V142.3z"/>
+		</g>
+	</g>
+	<g>
+		<g>
+			<path fill="#3C454F" d="M34.4,70.9l-3,5.2v3h-1.5v-2.9L27,70.9h1.7l1.8,3.5c0,0,0.1,0.2,0.2,0.5h0c0-0.1,0.1-0.3,0.2-0.5l1.9-3.5
+				H34.4z"/>
+		</g>
+	</g>
+	<path fill="#7C8082" d="M197,125H45V27c0-0.8,0.7-1.5,1.5-1.5S48,26.2,48,27v95h149c0.8,0,1.5,0.7,1.5,1.5S197.8,125,197,125z"/>
+	<path fill="#0872B9" d="M128,81"/>
+	<path fill="#0872B9" d="M128.2,78.4"/>
+	<polyline fill="none" stroke="#0872B9" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" points="46.8,80.4 
+		73.1,96.6 96.6,78.4 104.4,84.8 111.6,78.4 116.9,87.5 125.8,76.4 	"/>
+</g>
+</svg>

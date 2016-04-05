@@ -6,19 +6,20 @@
                
 	mysql_select_db("SPAS",$con);
 	
-	$usn = "2sd12cs001";
-	$name = "dummy";
-	$email="dummy@dummy.com";
-	$sem = 7;
-	$pd = "abc";
-	$seed = 9;
+	/*$usn = "2sd12cs001";
+	$sess = 0;
 	
-	$i = 128;
-	while($i <= 132) {
-		$query = "INSERT INTO student values('$name','$usn','$email','$sem','$pd','$seed')";
-		$usn++;
-		$seed = rand(2,9);
-		mysql_query($query,$con);
-		$i++;
-	}
+	for($i = 0; $i < 6; $i++,$usn++) {
+		$sql = "UPDATE studentsess SET totalsess = '$sess' WHERE usn = '$usn'";
+		if(mysql_query($sql,$con))
+			echo 'success<br />';
+		else
+			echo 'fail<br />';
+	}*/
+	
+	$sql = "DELETE FROM studenttopicdist WHERE actsdf = 0";
+	if(mysql_query($sql,$con))
+		echo 'success<br />';
+	else
+		echo 'fail<br />';
 ?>

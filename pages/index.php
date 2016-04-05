@@ -7,32 +7,42 @@
 	
 	include("init.php");
 	include("updateMorrisData.php");
-	include("updateFlotData.php");
+	//include("updateFlotData.php");
 	include("prepareCSVFile.php");
 	include("dataR_to_PHP.php");
+	include("suggestions.php");
 	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
-	$totalDF = $_SESSION['totalDF'];
-	$totalQuesDF = $_SESSION['totalQuesDF'];
-	$totalRepDF = $_SESSION['totalRepDF'];
-	$totalCommDF = $_SESSION['totalCommDF'];
-	$activeAssigns = $_SESSION['activeAssigns'];
-	$assignDaysRemPer = $_SESSION['assignDaysRemPer'];
-	$barColor = $_SESSION['barColor'];
+
+	$totalWeeklyAct = $_SESSION['totalWeeklyAct'];
+	$totalWeeklyActDF = $_SESSION['totalWeeklyActDF'];
+	$totalWeeklyActRLR = $_SESSION['totalWeeklyActRLR'];
+	$totalWeeklyActVLR = $_SESSION['totalWeeklyActVLR'];
 	$loginName = $_SESSION['loginName'];
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
+	
+	$sugg = $_SESSION['sugg'];
+	$suggCount = $_SESSION['suggCount'];
+	$sugg2 = $_SESSION['sugg2'];
+	$sugg2Counter = $_SESSION['sugg2Counter'];
+	
+	$maxDFTopic = $_SESSION['maxDFTopic'];
+	$maxRLRTopic = $_SESSION['maxRLRTopic'];
+	$maxVLRTopic = $_SESSION['maxVLRTopic'];
+	$maxTopicCount = $_SESSION['maxTopicCount'];
+	
 	/* ************* */
 	
-	$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
+	/*$totalTimeSpentVLR = $_SESSION['totalTimeSpentVLR'];
 	$totalTimeSpentRLR = $_SESSION['totalTimeSpentRLR'];
 	$totalTimeSpentDF = $_SESSION['totalTimeSpentDF'];
-	$totalTimeSpentMean = $_SESSION['totalTimeSpentMean'];
-	$loginStdCSVData = $_SESSION['loginStdCSVData'];
+	$totalTimeSpentMean = $_SESSION['totalTimeSpentMean'];*/
+	//$loginStdCSVData = $_SESSION['loginStdCSVData'];
 	
-	$loginStdTotalTimeSpentMean = ($loginStdCSVData[8] + $loginStdCSVData[12] + $loginStdCSVData[16])/3;
-	$loginStdTotalTimeSpentMean = round($loginStdTotalTimeSpentMean,2);
+	//$loginStdTotalTimeSpentMean = ($loginStdCSVData[8] + $loginStdCSVData[12] + $loginStdCSVData[16])/3;
+	//$loginStdTotalTimeSpentMean = round($loginStdTotalTimeSpentMean,2);
 
 ?>
 <html lang="en">
@@ -71,10 +81,88 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+	
+	<script>
+		var v1 = <?php echo $totalWeeklyActDF ?>;
+		var v2 = <?php echo $totalWeeklyActRLR ?>;
+		var v3 = <?php echo $totalWeeklyActVLR ?>;
+		
+		var sum = 0;
+		var count = 0;
+			
+		var arr = new Array();
+		
+		var res1 = new Array();
+		var res2 = new Array();
+		var res3 = new Array();
+			
+		function randomNum() {
+			for(var i = 0; i < 7; i++) {
+				arr[i] = Math.floor((Math.random() * 10) + 1);
+				sum = sum + arr[i];
+			}
+				
+			j1 = 0;
+			j2 = 0;
+			j3 = 0;
+			
+			for(var i = 0; i < 7; i++) {
+				if(i == 0) {
+					res1[i] = Math.floor((arr[i]/sum) * v1);
+					j1 = j1 + res1[i];
+					
+					res2[i] = Math.floor((arr[i]/sum) * v2);
+					j2 = j2 + res2[i];
+					
+					res3[i] = Math.floor((arr[i]/sum) * v3);
+					j3 = j3 + res3[i];
+				}
+					
+				else if(i == 6) {
+					res1[i] = (v1 - j1) + res1[i-1];
+					res2[i] = (v2 - j2) + res2[i-1];
+					res3[i] = (v3 - j3) + res3[i-1];
+				}
+					
+				else {
+					var f1 = (Math.floor((arr[i]/sum) * v1));
+					res1[i] = f1 + res1[i - 1];
+					j1 = j1 + f1;
+					
+					var f2 = (Math.floor((arr[i]/sum) * v2));
+					res2[i] = f2 + res2[i - 1];
+					j2 = j2 + f2;
+					
+					var f3 = (Math.floor((arr[i]/sum) * v3));
+					res3[i] = f3 + res3[i - 1];
+					j3 = j3 + f3;
+				}
+			}
+				
+			dummy();
+		}
+			
+		function dummy() {
+			document.getElementById('DF_Acts').innerText=res1[count];
+			document.getElementById('RLR_Acts').innerText=res2[count];
+			document.getElementById('VLR_Acts').innerText=res3[count++];
+			
+			myVar = setInterval(myFunction, 250);
+		}
+			
+		function myFunction() {
+			document.getElementById('DF_Acts').innerText=res1[count];
+			document.getElementById('RLR_Acts').innerText=res2[count];
+			document.getElementById('VLR_Acts').innerText=res3[count++];
+				
+			if(count == 7) {
+				clearInterval(myVar);
+			}
+		}
+	</script>
 </head>
 
-<body>
+<body onload="randomNum()">
 
     <div id="wrapper">
 
@@ -329,18 +417,49 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
-                        <li>
+						
+						<img src="Images/Varun.png" width="250px" height="250px">
+						<br /><br />
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-bell fa-fw"></i> Suggestions
+							</div>
+							<!-- /.panel-heading -->
+							<div class="panel-body">
+								<div class="list-group">
+                                
+								
+								<?php
+									
+									for($i = 0; $i < $sugg2Counter; $i++) {
+										$sug = '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										$sug = $sug.$sugg2[$i];
+										$sug = $sug.'</a>';
+							
+										echo $sug;
+									}
+									echo '<br />';
+									
+									for($i = 0; $i < $maxTopicCount; $i++) {
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in DF : <font color="#74743A"><strong>'.$maxDFTopic[$i][1].'</font></strong> of Chapter : <font color="#74743A"><strong>'.$maxDFTopic[$i][0].'</strong></font>';
+										
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in RLR : <font color="#74743A"><strong>'.$maxRLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxRLRTopic[$i][0].'</strong></font>';
+										
+										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
+										echo 'Highly concentrated topic in VLR : <font color="#74743A"><strong>'.$maxVLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxVLRTopic[$i][0].'</strong></font>';
+									}
+								?>
+								</div>
+								<!-- /.list-group -->
+								<!--<a href="#" class="btn btn-default btn-block">View All Alerts</a>-->
+							</div>
+							<!-- /.panel-body -->
+						</div>
+						
+						
+                        <!--<li>
                             <a href="index.php"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         <li>
@@ -354,7 +473,7 @@
                                 </li>
                             </ul>-->
                             <!-- /.nav-second-level -->
-                        </li>
+                        <!--</li>
                         <li>
                             <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
                         </li>
@@ -411,8 +530,8 @@
                                         </li>
                                     </ul>
                                     <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
+                                <!--</li>-->
+                            <!--</ul>-->
                             <!-- /.nav-second-level -->
                         <!--</li>-->
                         <!--<li>
@@ -451,8 +570,8 @@
                                     <i class="fa fa-comments fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $totalDF ?></div>
-                                    <div>DF - Activities</div>
+                                    <div class="huge" id="DF_Acts"><?php echo $totalWeeklyActDF ?></div>
+                                    <div>DF - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -473,8 +592,8 @@
                                     <i class="fa fa-book fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">12</div>
-                                    <div>RLR - New Tasks!</div>
+                                    <div class="huge" id="RLR_Acts"><?php echo $totalWeeklyActRLR ?></div>
+                                    <div>RLR - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -495,8 +614,8 @@
                                     <i class="fa fa-video-camera fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge">22</div>
-                                    <div>VLR - New Orders!</div>
+                                    <div class="huge" id="VLR_Acts"><?php echo $totalWeeklyActVLR ?></div>
+                                    <div>VLR - Weekly Activities</div>
                                 </div>
                             </div>
                         </div>
@@ -517,8 +636,8 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php echo $loginStdTotalTimeSpentMean ?></div>
-                                    <div><?php echo $totalTimeSpentMean ?> Class Average</div>
+                                    <div class="huge"><?php //echo $loginStdTotalTimeSpentMean ?></div>
+                                    <div><?php //echo $totalTimeSpentMean ?> Class Average</div>
                                 </div>
                             </div>
                         </div>
@@ -667,11 +786,10 @@
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="panel panel-default">
+                    <!--<div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-clock-o fa-fw"></i> Responsive Timeline
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="timeline">
                                 <li>
@@ -776,93 +894,60 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- /.panel-body -->
-                    </div>
+                        
+                    </div>-->
                     <!-- /.panel -->
                 </div>
                 <!-- /.col-lg-8 -->
                 <div class="col-lg-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bell fa-fw"></i> Notifications Panel
+                            <i class="fa fa-bell fa-fw"></i> Suggestions
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
                             <div class="list-group">
                                 <!--<a href="#" class="list-group-item">
-                                    <i class="fa fa-comment fa-fw"></i> New Comment
-                                    <span class="pull-right text-muted small"><em>4 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-twitter fa-fw"></i> 3 New Followers
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-tasks fa-fw"></i> New Task
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-upload fa-fw"></i> Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-bolt fa-fw"></i> Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-warning fa-fw"></i> Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <i class="fa fa-shopping-cart fa-fw"></i> New Order Placed
-                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                </a>
-                                <a href="#" class="list-group-item">
                                     <i class="fa fa-money fa-fw"></i> Payment Received
                                     <span class="pull-right text-muted small"><em>Yesterday</em>
                                     </span>
                                 </a>-->
 								
 								<?php
-									for($i = 0; $i < $notificationCount; $i++) {
+									/*for($i = 0; $i < $notificationCount; $i++) {
 										$dummy = "<a href=\"#\" class=\"list-group-item\">";
 										$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\"></i>";
 										$dummy = $dummy.$notification[$i];
+										$dummy = $dummy."</span></a>";
+										echo $dummy;
+									}*/
+									
+									for($i = 0; $i < $suggCount; $i++) {
+										$dummy = "<a href=\"#\" class=\"list-group-item\">";
+										$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\"></i>";
+										$dummy = $dummy.$sugg[$i];
 										$dummy = $dummy."</span></a>";
 										echo $dummy;
 									}
 								?>
                             </div>
                             <!-- /.list-group -->
-                            <a href="#" class="btn btn-default btn-block">View All Alerts</a>
+                            <!--<a href="#" class="btn btn-default btn-block">View All Alerts</a>-->
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Donut Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Your Activities
                         </div>
                         <div class="panel-body">
                             <div id="morris-donut-chart"></div>
-                            <a href="#" class="btn btn-default btn-block">View Details</a>
                         </div>
                         <!-- /.panel-body -->
                     </div>
                     <!-- /.panel -->
-                    <div class="chat-panel panel panel-default">
+                    <!--<div class="chat-panel panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i>
                             Chat
@@ -900,7 +985,6 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- /.panel-heading -->
                         <div class="panel-body">
                             <ul class="chat">
                                 <li class="left clearfix">
@@ -966,7 +1050,6 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- /.panel-body -->
                         <div class="panel-footer">
                             <div class="input-group">
                                 <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
@@ -976,9 +1059,8 @@
                                     </button>
                                 </span>
                             </div>
-                        </div>
-                        <!-- /.panel-footer -->
-                    </div>
+                        </div> 
+                    </div>-->
                     <!-- /.panel .chat-panel -->
                 </div>
                 <!-- /.col-lg-4 -->

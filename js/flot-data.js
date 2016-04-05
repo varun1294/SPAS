@@ -1,88 +1,97 @@
-$(function() {
+$(document).ready(function() {
+    console.log("document ready");
+    var offset = 0;
+    plot();
 
-    var container = $("#flot-line-chart-moving");
-
-    var maximum = container.outerWidth() / 2 || 300;
-
-    var data = [];
-
-    function getRandomData() {
-
-        if (data.length) {
-            data = data.slice(1);
-        }
-
-        while (data.length < maximum) {
-            var previous = data.length ? data[data.length - 1] : 50;
-            var y = previous + Math.random() * 10 - 5;
-            data.push(y < 0 ? 0 : y > 100 ? 100 : y);
-        }
-
-        // zip the generated y values with the x values
-
-        var res = [];
-        for (var i = 0; i < data.length; ++i) {
-            res.push([i, data[i]])
-        }
-
-        return res;
-    }
-
-    series = [{
-        data: getRandomData(),
-        lines: {
-            fill: true
-        }
-    }];
-
-    //
-
-    var plot = $.plot(container, series, {
-        grid: {
-            borderWidth: 1,
-            minBorderMargin: 20,
-            labelMargin: 10,
-            backgroundColor: {
-                colors: ["#fff", "#e4f4f4"]
-            },
-            margin: {
-                top: 8,
-                bottom: 20,
-                left: 20
-            },
-            markings: function(axes) {
-                var markings = [];
-                var xaxis = axes.xaxis;
-                for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-                    markings.push({
-                        xaxis: {
-                            from: x,
-                            to: x + xaxis.tickSize
-                        },
-                        color: "rgba(232, 232, 255, 0.2)"
-                    });
+    function plot() {
+        var sin = [],
+            cos = [],
+			tan = [];tan.push([1,1236
+]);cos.push([2,1127
+]);sin.push([3,1535
+]);tan.push([4,1228
+]);sin.push([5,1376
+]);sin.push([6,1746
+]);sin.push([7,1388
+]);sin.push([8,1376
+]);tan.push([9,1241
+]);sin.push([10,1389
+]);tan.push([11,1332
+]);sin.push([12,1399
+]);cos.push([13,1093
+]);cos.push([14,1165
+]);sin.push([15,1460
+]);cos.push([16,1000
+]);tan.push([17,1189
+]);sin.push([18,1404
+]);tan.push([19,1274
+]);cos.push([20,1163
+]);sin.push([21,1473
+]);tan.push([22,1236
+]);tan.push([23,1312
+]);tan.push([24,1243
+]);tan.push([25,1331
+]);tan.push([26,1265
+]);tan.push([27,1313
+]);tan.push([28,1297
+]);sin.push([29,1366
+]);tan.push([30,1215
+]);sin.push([31,1488
+]);cos.push([32,1098
+]);tan.push([33,1351
+]);tan.push([34,1337
+]);sin.push([35,1501
+]);cos.push([36,1032
+]);cos.push([37,984
+]);cos.push([38,1148
+]);sin.push([39,1511
+]);cos.push([40,1139
+]);sin.push([41,1454
+]);tan.push([42,1335
+]);tan.push([43,1194
+]);tan.push([44,1201
+]);tan.push([45,1251
+]);tan.push([46,1308
+]);cos.push([47,1066
+]);cos.push([48,1121
+]);tan.push([49,1189
+]);sin.push([50,1391
+]);var options = {
+            series: {
+                lines: {
+                    show: true
+                },
+                points: {
+                    show: true
                 }
-                return markings;
+            },
+            grid: {
+                hoverable: true //IMPORTANT! this is needed for tooltip to work
+            },
+            yaxis: {
+                min: 984,
+                max: 1746
+            },
+            tooltip: true,
+            tooltipOpts: {
+                content: "'%s' : Student : %x : Activity : %y",
+                shifts: {
+                    x: -60, //x: -60,
+                    y: 25 //y: 25
+                }
             }
-        },
-        xaxis: {
-            tickFormatter: function() {
-                return "";
-            }
-        },
-        yaxis: {
-            min: 0,
-            max: 110
-        },
-        legend: {
-            show: true
-        }
-    });
+        };
 
-    setInterval(function updateRandom() {
-        series[0].data = getRandomData();
-        plot.setData(series);
-        plot.draw();
-    }, 40);
-
+        var plotObj = $.plot($("#flot-line-chart"), [{
+                data: sin,
+                label: "Cluster 1"
+            }, {
+                data: cos,
+                label: "Cluster 2"
+            }, {
+				data:tan,
+				label: "Cluster 3"
+			}],
+            options);
+    }
 });

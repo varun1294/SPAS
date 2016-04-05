@@ -5,84 +5,24 @@
 				element: 'morris-area-chart',
 				data: [{
 				period: '201611',
-				RLR: '5',
-				VLR: '2',
-				DF: '3'
+				RLR: '205',
+				VLR: '134',
+				DF: '93'
 			},{
 				period: '201612',
-				RLR: '7',
-				VLR: '7',
-				DF: '7'
+				RLR: '115',
+				VLR: '182',
+				DF: '164'
 			},{
 				period: '201613',
-				RLR: '7',
-				VLR: '5',
-				DF: '8'
+				RLR: '113',
+				VLR: '144',
+				DF: '86'
 			},{
 				period: '201614',
-				RLR: '3',
-				VLR: '3',
-				DF: '9'
-			},{
-				period: '201621',
-				RLR: '4',
-				VLR: '4',
+				RLR: '0',
+				VLR: '0',
 				DF: '0'
-			},{
-				period: '201622',
-				RLR: '7',
-				VLR: '8',
-				DF: '4'
-			},{
-				period: '201623',
-				RLR: '9',
-				VLR: '6',
-				DF: '5'
-			},{
-				period: '201624',
-				RLR: '6',
-				VLR: '7',
-				DF: '5'
-			},{
-				period: '201631',
-				RLR: '6',
-				VLR: '2',
-				DF: '2'
-			},{
-				period: '201632',
-				RLR: '6',
-				VLR: '9',
-				DF: '3'
-			},{
-				period: '201633',
-				RLR: '9',
-				VLR: '8',
-				DF: '5'
-			},{
-				period: '201634',
-				RLR: '2',
-				VLR: '3',
-				DF: '7'
-			},{
-				period: '201641',
-				RLR: '9',
-				VLR: '9',
-				DF: '2'
-			},{
-				period: '201642',
-				RLR: '9',
-				VLR: '2',
-				DF: '3'
-			},{
-				period: '201643',
-				RLR: '5',
-				VLR: '3',
-				DF: '4'
-			},{
-				period: '201644',
-				RLR: '6',
-				VLR: '4',
-				DF: '7'
 				}],
 				xkey: 'period',
 				ykeys: ['RLR', 'VLR', 'DF'],
@@ -93,14 +33,17 @@
 			});Morris.Donut({
         element: 'morris-donut-chart',
         data: [{
-            label: "Download Sales",
-            value: 12
+            label: "Discussion Forum",
+            value: 343
+
         }, {
-            label: "In-Store Sales",
-            value: 30
+            label: "RLR",
+            value: 433
+
         }, {
-            label: "Mail-Order Sales",
-            value: 20
+            label: "VLR",
+            value: 460
+
         }],
         resize: true
     });
@@ -108,37 +51,24 @@
     Morris.Bar({
         element: 'morris-bar-chart',
         data: [{
-            y: '2006',
-            a: 100,
-            b: 90
+            y: 'DF',
+            a: 343
+,
+            b: 354
         }, {
-            y: '2007',
-            a: 75,
-            b: 65
+            y: 'RLR',
+            a: 433
+,
+            b: 440
         }, {
-            y: '2008',
-            a: 50,
-            b: 40
-        }, {
-            y: '2009',
-            a: 75,
-            b: 65
-        }, {
-            y: '2010',
-            a: 50,
-            b: 40
-        }, {
-            y: '2011',
-            a: 75,
-            b: 65
-        }, {
-            y: '2012',
-            a: 100,
-            b: 90
+            y: 'VLR',
+            a: 460
+,
+            b: 451
         }],
         xkey: 'y',
         ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
+        labels: ['Your Activity', 'Cluster Activity'],
         hideHover: 'auto',
         resize: true
     });

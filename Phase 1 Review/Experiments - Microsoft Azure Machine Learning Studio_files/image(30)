@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 18.1.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="238px"
+	 height="159px" viewBox="0 0 238 159" enable-background="new 0 0 238 159" xml:space="preserve">
+<g id="Background">
+	<rect fill="#EEEEEE" width="238" height="159"/>
+</g>
+<g id="Work">
+	<rect x="48" y="32.8" opacity="0.5" fill="#FFFFFF" width="143.9" height="91.2"/>
+	<path fill="none" stroke="#2BAAE1" stroke-width="2" stroke-miterlimit="10" d="M48,37.7c0,0,20.7,89.5,31.8,70.9
+		s18.3-36.9,28.3-26.4s14.6,23.7,26.4,13.7c11.9-10,15.6-15.9,26.9-7.8c11.3,8.1,16.2,12.4,29.6,2.2"/>
+	<g opacity="0.8">
+		<path fill="none" stroke="#EC4F24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="
+			M48,88.4c0,0,17.6,44.3,38,21.8S122.1,63,141.6,75s30.9,28.2,50.4,19"/>
+	</g>
+	<path fill="#7C8082" d="M45,127V33.3c0-0.9,0.6-1.7,1.5-1.7s1.5,0.8,1.5,1.7V124h143.6c0.9,0,1.7,0.6,1.7,1.5s-0.8,1.5-1.7,1.5H45z
+		"/>
+	<path fill="none" stroke="#89C33F" stroke-width="2" stroke-miterlimit="10" d="M48,68c0,0,9.5,52.8,13,39s7-48,13-36
+		s7.3,45.5,15,37s10.5-65.8,14-46s7,59.5,11,49s7.8-59.8,13-46s1.3,28.5,7,27s7.5-49.3,11-33s4.8,62,10,49s4-52,9-41s2.8,38,7,32
+		s3.5-47.5,9-34s5.3,30,12,20"/>
+</g>
+</svg>

@@ -1,29 +1,59 @@
-<!DOCTYPE html>
-
 <?php
-
+	/* Session Variables */
+	$totalDaysSinceBenOfSem = 4;
+	$stdUSN = "2sd12cs133";
+	/* ***************** */
+	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
 	mysql_select_db("SPAS",$con);
 	
-	$query = "SELECT usn,seed FROM student";
-	$data = mysql_query($query,$con);
+	$query = "SELECT usn FROM studentsess";
 	
-	/*while($res = mysql_fetch_array($data)) {
-		echo $res['usn'];
-		echo $res['seed'].'<br />';
-	}*/
+	$mydata = mysql_query($query,$con);
+?>
 
-?> 
 <html> 
 	<head> 
+		<script>
+			var request;
+function sendInfo() {
+	var v=document.getElementById("opt").value;
+	var url="displaySeed.php?usn="+v;
+
+	if(window.XMLHttpRequest) {
+		request=new XMLHttpRequest();
+	}
+
+	else if(window.ActiveXObject) {
+		request=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+
+	try {
+		request.onreadystatechange=getInfo;
+		request.open("GET",url,true);
+		request.send();
+	} catch(e) {
+		alert("Unable to connect to server");
+	}
+}
+
+function getInfo() {
+	if(request.readyState==4){
+		var val=request.responseText;
+		document.getElementById('underInput').innerHTML=val;
+	}
+}
+		</script>
 		<style type="text/css">
 
 input[type=range] {
   -webkit-appearance: none;
-  width: 40%;
+  width: 200px;
+  height: 100px;
+
   margin: 3.3px 0;
 }
 input[type=range]:focus {
@@ -46,7 +76,7 @@ input[type=range]::-webkit-slider-thumb {
   border-radius: 10px;
   background: #e7e700;
   cursor: pointer;
-  -webkit-appearance: none;
+  -webkit-appearance: slider-vertical;
   margin-top: -3.5px;
 }
 input[type=range]:focus::-webkit-slider-runnable-track {
@@ -106,36 +136,54 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #d9ffd7;
 }
-
-
-		</style>
+	</style>
 
 	</head>
 
 	<body>
-		<!--2SD12CS133<br />
-		<input type="range" value="4" name="points" min="0" max="10">-->
+		<br />
+		<center>
+			<select class="element select medium" id="opt" name="opt" onchange="sendInfo();">
+			<option value="" selected="selected"></option>
+			<?php
+				while($res = mysql_fetch_array($mydata)) {
+					$var = $res['usn'];
+					echo "<option value=".$var." >".$res['usn']."</option>";
+				}
+			?>
+			</select>
+		</center>
+		<br />
+		<div id="underInput" />
 		
-		<table border="1" cellpadding="10" cellspacing="10" width="100%">
+		<!--
+		<form id="form_990483" name="spas" method="post" action="updateSeed.php">
+		
+		<table border="1" cellpadding="2" cellspacing="2" width="100%">
 			<tr>
-				<th>USN</th>
-				<th>Seed Setting</th>
-				<th>Update</th>
+				<th>Day</th>
+				<th>Current Seed</th>
+				<th>Set Seed</th>
 			</tr>
 			
 			<?php
-				$i = "seed001";
-				$j = "subm001";
-				while($res = mysql_fetch_array($data)) {
-					echo "<tr align=\"center\">
-						<td>".$res['usn']."</td>
-						<td> <input type=\"range\" value=".$res['seed']." name=".$i." min=\"0\" max=\"10\"> </td>
-						<td> <input type=\"submit\" name=".$j."> </td>
+				/*$name = 1;
+				while($res = mysql_fetch_array($mydata)) {
+					$dummy = "<tr align=\"center\">
+						<td>". $res['day'] ."</td>
+						<td>". $res['seed'] ."</td>
+						<td> <input type=\"range\" value=\"".$res['seed']."\" name=\"".$name."\" min=\"13\" max=\"56\">
 					</tr>";
-					$i++;
-					$j++;
-				}
+					echo $dummy;
+					$name++;
+				}*/
 			?>
 		<table>
+		
+		<br /><br />
+		
+		<center><input type="submit" value="Update Seeds" name="submit"></center>
+		
+		</form>-->
 	</body> 
 </html> 
