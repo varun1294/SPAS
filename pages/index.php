@@ -4,6 +4,12 @@
 	{ 
 		session_start(); 
 	}
+				
+	$_SESSION['login'] = $login;
+	
+	if($login == null || $login == NULL || $login == false) {
+		header('Location: login.html');
+	}
 	
 	include("init.php");
 	include("updateMorrisData.php");
@@ -405,7 +411,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
