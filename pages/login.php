@@ -33,6 +33,9 @@
 				$loginStdSlNo++;
 				$_SESSION['loginStdSlNo'] = $loginStdSlNo;
 				
+				$login = true;
+				$_SESSION['login'] = $login;
+				
 				include("index.php");
 				$valid=1;
 			}
@@ -52,6 +55,10 @@
 				$_SESSION['loginFacId']=$record['fac_id'];
 				$_SESSION['loginFacName'] = $record['name'];
 				$_SESSION['courseId'] = $record['courseid'];
+				
+				$login = true;
+				$_SESSION['login'] = $login;
+				
 				include("faculty.php");
 				$valid=1;
 			}

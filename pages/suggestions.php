@@ -42,6 +42,7 @@
 	$clusterZone1 = array();
 	$clusterZone2 = array();
 	$clusterZone3 = array();
+	$clusterZone4 = array();
 	
 	$clusterZone1[0] = $rArrayDFCluster[$totalNoOfStds];
 	$clusterZone1[1] = $rArrayDFCluster[$totalNoOfStds+1];
@@ -55,9 +56,14 @@
 	$clusterZone3[1] = $rArrayVLRCluster[$totalNoOfStds+1];
 	$clusterZone3[2] = $rArrayVLRCluster[$totalNoOfStds+2];
 	
+	$clusterZone4[0] = $rArrayALLCluster[$totalNoOfStds];
+	$clusterZone4[1] = $rArrayALLCluster[$totalNoOfStds+1];
+	$clusterZone4[2] = $rArrayALLCluster[$totalNoOfStds+2];
+	
 	sort($clusterZone1);
 	sort($clusterZone2);
 	sort($clusterZone3);
+	sort($clusterZone4);
 	
 	for($i = $totalNoOfStds, $j = 0; $j < 3; $j++,$i++) {
 		if($rArrayDFCluster[$i] == $clusterZone1[0]) {
@@ -113,6 +119,27 @@
 		}
 	}
 	
+	for($i = $totalNoOfStds, $j = 0; $j < 3; $j++,$i++) {
+		if($rArrayALLCluster[$i] == $clusterZone4[0]) {
+			$clusterZone[$j+9][0] = $j+1;
+			$clusterZone[$j+9][1] = 'UNSAFE';
+			$clusterZone[$j+9][2] = 'RED';
+		}
+		else if($rArrayALLCluster[$i] == $clusterZone4[1]) {
+			$clusterZone[$j+9][0] = $j+1;
+			$clusterZone[$j+9][1] = 'MODERATELY SAFE';
+			$clusterZone[$j+9][2] = 'YELLOW';
+		}
+		else {
+			$clusterZone[$j+9][1] = 'SAFE';
+			$clusterZone[$j+9][0] = $j+1;
+			$clusterZone[$j+9][2] = 'GREEN';
+		}
+	}
+	
+	$sugg2 = array();
+	$sugg2Counter = 0;
+	
 	/* ************************************************* Basic Suggestions in DF ************************************************** */
 		$var = 'You are in ';
 		if($rArrayDFCluster[$loginStdSlNo-1] == 1) {
@@ -120,6 +147,14 @@
 				if($clusterZone[$j][0] == 1) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[0] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[0] = 2;
+					else
+						$loggedInStdCluster[0] = 1;
+
 					break;
 				}
 			}
@@ -130,6 +165,14 @@
 				if($clusterZone[$j][0] == 2) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[0] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[0] = 2;
+					else
+						$loggedInStdCluster[0] = 1;
+
 					break;
 				}
 			}
@@ -140,6 +183,14 @@
 				if($clusterZone[$j][0] == 3) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[0] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[0] = 2;
+					else
+						$loggedInStdCluster[0] = 1;
+
 					break;
 				}
 			}
@@ -157,18 +208,24 @@
 		
 		$arr[$arrCount++] = $var;
 		
-		$loggedInStdCluster[0] = $rArrayDFCluster[$loginStdSlNo-1];
+		//$loggedInStdCluster[0] = $rArrayDFCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
 	
 	/* ************************************************* Basic Suggestions in RLR ************************************************* */
 		$var = 'You are in ';
 		if($rArrayRLRCluster[$loginStdSlNo-1] == 1) {
-			print_r($clusterZone[3]);
-			echo '<br />';
 			for($j = 3; $j < 6; $j++) {
 				if($clusterZone[$j][0] == 1) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[1] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[1] = 2;
+					else
+						$loggedInStdCluster[1] = 1;
+
 					break;
 				}
 			}
@@ -179,6 +236,14 @@
 				if($clusterZone[$j][0] == 2) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[1] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[1] = 2;
+					else
+						$loggedInStdCluster[1] = 1;
+
 					break;
 				}
 			}
@@ -189,6 +254,14 @@
 				if($clusterZone[$j][0] == 3) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[1] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[1] = 2;
+					else
+						$loggedInStdCluster[1] = 1;
+
 					break;
 				}
 			}
@@ -206,7 +279,7 @@
 		
 		$arr[$arrCount++] = $var;
 		
-		$loggedInStdCluster[1] = $rArrayRLRCluster[$loginStdSlNo-1];
+		//$loggedInStdCluster[1] = $rArrayRLRCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
 	
 	/* ************************************************* Basic Suggestions in VLR ************************************************* */
@@ -216,6 +289,14 @@
 				if($clusterZone[$j][0] == 1) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[2] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[2] = 2;
+					else
+						$loggedInStdCluster[2] = 1;
+
 					break;
 				}
 			}
@@ -226,6 +307,14 @@
 				if($clusterZone[$j][0] == 2) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[2] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[2] = 2;
+					else
+						$loggedInStdCluster[2] = 1;
+
 					break;
 				}
 			}
@@ -236,6 +325,14 @@
 				if($clusterZone[$j][0] == 3) {
 					$var3 = $clusterZone[$j][1];
 					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[2] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[2] = 2;
+					else
+						$loggedInStdCluster[2] = 1;
+
 					break;
 				}
 			}
@@ -253,19 +350,64 @@
 		
 		$arr[$arrCount++] = $var;
 		
-		$loggedInStdCluster[2] = $rArrayVLRCluster[$loginStdSlNo-1];
+		//$loggedInStdCluster[2] = $rArrayVLRCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
 	
 	/* ************************************************ Basic Suggestions Overall ************************************************* */
 		$var = 'You are in ';
 		if($rArrayALLCluster[$loginStdSlNo-1] == 1) {
-			$var = $var.'<font color="red"><strong>UNSAFE</strong></font> Cluster';
+			for($j = 9; $j < 12; $j++) {
+				if($clusterZone[$j][0] == 1) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[3] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[3] = 2;
+					else
+						$loggedInStdCluster[3] = 1;
+	
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster Overall';
 		}
 		else if($rArrayALLCluster[$loginStdSlNo-1] == 2) {
-			$var = $var.'<font color="yellow"><strong>MODERATELY SAFE</strong></font> Cluster';
+			for($j = 9; $j < 12; $j++) {
+				if($clusterZone[$j][0] == 2) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[3] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[3] = 2;
+					else
+						$loggedInStdCluster[3] = 1;
+	
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster Overall';
 		}
 		else {
-			$var = $var.'<font color="green"><strong>SAFE</strong></font> Cluster';
+			for($j = 9; $j < 12; $j++) {
+				if($clusterZone[$j][0] == 3) {
+					$var3 = $clusterZone[$j][1];
+					$var4 = $clusterZone[$j][2];
+					
+					if($var4 == 'GREEN')
+						$loggedInStdCluster[3] = 3;
+					else if($var4 == 'YELLOW')
+						$loggedInStdCluster[3] = 2;
+					else
+						$loggedInStdCluster[3] = 1;
+
+					break;
+				}
+			}
+			$var = $var.'<font color="'.$var4.'"><strong>'.$var3.'</strong></font> Cluster Overall';
 		}
 		$var = $var.' Performing ';
 		
@@ -279,11 +421,9 @@
 
 		$_SESSION['overAllPerformance'] = $var;
 		
-		$loggedInStdCluster[3] = $rArrayALLCluster[$loginStdSlNo-1];
+		//$loggedInStdCluster[3] = $rArrayALLCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
-	
-	$sugg2 = array();
-	$sugg2Counter = 0;
+
 	/* ************************************************ Basic Suggestions on Marks ************************************************ */
 		if(!($marksPresence[0])) {
 			if($loggedInStdCluster[3] == 3) {
@@ -309,7 +449,7 @@
 	/* **************************************************************************************************************************** */
 	
 	/* ************************************************ Suggestions based on Topics *********************************************** */
-		$sql = "SELECT * FROM studenttopicdist WHERE usn = '$loginUsn' ORDER BY courseid";
+		/*$sql = "SELECT * FROM studenttopicdist WHERE usn = '$loginUsn' ORDER BY courseid";
 		$mydata = mysql_query($sql,$con);
 		
 		$sql = "SELECT * FROM topiccoverage WHERE coverage != 1 ORDER BY courseid";
@@ -324,12 +464,6 @@
 				$var1[$count1][3] = $res['actsrlr'];
 				$var1[$count1][4] = $res['actsvlr'];
 				
-				/*echo $var1[$count1][0].'<br />';
-				echo $var1[$count1][1].'<br />';
-				echo $var1[$count1][2].'<br />';
-				echo $var1[$count1][3].'<br />';
-				echo $var1[$count1][4].'<br /><br />';*/
-				
 				$count1++;
 		}
 		
@@ -339,10 +473,6 @@
 			$var2[$count2][0] = $res['courseid'];
 			$var2[$count2][1] = $res['topic'];
 			$var2[$count2][2] = $res['deficulty'];
-			
-			/*echo $var2[$count2][0].'<br />';
-			echo $var2[$count2][1].'<br />';
-			echo $var2[$count2][2].'<br /><br />';*/
 			
 			$count2++;
 		}
@@ -356,11 +486,11 @@
 			}
 		}
 		
-		/*for($i = 0; $i < $count1; $i++) {
+		for($i = 0; $i < $count1; $i++) {
 			for($j = 0; $j < 6; $j++)
 				echo $var1[$i][$j].'<br />';
 			echo '<br />';
-		}*/
+		}
 		
 		$diff1DF = 0;
 		$diff1RLR = 0;
@@ -401,11 +531,15 @@
 			}
 		}
 		
+		echo '$diff1All : '.$diff1All.'<br />';
+		echo '$diff2All : '.$diff2All.'<br />';
+		echo '$diff3All : '.$diff3All.'<br />';*/
+		
 		/* Consider Std's performance in DF, RLR and VLR too... Coding for this part is remaining */
 		/* ************************************************************************************** */
-		if( ($diff1All > $diff2All) || ($diff1All > $diff3All) ) {
+			/*if( ($diff1All > $diff2All) || ($diff1All > $diff3All) ) { */
 		/* ************************************************************************************** */
-			$sugg2[$sugg2Counter++] = 'You Are <font color="red"><strong>Very Slow Learner</strong></font>. Please <strong>Improve</strong> Your Grasping Ability';
+			/*$sugg2[$sugg2Counter++] = 'You Are <font color="red"><strong>Very Slow Learner</strong></font>. Please <strong>Improve</strong> Your Grasping Ability';
 		}
 		
 		else if ($diff2All > $diff3All) {
@@ -414,6 +548,54 @@
 		
 		else {
 			$sugg2[$sugg2Counter++] = 'You Are Doing <font color="green"><strong>Great</strong>. You Have <strong>Better Chances</strong> Of Getting Best Grade';
+		}*/
+	/* **************************************************************************************************************************** */
+	
+	/* ***************************************** Top Performing Students in all Platforms ***************************************** */
+		$dt=array_search(max($rArrayDF), $rArrayDF);
+		$dt=$dt+1;
+		if(strlen($dt)==1) {
+			$var5 = "Top performer in DF :" ."2SD12CS00".$dt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else if(strlen($dt)==2) {
+			$var5 = "Top performer in DF :" ."2SD12CS0".$dt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else {
+			$var5 = "Top performer in DF :" ."2SD12CS".$dt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		
+		$rt=array_search(max($rArrayRLR), $rArrayRLR);
+		$rt=$rt+1;
+		if(strlen($rt)==1) {
+			$var5 = "Top performer in RLR :" ."2SD12CS00".$rt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else if(strlen($rt)==2) {
+			$var5 = "Top performer in RLR :" ."2SD12CS0".$rt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else {
+			$var5 = "Top performer in RLR :" ."2SD12CS".$rt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		
+		
+		$vt=array_search(max($rArrayVLR), $rArrayVLR);
+		$vt=$vt+1;
+		if(strlen($vt)==1) {
+			$var5 = "Top performer in VLR :" ."2SD12CS00".$vt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else if(strlen($vt)==2) {
+			$var5 = "Top performer in VLR :" ."2SD12CS0".$vt;
+			$sugg2[$sugg2Counter++] = $var5;
+		}
+		else {
+			$var5 = "Top performer in VLR :" ."2SD12CS".$vt;
+			$sugg2[$sugg2Counter++] = $var5;
 		}
 	/* **************************************************************************************************************************** */
 	
