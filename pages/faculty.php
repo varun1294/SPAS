@@ -157,6 +157,8 @@ function drawChart() {
             }
         },
 		
+		
+		
 		<?php
 			$ll = "series: [{
             name: 'DF',
@@ -726,10 +728,23 @@ input[type=range]:focus::-ms-fill-upper {
 	<center>
 		<a href="selectIATopics.php" target="_blank">Click here to select IA Topics</a>
 	</center>
+	<br />
 	
+	<center>
+		<a href="logout.php" >logout</a>
+	</center>
 	<br />
 	
 	<div id="container" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
+	<br />
+	
+	<center>
+		<a href="login.php" >logout</a>
+	</center>
+	
+	<br />
+	
+	
 	<br />
 	
 	<center>
