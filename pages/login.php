@@ -15,7 +15,7 @@
 		$mydata = mysql_query($sql,$con);
 		
 		$loginStdSlNo = 0;
-		
+		$valid=0;
 		while($record = mysql_fetch_array($mydata)) {
 			
 			$var1 = $record['usn'];
@@ -33,6 +33,7 @@
 				$_SESSION['loginStdSlNo'] = $loginStdSlNo;
 				
 				include("index.php");
+				$valid=1;
 			}
 			
 			$loginStdSlNo++;
@@ -51,7 +52,16 @@
 				$_SESSION['loginFacName'] = $record['name'];
 				$_SESSION['courseId'] = $record['courseid'];
 				include("faculty.php");
+				$valid=1;
 			}
+		}
+		
+		if($valid==0){
+			echo'<script type="text/javascript">
+			alert("Incorrect login credentials");
+			
+		window.location.href="login.html";
+		</script>';
 		}
 	}
 
