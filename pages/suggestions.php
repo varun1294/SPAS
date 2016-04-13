@@ -202,9 +202,9 @@
 		$dummy = round($dummy,4);
 		
 		if($dummy > 1)
-			$var = $var.'<strong>'.$dummy.'</strong> times BETTER than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times BETTER than your cluster buddies';
 		else
-			$var = $var.'<strong>'.$dummy.'</strong> times POOR than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times POOR than your cluster buddies';
 		
 		$arr[$arrCount++] = $var;
 		
@@ -273,9 +273,9 @@
 		$dummy = round($dummy,4);
 		
 		if($dummy > 1)
-			$var = $var.'<strong>'.$dummy.'</strong> times BETTER than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times BETTER than your cluster buddies';
 		else
-			$var = $var.'<strong>'.$dummy.'</strong> times POOR than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times POOR than your cluster buddies';
 		
 		$arr[$arrCount++] = $var;
 		
@@ -344,9 +344,9 @@
 		$dummy = round($dummy,4);
 		
 		if($dummy > 1)
-			$var = $var.'<strong>'.$dummy.'</strong> times BETTER than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times BETTER than your cluster buddies';
 		else
-			$var = $var.'<strong>'.$dummy.'</strong> times POOR than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times POOR than your cluster buddies';
 		
 		$arr[$arrCount++] = $var;
 		
@@ -415,9 +415,9 @@
 		$dummy = round($dummy,4);
 		
 		if($dummy > 1)
-			$var = $var.'<strong>'.$dummy.'</strong> times BETTER than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times BETTER than your cluster buddies';
 		else
-			$var = $var.'<strong>'.$dummy.'</strong> times POOR than your cluster buddies';
+			$var = $var.'<strong>'.(1-$dummy).'</strong> times POOR than your cluster buddies';
 
 		$_SESSION['overAllPerformance'] = $var;
 		
