@@ -8,6 +8,12 @@
 	$month = "2016-01";
 	$loginName = 	$_SESSION['loginName'];
 	
+	/* Exam Dates */
+	$ia1ExamDate = 28;
+	$ia2ExamDate = 56;
+	$ia3ExamDate = 84;
+	$eseExamDate = 112;
+	
 	$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
@@ -22,45 +28,49 @@
 	$totalNoOfStds = $res['COUNT(DISTINCT usn)'];
 	
 	/* Due to some reason below code makes the file to go to infinite loop. Should figure out why */
+	/* Fixed this... Should still check for all 16 weeks */
 	/* ****************************************************************************************** */
-	/*$sql = "SELECT count(*) FROM activity WHERE act='' and usn='2sd12cs001'";
+	$sql = "SELECT count(*) FROM activity WHERE act='' and usn='2sd12cs001'";
 	$mydata = mysql_query($sql,$con);
 	$res = mysql_fetch_array($mydata);
-	$gg = $res['count(*)'];
-	$gg = 112 - $gg;
+	$totalDaysSinceBenOfSem = $res['count(*)'];
+	$totalDaysSinceBenOfSem = 112 - $totalDaysSinceBenOfSem;
 	
-	if($gg >= 1 && $gg <= 7)
+	echo '$totalDaysSinceBenOfSem : '.$totalDaysSinceBenOfSem.'<br />';
+	if($totalDaysSinceBenOfSem >= 1 && $totalDaysSinceBenOfSem <= 7)
 		$semCurrentWeek = 1;
-	else if($gg >= 8 && $gg <= 14)
+	else if($totalDaysSinceBenOfSem >= 8 && $totalDaysSinceBenOfSem <= 14)
 		$semCurrentWeek = 2;
-	else if($gg >= 15 && $gg <= 21)
+	else if($totalDaysSinceBenOfSem >= 15 && $totalDaysSinceBenOfSem <= 21)
 		$semCurrentWeek = 3;
-	else if($gg >= 22 && $gg <= 28)
+	else if($totalDaysSinceBenOfSem >= 22 && $totalDaysSinceBenOfSem <= 28)
 		$semCurrentWeek = 4;
-	else if($gg >= 29 && $gg <= 35)
+	else if($totalDaysSinceBenOfSem >= 29 && $totalDaysSinceBenOfSem <= 35)
 		$semCurrentWeek = 5;
-	else if($gg >= 36 && $gg <= 42)
+	else if($totalDaysSinceBenOfSem >= 36 && $totalDaysSinceBenOfSem <= 42)
 		$semCurrentWeek = 6;
-	else if($gg >= 43 && $gg <= 49)
+	else if($totalDaysSinceBenOfSem >= 43 && $totalDaysSinceBenOfSem <= 49)
 		$semCurrentWeek = 7;
-	else if($gg >= 50 && $gg <= 56)
+	else if($totalDaysSinceBenOfSem >= 50 && $totalDaysSinceBenOfSem <= 56)
 		$semCurrentWeek = 8;
-	else if($gg >= 57 && $gg <= 63)
+	else if($totalDaysSinceBenOfSem >= 57 && $totalDaysSinceBenOfSem <= 63)
 		$semCurrentWeek = 9;
-	else if($gg >= 64 && $gg <= 70)
+	else if($totalDaysSinceBenOfSem >= 64 && $totalDaysSinceBenOfSem <= 70)
 		$semCurrentWeek = 10;
-	else if($gg >= 71 && $gg <= 77)
+	else if($totalDaysSinceBenOfSem >= 71 && $totalDaysSinceBenOfSem <= 77)
 		$semCurrentWeek = 11;
-	else if($gg >= 78 && $gg <= 84)
+	else if($totalDaysSinceBenOfSem >= 78 && $totalDaysSinceBenOfSem <= 84)
 		$semCurrentWeek = 12;
-	else if($gg >= 85 && $gg <= 91)
+	else if($totalDaysSinceBenOfSem >= 85 && $totalDaysSinceBenOfSem <= 91)
 		$semCurrentWeek = 13;
-	else if($gg >= 92 && $gg <= 98)
+	else if($totalDaysSinceBenOfSem >= 92 && $totalDaysSinceBenOfSem <= 98)
 		$semCurrentWeek = 14;
-	else if($gg >= 99 && $gg <= 105)
+	else if($totalDaysSinceBenOfSem >= 99 && $totalDaysSinceBenOfSem <= 105)
 		$semCurrentWeek = 15;
 	else
-		$semCurrentWeek = 16;*/
+		$semCurrentWeek = 16;
+		
+	echo '$semCurrentWeek : '.$semCurrentWeek.'<br />';
 	/* ****************************************************************************************** */
 		
 	$semCurrentWeek = 1;
@@ -367,7 +377,7 @@
 
 	/* *************************** Load the IA and ESE Marks of all students *************************** */
 	/* ************************************************************************************************* */
-		$query = "SELECT ia1,ia2,ia3,ese FROM student";
+		$query = "SELECT distinct type,marks FROM marks WHERE usn = '$loginUsn'";
 		$data = mysql_query($query,$con);
 		
 		$ia1Marks = array();
@@ -381,100 +391,25 @@
 		
 		$marksCounter = 0;
 		while($res = mysql_fetch_array($data)) {
-			if($res['ia1'] != 0) {
-				$ia1Marks[$marksCounter] = $res['ia1'];
+			if($res['type'] == 'ia1' && $res['marks'] != 0)
 				$marksPresence[0] = true;
-			}
-			
-			if($res['ia2'] != 0) {
-				$ia2Marks[$marksCounter] = $res['ia2'];
+			else if($res['type'] == 'ia2' && $res['marks'] != 0)
 				$marksPresence[1] = true;
-			}
-			
-			if($res['ia3'] != 0) {
-				$ia3Marks[$marksCounter] = $res['ia3'];
+			else if($res['type'] == 'ia3' && $res['marks'] != 0)
 				$marksPresence[2] = true;
-			}
-			
-			if($res['ese'] != 0) {
-				$eseMarks[$marksCounter] = $res['ese'];
+			else if($res['type'] == 'ese' && $res['marks'] != 0)
 				$marksPresence[3] = true;
-			}
-			
-			$marksCounter++;
 		}
 	/* ************************************************************************************************* */
-	
-	/* ********************************** Highest Concentrated Topic In Each Course ********************************** */
-	/* *************************************************************************************************************** */
-		$sql = "SELECT DISTINCT(courseid) FROM topiccoverage WHERE coverage != 1";
-	
-		$mydata = mysql_query($sql,$con);
-		
-		$courseIds = array();
-		$i = 0;
-		while($res = mysql_fetch_array($mydata)) {
-			$courseIds[$i++] = $res['courseid'];
-		}
-		
-		$maxDFTopic = array();
-		$maxRLRTopic = array();
-		$maxVLRTopic = array();
-		
-		for($j = 0; $j < $i; $j++) {
-			$var = $courseIds[$j];
-			
-			/* To Select Topic Which Has MAXIMUM DF Activity On It */
-			$sql = "SELECT courseid, topic 
-					FROM studenttopicdist 
-					WHERE actsdf =(
-						SELECT max(actsdf) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
-					)";
-		
-			$mydata = mysql_query($sql,$con);
-			$res = mysql_fetch_array($mydata);
-		
-			$maxDFTopic[$j][0] = $res['courseid'];
-			$maxDFTopic[$j][1] = $res['topic'];
-			
-			/* To Select Topic Which Has MAXIMUM RLR Activity On It */
-			$sql = "SELECT courseid, topic 
-					FROM studenttopicdist 
-					WHERE actsrlr =(
-						SELECT max(actsrlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
-					)";
-
-			$mydata = mysql_query($sql,$con);
-			$res = mysql_fetch_array($mydata);
-		
-			$maxRLRTopic[$j][0] = $res['courseid'];
-			$maxRLRTopic[$j][1] = $res['topic'];
-			
-			/* To Select Topic Which Has MAXIMUM VLR Activity On It */
-			$sql = "SELECT courseid, topic 
-					FROM studenttopicdist 
-					WHERE actsvlr =(
-						SELECT max(actsvlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
-					)";
-
-			$mydata = mysql_query($sql,$con);
-			$res = mysql_fetch_array($mydata);
-		
-			$maxVLRTopic[$j][0] = $res['courseid'];
-			$maxVLRTopic[$j][1] = $res['topic'];
-		}
-		
-		$maxTopicCount = $j;
-	/* *************************************************************************************************************** */
 	if(!isset($_SESSION)) 
     { 
         session_start(); 
     }
 	
-	$_SESSION['maxDFTopic'] = $maxDFTopic;
+	/*$_SESSION['maxDFTopic'] = $maxDFTopic;
 	$_SESSION['maxRLRTopic'] = $maxRLRTopic;
 	$_SESSION['maxVLRTopic'] = $maxVLRTopic;
-	$_SESSION['maxTopicCount'] = $maxTopicCount;
+	$_SESSION['maxTopicCount'] = $maxTopicCount;*/
 	
 	/*$_SESSION['totalDF'] = $totalDF;*/
 	$_SESSION['loginUsn'] = $loginUsn;
@@ -508,6 +443,13 @@
 	$_SESSION['eseMarks'] = $eseMarks;
 	$_SESSION['marksCounterarks'] = $marksCounter;
 	$_SESSION['marksPresence'] = $marksPresence;
+	
+	$_SESSION['ia1ExamDate'] = $ia1ExamDate;
+	$_SESSION['ia2ExamDate'] = $ia2ExamDate;
+	$_SESSION['ia3ExamDate'] = $ia3ExamDate;
+	$_SESSION['eseExamDate'] = $eseExamDate;
+	
+	$_SESSION['totalDaysSinceBenOfSem'] = $totalDaysSinceBenOfSem;
 
 	function findPlatform($str) {
 		$len = strlen($str) - 2;

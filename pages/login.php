@@ -36,6 +36,7 @@
 				$_SESSION['login'] = $login;
 				
 				include("index.php");
+				break;
 			}
 			
 			$loginStdSlNo++;

@@ -1,5 +1,4 @@
 <?php
-
 	if(!isset($_SESSION)) 
 	{ 
 		session_start(); 
@@ -20,7 +19,6 @@
 	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
-
 	$totalWeeklyAct = $_SESSION['totalWeeklyAct'];
 	$totalWeeklyActDF = $_SESSION['totalWeeklyActDF'];
 	$totalWeeklyActRLR = $_SESSION['totalWeeklyActRLR'];
@@ -34,10 +32,10 @@
 	$sugg2 = $_SESSION['sugg2'];
 	$sugg2Counter = $_SESSION['sugg2Counter'];
 	
-	$maxDFTopic = $_SESSION['maxDFTopic'];
+	/*$maxDFTopic = $_SESSION['maxDFTopic'];
 	$maxRLRTopic = $_SESSION['maxRLRTopic'];
 	$maxVLRTopic = $_SESSION['maxVLRTopic'];
-	$maxTopicCount = $_SESSION['maxTopicCount'];
+	$maxTopicCount = $_SESSION['maxTopicCount'];*/
 	
 	/* ************* */
 	
@@ -49,7 +47,6 @@
 	
 	//$loginStdTotalTimeSpentMean = ($loginStdCSVData[8] + $loginStdCSVData[12] + $loginStdCSVData[16])/3;
 	//$loginStdTotalTimeSpentMean = round($loginStdTotalTimeSpentMean,2);
-
 ?>
 <html lang="en">
 
@@ -422,9 +419,8 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-						
-						<img src="Images/Varun.png" width="250px" height="250px">
+                    <ul class="nav" id="side-menu">					
+						<img src="Images/User_Avatar_Male.png" width="250px" height="250px"/>
 						<br /><br />
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -438,26 +434,21 @@
 								<?php
 									
 									for($i = 0; $i < $sugg2Counter; $i++) {
-										$sug = '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
-										$sug = $sug.$sugg2[$i];
-										$sug = $sug.'</a>';
-							
-										echo $sug;
+										$dummy = "<a href=\"#\" class=\"list-group-item\">";
+										$dummy = $dummy."<i class=\"fa fa-bolt fa-fw\"></i>";
+										$dummy = $dummy.$sugg2[$i];
+										$dummy = $dummy."</a>";
+										echo $dummy;
 									}
-									echo '<br />';
-									
-									for($i = 0; $i < $maxTopicCount; $i++) {
-										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
-										echo 'Highly concentrated topic in DF : <font color="#74743A"><strong>'.$maxDFTopic[$i][1].'</font></strong> of Chapter : <font color="#74743A"><strong>'.$maxDFTopic[$i][0].'</strong></font>';
-										
-										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
-										echo 'Highly concentrated topic in RLR : <font color="#74743A"><strong>'.$maxRLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxRLRTopic[$i][0].'</strong></font>';
-										
-										echo '<li><a href="#"> <i class="fa fa-bolt fa-fw"></i>';
-										echo 'Highly concentrated topic in VLR : <font color="#74743A"><strong>'.$maxVLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxVLRTopic[$i][0].'</strong></font>';
-									}
+
 								?>
 								</div>
+								<?php
+								//$i = 1;
+								//echo '<a href=\"#\" class=\"list-group-item\"> <i class=\"fa fa-bolt fa-fw\"></i>';
+								//echo 'Highly concentrated topic in VLR : <font color="#74743A"><strong>'.$maxVLRTopic[$i-1][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxVLRTopic[$i-1][0].'</strong></font> </a>';
+								
+								?>
 								<!-- /.list-group -->
 								<!--<a href="#" class="btn btn-default btn-block">View All Alerts</a>-->
 							</div>
@@ -692,7 +683,7 @@
                     <!-- /.panel -->
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <i class="fa fa-bar-chart-o fa-fw"></i> Bar Chart Example
+                            <i class="fa fa-bar-chart-o fa-fw"></i> Your Activity vs Cluster Activity (avg)
                             <!--<div class="pull-right">
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">

@@ -7,6 +7,28 @@
 	
 	//include("init.php");
 	
+	/* Marks Threshold */
+	/* ********************************* */
+	$minMarksToPass = 8;
+	$midRangeMarks = array();
+	
+	$midRangeMarks[0] = 9;
+	$midRangeMarks[1] = 15;
+	
+	$significantMarksImproveOffset = 3;
+	/* ********************************* */
+	
+	/* Exam Dates */
+	/* ****************************************** */
+		$_SESSION['ia1ExamDate'] = $ia1ExamDate;
+		$_SESSION['ia2ExamDate'] = $ia2ExamDate;
+		$_SESSION['ia3ExamDate'] = $ia3ExamDate;
+		$_SESSION['eseExamDate'] = $eseExamDate;
+	/* ****************************************** */
+	
+	$totalDaysSinceBenOfSem = $_SESSION['totalDaysSinceBenOfSem'];
+	//$totalDaysSinceBenOfSem = 40;
+	
 	$loginUsn = $_SESSION['loginUsn'];
 	$rArrayDFCluster = $_SESSION['rArrayDFCluster'];
 	$rArrayVLRCluster = $_SESSION['rArrayVLRCluster'];
@@ -17,10 +39,10 @@
 	$loginStdSlNo = $_SESSION['loginStdSlNo'];
 	$totalNoOfStds = $_SESSION['totalNoOfStds'];
 	
-	$ia1Marks = $_SESSION['ia1Marks'];
+	/*$ia1Marks = $_SESSION['ia1Marks'];
 	$ia2Marks = $_SESSION['ia2Marks'];
 	$ia3Marks = $_SESSION['ia3Marks'];
-	$eseMarks = $_SESSION['eseMarks'];
+	$eseMarks = $_SESSION['eseMarks'];*/
 	$marksCounterarks = $_SESSION['marksCounterarks'];
 	$rArrayALLCluster = $_SESSION['rArrayALLCluster'];
 	$rArrayALL = $_SESSION['rArrayALL'];
@@ -419,18 +441,28 @@
 		else
 			$var = $var.'<strong>'.$dummy.'</strong> times POOR than your cluster buddies';
 
-		$_SESSION['overAllPerformance'] = $var;
-		
+		$arr[$arrCount++] = $var;
 		//$loggedInStdCluster[3] = $rArrayALLCluster[$loginStdSlNo-1];
 	/* **************************************************************************************************************************** */
 
 	/* ************************************************ Basic Suggestions on Marks ************************************************ */
+		$i = $loggedInStdCluster[0] + $loggedInStdCluster[1] + $loggedInStdCluster[2] + $loggedInStdCluster[3];
+		
+		if($i >= 10 && $i <=12)
+			$currMarksCluster = 1;
+		else if ($i >= 7 && $i <=9)
+			$currMarksCluster = 2;
+		else
+			$currMarksCluster = 3;
+		
 		if(!($marksPresence[0])) {
-			if($loggedInStdCluster[3] == 3) {
+			/* IA Marks not yet updated */
+			echo '$clusterSum : '.$i.'<br />';
+			if($currMarksCluster == 1) {
 				$sugg2[$sugg2Counter++] = 'You are performing very <font color="green"><strong>good overall</strong></font>. Chances of getting better IA-1 marks are high';
 			}
 			
-			else if ($loggedInStdCluster[3] == 2) {
+			else if ($currMarksCluster = 2) {
 				$sugg2[$sugg2Counter++] = 'You are performing <font color="yellow"><strong>moderately well overall</strong></font>. Need to spend some time to attain better IA-1 Marks';
 			}
 			
@@ -440,8 +472,303 @@
 		}
 		
 		else {
-			if($loggedInStdCluster[3] == 1) {
-				//if()
+			/* Only IA 1 marks are available */
+			/* Display IA Marks only for 7 days from end of IA-1 */
+			/*if($totalDaysSinceBenOfSem > $ia1ExamDate && $totalDaysSinceBenOfSem <= $ia1ExamDate+7)*/
+			if($totalDaysSinceBenOfSem <= $ia1ExamDate+7)
+				$displayIA1BasedSuggs = true;
+			else
+				$displayIA1BasedSuggs = false;
+			
+			$ia1Marks = array();
+			for($i = 0, $courseid = 'CS1'; $i < 6; $i++,$courseid++) {
+				$query = "SELECT marks FROM marks WHERE usn = '$loginUsn' and courseid = '$courseid' and type='ia1'";
+				$mydata = mysql_query($query,$con);
+					
+				$res = mysql_fetch_array($mydata);
+				$ia1Marks[$i] = $res['marks'];
+			}
+					
+			$fail = 0;
+			$failSubs = array();
+					
+			$midRangeSubs = array();
+			$midRange = 0;
+					
+			$highRange = 0;
+			for($i = 0; $i < 6; $i++) {
+				if($ia1Marks[$i] < $minMarksToPass) {
+					$failSubs[$fail++] = 'CS'.($i+1);
+				}
+				else if($ia1Marks[$i] >= $midRangeMarks[0] && $ia1Marks[$i] <= $midRangeMarks[1]) {
+					$midRangeSubs[$midRange++] = 'CS'.($i+1);
+				}
+				else
+					$highRange++;
+			}
+			
+			if($displayIA1BasedSuggs) {
+				if( ($marksPresence[0] == true) && ($marksPresence[1] == false) ) {
+					/* Get IA Marks of logged in student of all subjects */
+					
+					/* Below suggestions are for students who are in good clusters */
+					if($currMarksCluster == 1) {
+						if($fail > 0) {
+							$var = 'You are putting good efforts and yet failing in exam. <strong>Reconsider your study approach</strong> Concentrate on <strong>';
+							for($i = 0; $i < $fail; $i++) {
+								$var = $var.$failSubs[$i].' ';
+							}
+							$var = $var.'</strong>';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($midRange > 0) {
+							$var = 'You are putting good efforts, but your <strong>IA 1 Marks doesnt reflect your hard work</strong>. Try to Concentrate on <strong>';
+							for($i = 0; $i < $midRange; $i++) {
+								$var = $var.$midRangeSubs[$i].' ';
+							}
+							$var = $var.'</strong>';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($fail == 0 && $midRange == 0) {
+							$var = 'You are putting good efforts and getting good marks. Maintain the same progess to get best grades';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+					}
+					
+					/* Below suggestions are for students who are in avg clusters */
+					if($currMarksCluster == 2) {
+						if($fail > 0) {
+							$var = 'You are putting half hearted efforts and failing in exam. <strong>Study more and </strong> Consult your faculty of <strong>';
+							for($i = 0; $i < $fail; $i++) {
+								$var = $var.$failSubs[$i].' ';
+							}
+							$var = $var.'</strong> and put in efforts to achieve better marks';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($midRange > 0) {
+							$var = 'Your marks are reflecting in your IA 1 Results. Half hearted efforts and average marks. Try to Concentrate on <strong>';
+							for($i = 0; $i < $midRange; $i++) {
+								$var = $var.$midRangeSubs[$i].' ';
+							}
+							$var = $var.'</strong> and spend some time in reading';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($fail == 0 && $midRange == 0) {
+							$var = 'You are putting average efforts and getting good marks!! <strong>Impressive</strong>';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+					}
+					
+					/* Below suggestions are for students who are in worse clusters */
+					if($currMarksCluster == 3) {
+						if($fail > 0) {
+							$var = 'Your IA 1 Marks reflect your efforts. No efforts and no good marks. Consult your faculty on following subjects <strong>';
+							for($i = 0; $i < $fail; $i++) {
+								$var = $var.$failSubs[$i].' ';
+							}
+							$var = $var.'</strong> and study hard.';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($midRange > 0) {
+							$var = 'Your marks in IA 1 contradict with your results in following subjects ';
+							for($i = 0; $i < $midRange; $i++) {
+								$var = $var.$midRangeSubs[$i].' ';
+							}
+							$var = $var.'</strong> Great!';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+						
+						if($fail == 0 && $midRange == 0) {
+							$var = 'Looks like you are doing great with little amount of efforts!! <strong>Impressive</strong>';
+							$sugg2[$sugg2Counter++] = $var;
+						}
+					}
+				}
+			}
+			/* End of suggestions based on IA 1 */
+			
+			/* Its been more than 7 days since IA-1 got over. Stop commenting on IA-1 Marks */
+			/* Start suggesting how to perform well in IA-2 */
+			else {
+				if($fail > 0) {
+					$var = 'Remember you failed in some subject(s), Don\'t let that happen next time';
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				if($currMarksCluster == 1) {
+					$var = 'You are currently performing good. ';
+					if($fail > 0)
+						$var = $var.'There is a chance that you perform better than last IA.';
+					else if($midRange > 0)
+						$var = $var.'There are chance of you getting scoring more in mid range subjects of last IA';
+					else
+						$var = $var.'Your IA-1 Performance will most likely repeat this time too!';
+						
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				else if($currMarksCluster == 2) {
+					$var = 'You are currently performing average. ';
+					if($fail > 0)
+						$var = $var.'There are chances that you will once again fail in one or more subjects. Improve your academics';
+					else if($midRange > 0) {
+						$var = $var.'You will most likely end up at the same marks as of IA-1';
+					}
+					else
+						$var = $var.'Your awesome IA-1 performance will most likely to repeat if you put a bit more effort';
+						
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				else {
+					$var = 'You are currently performing poor. ';
+					if($fail > 0)
+						$var = $var.'You need to significantly improve your academic performance to have any hope of getting good grades';
+					else if($midRange > 0)
+						$var = $var.'You performed good in last IA but putting less effort. Dont be that confident this time';
+					else
+						$var = $var.'You did really great in last IA even though you put half hearted effort, Dont be that confident this time';
+						
+					$sugg2[$sugg2Counter++] = $var;
+				}
+			}
+			
+			/* IA-1 and IA-2 marks are available */
+			if( ($marksPresence[0] == true) && ($marksPresence[1] == true) && ($marksPresence[2] == false) ) {
+				/* Get IA Marks of logged in student of all subjects */
+				$ia1Marks = array();
+				for($i = 0, $courseid = 'CS1'; $i < 6; $i++,$courseid++) {
+					$query = "SELECT marks FROM marks WHERE usn = '$loginUsn' and courseid = '$courseid' and type='ia1'";
+					$mydata = mysql_query($query,$con);
+					
+					$res = mysql_fetch_array($mydata);
+					$ia1Marks[$i] = $res['marks'];
+				}
+				
+				$ia2Marks = array();
+				for($i = 0, $courseid = 'CS1'; $i < 6; $i++,$courseid++) {
+					$query = "SELECT marks FROM marks WHERE usn = '$loginUsn' and courseid = '$courseid' and type='ia2'";
+					$mydata = mysql_query($query,$con);
+					
+					$res = mysql_fetch_array($mydata);
+					$ia2Marks[$i] = $res['marks'];
+				}
+				
+				/* Get Fail, MidRange and HighRange Subjects of logged In student in IA 1 */
+				$fail1 = 0;
+				$failSubs1 = array();
+				
+				$midRangeSubs1 = array();
+				$midRange1 = 0;
+				
+				$highRange1 = 0;
+				for($i = 0; $i < 6; $i++) {
+					if($ia1Marks[$i] < $minMarksToPass) {
+						$failSubs1[$fail1++] = 'CS'.($i+1);
+					}
+					else if($ia1Marks[$i] >= $midRangeMarks[0] && $ia1Marks[$i] <= $midRangeMarks[1]) {
+						$midRangeSubs1[$midRange1++] = 'CS'.($i+1);
+					}
+					else
+						$highRange1++;
+				}
+				
+				/* Get Fail, MidRange and HighRange Subjects of logged In student in IA 2 */
+				$fail2 = 0;
+				$failSubs2 = array();
+				
+				$midRangeSubs2 = array();
+				$midRange2 = 0;
+				
+				$highRange2 = 0;
+				for($i = 0; $i < 6; $i++) {
+					if($ia2Marks[$i] < $minMarksToPass) {
+						$failSubs2[$fail2++] = 'CS'.($i+1);
+					}
+					else if($ia2Marks[$i] >= $midRangeMarks[0] && $ia2Marks[$i] <= $midRangeMarks[1]) {
+						$midRangeSubs2[$midRange2++] = 'CS'.($i+1);
+					}
+					else
+						$highRange2++;
+				}
+				
+				if($currMarksCluster == 1) {
+					if($fail2 > 0) {
+						$var = 'This is not acceptable, you are putting good efforts and still failing in some subjects.';
+						$sugg2[$sugg2Counter++] = $var;
+					}
+				}
+				
+				/* Check Whether logged in student has failed a subject both in IA-1 & IA-2 */
+				$failSubCounter = 0;
+				$repeatedFailSub = array();
+				/*print_r($failSubs1);
+				echo '<br />';
+				
+				print_r($failSubs2);
+				echo '<br />';*/
+				for($i = 0; $i < $fail1; $i++) {
+					for($j = 0; $j < $fail2; $j++) {
+						if($failSubs1[$i] == $failSubs2[$j]) {
+							$repeatedFailSub[$failSubCounter++] = $failSubs2[$i];
+						}
+					}
+				}
+				
+				//echo 'failSubCounter : '.$failSubCounter.'<br />';
+				if($failSubCounter > 0) {
+					$var = 'You have failed twice in follwing subjects <strong>';
+					for($i = 0; $i < $failSubCounter; $i++)
+						$var = $var.$repeatedFailSub[$i].' ';
+					$var = $var.'</strong>. You need to put some serious hard work in order to get through in these course(s)';
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				/* Check whether student has improved significant marks in any of the subjects */
+				$improvedSubjects = array();
+				$improvedSubjectsCounter = 0;
+				for($i = 0; $i < 6; $i++) {
+					if($ia2Marks[$i] >= ($ia1Marks[$i] + $significantMarksImproveOffset)) {
+						$improvedSubjects[$improvedSubjectsCounter++] = 'CS'.($i+1);
+					}
+				}
+				
+				if($improvedSubjectsCounter > 0) {
+					$var = 'You have improved your marks in following subjects <strong>';
+					for($i = 0; $i < $improvedSubjectsCounter; $i++) {
+						$var = $var.$improvedSubjects[$i].' ';
+					}
+					$var = $var.'</strong>. Good going!!';
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				/* Check whether the logged in student has more high range subjects in IA-2 than IA-1 */
+				if($highRange1 < $highRange2) {
+					$var = 'You have more high scoring subjects in IA-2 than IA-1';
+					$sugg2[$sugg2Counter++] = $var;
+				}
+				
+				/* Check whether the logged in student has scored less in IA-2 than IA-1 */
+				$lessMarksSubs = array();
+				$lessMarksCounter = 0;
+				for($i = 0; $i < 6; $i++) {
+					if($ia1Marks[$i] >= $ia2Marks[$i] + 2) {
+						$lessMarksSubs[$lessMarksCounter++] = 'CS'.($i + 1);
+					}
+				}
+				
+				if($lessMarksCounter > 0) {
+					$var = 'Looks like you got less marks in this IA than the last IA, in <strong>';
+					for($i = 0; $i < $lessMarksCounter; $i++)
+						$var = $var.$lessMarksSubs[$i].' ';
+					$var = $var.'</strong>. Study these subject often.';
+					$sugg2[$sugg2Counter++] = $var;
+				}
 			}
 		}
 		
@@ -549,7 +876,79 @@
 		else {
 			$sugg2[$sugg2Counter++] = 'You Are Doing <font color="green"><strong>Great</strong>. You Have <strong>Better Chances</strong> Of Getting Best Grade';
 		}*/
-	/* **************************************************************************************************************************** */
+	/* **************************************************************************************************************************** */	
+	
+	/* ********************************** Highest Concentrated Topic In Each Course ********************************** */
+	/* *************************************************************************************************************** */
+		$sql = "SELECT DISTINCT(courseid) FROM topiccoverage WHERE coverage != 1";
+	
+		$mydata = mysql_query($sql,$con);
+		
+		$courseIds = array();
+		$i = 0;
+		while($res = mysql_fetch_array($mydata)) {
+			$courseIds[$i++] = $res['courseid'];
+		}
+		
+		$maxDFTopic = array();
+		$maxRLRTopic = array();
+		$maxVLRTopic = array();
+		
+		for($j = 0; $j < $i; $j++) {
+			$var = $courseIds[$j];
+			
+			/* To Select Topic Which Has MAXIMUM DF Activity On It */
+			$sql = "SELECT courseid, topic 
+					FROM studenttopicdist 
+					WHERE actsdf =(
+						SELECT max(actsdf) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+					)";
+		
+			$mydata = mysql_query($sql,$con);
+			$res = mysql_fetch_array($mydata);
+		
+			$maxDFTopic[$j][0] = $res['courseid'];
+			$maxDFTopic[$j][1] = $res['topic'];
+			
+			/* To Select Topic Which Has MAXIMUM RLR Activity On It */
+			$sql = "SELECT courseid, topic 
+					FROM studenttopicdist 
+					WHERE actsrlr =(
+						SELECT max(actsrlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+					)";
+
+			$mydata = mysql_query($sql,$con);
+			$res = mysql_fetch_array($mydata);
+		
+			$maxRLRTopic[$j][0] = $res['courseid'];
+			$maxRLRTopic[$j][1] = $res['topic'];
+			
+			/* To Select Topic Which Has MAXIMUM VLR Activity On It */
+			$sql = "SELECT courseid, topic 
+					FROM studenttopicdist 
+					WHERE actsvlr =(
+						SELECT max(actsvlr) FROM studenttopicdist WHERE usn = '$loginUsn' and courseid = '$var'
+					)";
+
+			$mydata = mysql_query($sql,$con);
+			$res = mysql_fetch_array($mydata);
+		
+			$maxVLRTopic[$j][0] = $res['courseid'];
+			$maxVLRTopic[$j][1] = $res['topic'];
+		}
+		
+		$maxTopicCount = $j;
+		
+		
+		for($i = 0; $i < $maxTopicCount; $i++) {
+			$sugg2[$sugg2Counter++] = 'Highly concentrated topic in DF : <font color="#74743A"><strong>'.$maxDFTopic[$i][1].'</font></strong> of Chapter : <font color="#74743A"><strong>'.$maxDFTopic[$i][0].'</strong></font>';					
+			$sugg2[$sugg2Counter++] = 'Highly concentrated topic in RLR : <font color="#74743A"><strong>'.$maxRLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxRLRTopic[$i][0].'</strong></font>';
+			$sugg2[$sugg2Counter++] = 'Highly concentrated topic in VLR : <font color="#74743A"><strong>'.$maxVLRTopic[$i][1].'</strong></font> of Chapter : <font color="#74743A"><strong>'.$maxVLRTopic[$i][0].'</strong></font>';
+		}
+		
+		
+		
+	/* *************************************************************************************************************** */
 	
 	/* ***************************************** Top Performing Students in all Platforms ***************************************** */
 		$dt=array_search(max($rArrayDF), $rArrayDF);
@@ -598,6 +997,7 @@
 			$sugg2[$sugg2Counter++] = $var5;
 		}
 	/* **************************************************************************************************************************** */
+	
 	
 	$_SESSION['sugg'] = $arr;
 	$_SESSION['suggCount'] = $arrCount;

@@ -27,7 +27,7 @@
 	$sql = "UPDATE topiccoverage SET coverage = 1, deficulty = 1";
 	mysql_query($sql,$con);
 	
-	$sql = "UPDATE student SET ia1 = 0, ia2 = 0, ia3 = 0, ese = 0";
+	$sql = "UPDATE marks SET marks = 0";
 	mysql_query($sql,$con);
 	
 ?>

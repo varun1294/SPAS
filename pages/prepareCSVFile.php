@@ -46,6 +46,7 @@
 	}
 	
 	$i = 1;
+	$offset = 6;
 	while($res = mysql_fetch_array($mydata)) {
 		$usn = $res['usn'];
 		
@@ -54,7 +55,7 @@
 		
 		$arr[$i][0] = $usn;
 		
-		$arr[$i][$day+6] = $act;
+		$arr[$i][$day+$offset] = $act;
 		
 		$sql = "SELECT max(day) FROM activity WHERE usn = '$usn'";
 		$data = mysql_query($sql,$con);
@@ -67,7 +68,7 @@
 			$act = $res['act'];
 			$day = $res['day'];
 
-			$arr[$i][$day+6] = $act;
+			$arr[$i][$day+$offset] = $act;
 		}
 		
 		$i++;
@@ -78,7 +79,7 @@
 	$dayString = "day1";
 	while($res = mysql_fetch_array($data)) {
 		$day = $res['day'];
-		$arr[0][$day+6] = $dayString;
+		$arr[0][$day+$offset] = $dayString;
 
 		if(!(strcmp($dayString,"day9")))
 			$dayString = "day10";
