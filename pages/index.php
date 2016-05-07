@@ -4,7 +4,7 @@
 		session_start(); 
 	}
 				
-	$_SESSION['login'] = $login;
+	$login = $_SESSION['login'];
 	
 	if($login == null || $login == NULL || $login == false) {
 		header('Location: login.html');
@@ -17,6 +17,9 @@
 	include("dataR_to_PHP.php");
 	include("suggestions.php");
 	
+	$loginUsn = $_SESSION['loginUsn'];
+	$con = $_SESSION['con'];
+	
 	/* Retrieve all activities of logged in student from DF */
 	/* ************* */
 	$totalWeeklyAct = $_SESSION['totalWeeklyAct'];
@@ -27,10 +30,16 @@
 	$notification = $_SESSION['notification'];
 	$notificationCount = $_SESSION['notificationCount'];
 	
+	$loginStdSlNo = $_SESSION['loginStdSlNo'];
+	
 	$sugg = $_SESSION['sugg'];
 	$suggCount = $_SESSION['suggCount'];
 	$sugg2 = $_SESSION['sugg2'];
 	$sugg2Counter = $_SESSION['sugg2Counter'];
+	
+	//$activeAssigns = $_SESSION['activeAssigns'];
+	$barColor = $_SESSION['barColor'];
+	$assignDaysRemPer = $_SESSION['assignDaysRemPer'];
 	
 	/*$maxDFTopic = $_SESSION['maxDFTopic'];
 	$maxRLRTopic = $_SESSION['maxRLRTopic'];
@@ -178,12 +187,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">SPAS v1.1 Welcome <?php echo $loginName ?></a>
+                <a class="navbar-brand" href="#">SPAS v2.0 Welcome <?php echo $loginName ?></a>
             </div>
             <!-- /.navbar-header -->
 
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                <!--<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -232,7 +241,7 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
-                </li>
+                <!--</li> -->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -312,7 +321,15 @@
 						
 						<?php
 						
-							for($i = 0, $assignCounter = $i+1; $i < $activeAssigns; $i++,$assignCounter++) {
+							//for($i = 0, $assignCounter = $i+1; $i < $activeAssigns; $i++,$assignCounter++) {
+							$dummyArray = array();
+							
+							$dummyArray[0] = 'IA 1';
+							$dummyArray[1] = 'IA 2';
+							$dummyArray[2] = 'IA 3';
+							$dummyArray[3] = 'ESE';
+							
+							for($i = 0, $assignCounter = $i+1; $i < 4; $i++,$assignCounter++) {
 								$dummy = "<li>";
 								if($i != 0)
 									$dummy = $dummy."<li class='divider'></li>";
@@ -320,7 +337,7 @@
 										<a href=\"#\">
 											<div>
 												<p>
-													<strong>Assignment $assignCounter </strong>
+													<strong>$dummyArray[$i]</strong>
 													<span class=\"pull-right text-muted\">$assignDaysRem[$i] Days Remaining</span>
 												</p>
 												<div class=\"progress progress-striped active\">
@@ -338,7 +355,7 @@
                     <!-- /.dropdown-tasks -->
                 </li>
                 <!-- /.dropdown -->
-                <li class="dropdown">
+                <!--<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-bell fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
@@ -396,7 +413,7 @@
                         </li>
                     </ul>
                     <!-- /.dropdown-alerts -->
-                </li>
+                <!--</li>-->
                 <!-- /.dropdown -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -419,8 +436,21 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">					
-						<img src="Images/User_Avatar_Male.png" width="250px" height="250px"/>
+                    <ul class="nav" id="side-menu">
+						<?php
+						
+							$sql = "SELECT gender FROM student WHERE usn = '$loginUsn'";
+							$data1 = mysql_query($sql,$con);
+							
+							$res = mysql_fetch_array($data1);
+							$var = $res['gender'];
+							
+							if($var == 'M')
+								echo '<img src="Images/User_Avatar_Male.png" width="250px" height="250px"/>';
+							else
+								echo '<img src="Images/User_Avatar_Female.png" width="250px" height="250px"/>';
+						
+						?>
 						<br /><br />
 						<div class="panel panel-default">
 							<div class="panel-heading">
@@ -633,8 +663,8 @@
                                     <i class="fa fa-support fa-5x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <div class="huge"><?php //echo $loginStdTotalTimeSpentMean ?></div>
-                                    <div><?php //echo $totalTimeSpentMean ?> Class Average</div>
+                                    <div class="huge"><?php echo $seniorsData[$loginStdSlNo-1] ?></div>
+                                    <div>Predicted SGPA</div>
                                 </div>
                             </div>
                         </div>

@@ -4,11 +4,13 @@
 	$stdUSN = "2sd12cs133";
 	/* ***************** */
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	$con = $_SESSION['con'];
+	
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
-	mysql_select_db("SPAS",$con);
+	mysql_select_db("SPAS",$con);*/
 	
 	$query = "SELECT usn FROM studentsess";
 	

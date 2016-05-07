@@ -3,11 +3,13 @@
 	header('Content-Type: text/xml');
 	echo'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
 
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	$con = $_SESSION['con'];
+	
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
-	mysql_select_db("SPAS",$con);
+	mysql_select_db("SPAS",$con);*/
 	
 	$var = array();
 	
@@ -37,11 +39,10 @@
 	$var[22] = $_GET['D11'];
 	$var[23] = $_GET['D12'];
 	
+	$courseId = $_GET['courseId'];
 	if(!isset($_SESSION)) { 
 		session_start(); 
 	}
-	
-	$courseId = "CS1";
 	
 	$query = array();
 	$query[0] = "UPDATE topiccoverage set coverage='$var[0]', deficulty='$var[12]' WHERE courseid='$courseId' and topic='T1'";
@@ -73,4 +74,6 @@
 			echo 'Failed To Update Topic Coverage';
 		echo '</response>';
 	}
+	
+	include("topicSessDistribution.php");
 ?>

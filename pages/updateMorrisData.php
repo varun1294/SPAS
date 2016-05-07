@@ -23,11 +23,13 @@
 	$currentMonth = 1;
 	$currentYear = "2016";
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	$con = $_SESSION['con'];
+	
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
-	mysql_select_db("SPAS",$con);
+	mysql_select_db("SPAS",$con);*/
 	
 	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
 	

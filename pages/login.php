@@ -5,11 +5,16 @@
 		$userName = $_POST['element_1'];
 		$passwd = $_POST['element_2'];
 		
-		$con = mysql_connect("localhost","Admin","pkvcobas132");
+		$passwd = sha1($passwd);
+		
+		include("systemCredentials.php");
+		$con = $_SESSION['con'];
+		
+		/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 		if(!$con)
 			die("Reason : ".mysql_error());
                 
-		mysql_select_db("spas",$con);
+		mysql_select_db("spas",$con);*/
 		
 		$sql = "SELECT * FROM  student";
 		$mydata = mysql_query($sql,$con);
@@ -62,5 +67,7 @@
 			}
 		}
 	}
+	
+	header('Location: login.html');
 
 ?>

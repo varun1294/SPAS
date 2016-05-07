@@ -104,7 +104,7 @@
 		$a = "";
 		$count = 0;
 		while($var > 0) {
-			$b = gen();
+			$b = gen($seed);
 			if( (($var != 1) || ($count != 0) ) && ($a != "") )
 				$a = $a.',';
 			$a = $a.$b;
@@ -115,7 +115,7 @@
 		return $a;
 	}
 	
-	function gen() {
+	function gen($seed) {
 		GLOBAL $totalSessionsStd;
 		$std = "<";
 		$std = $std.' S';
@@ -123,7 +123,7 @@
 		$var = genDVR();
 		$std = $std.$var.';';
 		$std = $std.'A'.';';
-		$var = rand(3,10);
+		$var = rand(($seed - 1),($seed + 1));
 		$std = $std.$var.'>';
 		return $std;
 	}

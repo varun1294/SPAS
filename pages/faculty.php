@@ -5,17 +5,39 @@
 	
 	include("updateFlotData.php");
 	
+	$con = $_SESSION['con'];
+	
+	$query = "SELECT distinct type,marks FROM marks WHERE usn = '2sd12cs001'";
+	$data = mysql_query($query,$con);
+	$marksPresence = array();
+		for($s = 0; $s < 4; $s++)
+			$marksPresence[$s] = false;
+		
+		$marksCounter = 0;
+		while($res = mysql_fetch_array($data)) {
+			if($res['type'] == 'ia1' && $res['marks'] != 0)
+				$marksPresence[0] = true;
+			else if($res['type'] == 'ia2' && $res['marks'] != 0)
+				$marksPresence[1] = true;
+			else if($res['type'] == 'ia3' && $res['marks'] != 0)
+				$marksPresence[2] = true;
+			else if($res['type'] == 'ese' && $res['marks'] != 0)
+				$marksPresence[3] = true;
+		}
+	
 	$loginFacName = "Prof. ";
 	
 	$fac_id = $_SESSION['loginFacId'];
 	$loginFacName = $loginFacName.$_SESSION['loginFacName'];
 	$courseId = $_SESSION['courseId'];
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	//echo '$courseId : '.$courseId.'<br />';
+	
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
                
-	mysql_select_db("SPAS",$con);
+	mysql_select_db("SPAS",$con);*/
 	
 	$query = "SELECT * FROM topiccoverage WHERE courseid='$courseId'";
 	$mydata = mysql_query($query,$con);
@@ -347,6 +369,8 @@ function drawChart() {
 				url = url+"&D10="+d10;
 				url = url+"&D11="+d11;
 				url = url+"&D12="+d12;
+				
+				url = url+"&courseId="+<?php echo '"'.$courseId.'"' ?>;
 				
 				
 				if(window.XMLHttpRequest) {
@@ -843,7 +867,7 @@ input[type=range]:focus::-ms-fill-upper {
 	<body onload="drawChart();">
 	<div class="row">
         <div class="col-lg-12">
-			<center><h1 class="page-header">SPAS v1.1 &nbsp; &nbsp; Welcome <?php echo $loginFacName ?> <br />Dashboard</h1></center>
+			<center><h1 class="page-header">SPAS v2.0 &nbsp; &nbsp; Welcome <?php echo $loginFacName ?> <br />Dashboard</h1></center>
         </div>
 		
 		<p align="right"><a href="logout.php"><i class="fa fa-sign-out fa-fw"></i><strong>Logout</strong></a></p>
@@ -962,8 +986,11 @@ input[type=range]:focus::-ms-fill-upper {
                 <!-- /.col-lg-8 -->
                 <!-- /.col-lg-4 -->
             </div>
-			
-	<div id="containerIAMarks" style="min-width: 310px; height: 400px; max-width: 1400px; margin: 0 auto"></div>
+	
+	<?php
+		if($marksPresence[0] && $marksPresence[1])
+			echo '<div id="containerIAMarks" style="min-width: 310px; height: 400px; max-width: 1400px; margin: 0 auto"></div>';
+	?>
 
 	</body>
 </html>

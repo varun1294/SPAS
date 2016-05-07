@@ -1,214 +1,73 @@
 <?php
 
-//$usn = '2sd12cs001';
-	//$courseid = 'CS1';
+	/* **** Read rAllStdDFActs **** */
+		$allStdsDFAct = 0;
+		$file = fopen("RScripts/rAllStdDFActs.txt","r");
+		while(! feof($file)) {
+			$rArrayDF[$allStdsDFAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsDFAct--;
+	/* ***************************** */
+		
+	/* **** Read rAllStdRLRActs **** */
+		$allStdsRLRAct = 0;
+		$file = fopen("RScripts/rAllStdRLRActs.txt","r");
+		while(! feof($file)) {
+			$rArrayRLR[$allStdsRLRAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsRLRAct--;
+	/* ***************************** */
+		
+	/* **** Read rAllStdVLRActs **** */
+		$allStdsVLRAct = 0;
+		$file = fopen("RScripts/rAllStdVLRActs.txt","r");
+		while(! feof($file)) {
+			$rArrayVLR[$allStdsVLRAct++] = fgets($file);
+		}
+		fclose($file);
+		$allStdsVLRAct--;
+	/* ***************************** */
 	
-	$usn = $_GET['usn'];
-	$courseid = $_GET['courseid'];
+	$arr = array();
+	$arr1 = array();
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
-	if(!$con)
-		die("Reason : ".mysql_error());
-               
-	mysql_select_db("SPAS",$con);
+	$arr[0][0] = "dfacts";
+	$arr[0][1] = "rlracts";
+	$arr[0][2] = "vlracts";
+	$arr[0][3] = "cgpa";
 	
-	$query = "SELECT * FROM topiccoverage WHERE courseid='$courseid'";
-	$mydata = mysql_query($query,$con);
-	
-	$sql = "SELECT * FROM studenttopicdist WHERE courseid='$courseid' and usn = '$usn' and actsdf != 0";
-	$data = mysql_query($sql,$con);
-	
-	$var = array();
-	$i = 0;
-	while($res = mysql_fetch_array($data)) {
-		$var[$i][0] = $res['topic'];
-		$var[$i][1] = $res['actsdf'];
-		$var[$i][2] = $res['actsrlr'];
-		$var[$i][3] = $res['actsvlr'];
-
-		$i++;
+	for($i = 1; $i <= 50; $i++) {
+		$arr[$i][0] = ($rArrayDF[$i - 1] * 100) / 25;
+		$arr[$i][0] = round($arr[$i][0],0);
+		
+		$arr[$i][1] = ($rArrayRLR[$i - 1] * 100) / 25;
+		$arr[$i][1] = round($arr[$i][1],0);
+		
+		$arr[$i][2] = ($rArrayVLR[$i - 1] * 100) / 25;
+		$arr[$i][2] = round($arr[$i][2],0);
+		
+		$arr1[$i - 1] = $arr[$i][0] + $arr[$i][1] + $arr[$i][2];
 	}
 	
-	$i--;
+	for($i = 1; $i < 50+1; $i++) {
+		if($arr1[$i-1] >= 18000 && $arr1[$i-1] <= 21999)
+			$arr[$i][3] = 6;
+		else if($arr1[$i-1] >= 22000 && $arr1[$i-1] <= 25999)
+			$arr[$i][3] = 7;
+		else if($arr1[$i-1] >= 26000 && $arr1[$i-1] <= 28999)
+			$arr[$i][3] = 8;
+		else if($arr1[$i-1] >= 29000 && $arr1[$i-1] <= 29999)
+			$arr[$i][3] = 9;
+		else
+			$arr[$i][3] = 10;
+	}
 	
+	$file = fopen("seniorsData.txt","w");
+	for($i = 1; $i < 50; $i++) {
+		fwrite($file,$arr[$i][3].PHP_EOL);
+	}
+	fwrite($file,$arr[$i][3]);
+	fclose($file);
 ?>
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-		<title>Highcharts Example</title>
-
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<style type="text/css">
-${demo.css}
-		</style>
-		<script type="text/javascript">
-function chart() {
-	alert("Call");
-    $('#container1').highcharts({
-        chart: {
-            type: 'scatter',
-            zoomType: 'xy'
-        },
-        title: {
-            text: 'Height Versus Weight of 507 Individuals by Gender'
-        },
-        subtitle: {
-            text: 'Source: Heinz  2003'
-        },
-        xAxis: {
-            title: {
-                enabled: true,
-                text: 'Height (cm)'
-            },
-            startOnTick: true,
-            endOnTick: true,
-            showLastLabel: true
-        },
-        yAxis: {
-            title: {
-                text: 'Weight (kg)'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'left',
-            verticalAlign: 'top',
-            x: 100,
-            y: 70,
-            floating: true,
-            backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF',
-            borderWidth: 1
-        },
-        plotOptions: {
-            scatter: {
-                marker: {
-                    radius: 5,
-                    states: {
-                        hover: {
-                            enabled: true,
-                            lineColor: 'rgb(100,100,100)'
-                        }
-                    }
-                },
-                states: {
-                    hover: {
-                        marker: {
-                            enabled: false
-                        }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<b>{series.name}</b><br>',
-                    pointFormat: '{point.x} cm, {point.y} kg'
-                }
-            }
-        },
-        <?php
-			$ll = "series: [{
-            name: 'DF',
-            color: 'rgba(223, 83, 83, .5)',";
-			
-			$ll = $ll."data: [";
-			
-			for($j = 0; $j < $i ; $j++) {
-				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].'], ';
-				$ll = $ll.'['.$var[$j][1].', ';
-				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].'], ';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.'], ';
-				}
-			}
-			
-			if($i > 0) {
-				//$ll = $ll.'['.$var[$j][1].', '.$var[$j][0].']]},';
-				$ll = $ll.'['.$var[$j][1].', ';
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].']]}, ';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.']]}, ';
-				}
-			}
-			
-			echo $ll;
-			
-			$ll = "{";
-			
-			$ll = $ll."name: 'VLR', color: 'rgba(119, 152, 191, .5)', data: [";
-			
-			for($j = 0; $j < $i ; $j++) {
-				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].'], ';
-				$ll = $ll.'['.$var[$j][3].', ';
-				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].'], ';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.'], ';
-				}
-			}
-			
-			if($i > 0) {
-				//$ll = $ll.'['.$var[$j][3].', '.$var[$j][0].']]},';
-				$ll = $ll.'['.$var[$j][3].', ';
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].']]}, ';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.']]},';
-				}
-			}
-			
-			echo $ll;
-			
-			$ll = "{";
-			$ll = $ll."name: 'RLR', color: 'rgba(200, 110, 150, .5)', data: [";
-			
-			for($j = 0; $j < $i ; $j++) {
-				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].'], ';
-				$ll = $ll.'['.$var[$j][2].', ';
-				/* Topics are from 1 to 12. From 1 to 9, we can directly use $var[$j][0][1]. But for 10 to 12 we need to input extra work */
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].'], ';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.'], ';
-				}
-			}
-			
-			if($i > 0) {
-				//$ll = $ll.'['.$var[$j][2].', '.$var[$j][0].']]}]';
-				$ll = $ll.'['.$var[$j][2].', ';
-				$len = strlen($var[$j][0])-1;
-				if($len == 1)
-					$ll = $ll.$var[$j][0][1].']]}]';
-				else {
-					$sum = ($var[$j][0][1] * 10) + ($var[$j][0][2]);
-					$ll = $ll.$sum.']]}]';
-				}
-			}
-			
-			echo $ll;
-		?>
-    });
-}
-
-		</script>
-	</head>
-	<body onload="chart()">
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<div id="container1" style="min-width: 310px; height: 400px; max-width: 800px; margin: 0 auto"></div>
-
-	<input type="button" value="Toggle" onclick="chart();">
-	</body>
-</html>

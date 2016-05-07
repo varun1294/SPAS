@@ -24,7 +24,7 @@
 	for($i = 0, $usn = '2sd12cs001'; $i < 50; $i++,$usn++) {
 		for($j = 0, $courseid = 'CS1'; $j < 6; $j++,$courseid++) {
 			$var = 0;
-			$marks = 0;
+			$marks = rand(5,20);
 			//$sql = "INSERT INTO marks VALUES ('$usn','$courseid','ia1','$marks')";
 			$sql = "UPDATE marks SET marks = '$marks' WHERE usn = '$usn' and courseid = '$courseid' and type = 'ia2'";
 			if(mysql_query($sql,$con))

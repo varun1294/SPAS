@@ -6,6 +6,8 @@
 
 	mysql_select_db("spas",$con);
 	
+	//$con = $_SESSION['con'];
+	
 	/* **** Read rAllStdDFActs **** */
 		$allStdsDFAct = 0;
 		$file = fopen("RScripts/rAllStdDFActs.txt","r");
@@ -58,10 +60,10 @@
 		$k = 0;
 	}
 	
-	for($rr = 0; $rr < $count; $rr++) {
+	/*for($rr = 0; $rr < $count; $rr++) {
 		print_r($var[$rr]);
 		echo '<br /><br />';
-	}
+	}*/
 	
 	$randArr1 = array();
 	$randArr2 = array();

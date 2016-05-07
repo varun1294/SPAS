@@ -6,56 +6,56 @@ $(document).ready(function() {
     function plot() {
         var sin = [],
             cos = [],
-			tan = [];tan.push([1,1236
-]);cos.push([2,1127
-]);sin.push([3,1535
-]);tan.push([4,1228
-]);sin.push([5,1376
-]);sin.push([6,1746
-]);sin.push([7,1388
-]);sin.push([8,1376
-]);tan.push([9,1241
-]);sin.push([10,1389
-]);tan.push([11,1332
-]);sin.push([12,1399
-]);cos.push([13,1093
-]);cos.push([14,1165
-]);sin.push([15,1460
-]);cos.push([16,1000
-]);tan.push([17,1189
-]);sin.push([18,1404
-]);tan.push([19,1274
-]);cos.push([20,1163
-]);sin.push([21,1473
-]);tan.push([22,1236
-]);tan.push([23,1312
-]);tan.push([24,1243
-]);tan.push([25,1331
-]);tan.push([26,1265
-]);tan.push([27,1313
-]);tan.push([28,1297
-]);sin.push([29,1366
-]);tan.push([30,1215
-]);sin.push([31,1488
-]);cos.push([32,1098
-]);tan.push([33,1351
-]);tan.push([34,1337
-]);sin.push([35,1501
-]);cos.push([36,1032
-]);cos.push([37,984
-]);cos.push([38,1148
-]);sin.push([39,1511
-]);cos.push([40,1139
-]);sin.push([41,1454
-]);tan.push([42,1335
-]);tan.push([43,1194
-]);tan.push([44,1201
-]);tan.push([45,1251
-]);tan.push([46,1308
-]);cos.push([47,1066
-]);cos.push([48,1121
-]);tan.push([49,1189
-]);sin.push([50,1391
+			tan = [];sin.push([1,7083
+]);cos.push([2,7263
+]);cos.push([3,8103
+]);cos.push([4,7234
+]);cos.push([5,8280
+]);tan.push([6,9738
+]);sin.push([7,6569
+]);sin.push([8,6609
+]);cos.push([9,7423
+]);tan.push([10,8692
+]);sin.push([11,6633
+]);cos.push([12,7328
+]);cos.push([13,7490
+]);sin.push([14,6819
+]);cos.push([15,7221
+]);sin.push([16,5896
+]);sin.push([17,5951
+]);cos.push([18,8147
+]);cos.push([19,7675
+]);sin.push([20,7015
+]);cos.push([21,7602
+]);sin.push([22,6591
+]);sin.push([23,6997
+]);sin.push([24,7046
+]);cos.push([25,7485
+]);sin.push([26,6996
+]);cos.push([27,7209
+]);sin.push([28,6873
+]);cos.push([29,7874
+]);cos.push([30,7569
+]);cos.push([31,8047
+]);cos.push([32,7799
+]);tan.push([33,9052
+]);cos.push([34,7551
+]);cos.push([35,8000
+]);cos.push([36,7718
+]);cos.push([37,7172
+]);sin.push([38,6853
+]);cos.push([39,7573
+]);sin.push([40,6623
+]);cos.push([41,8147
+]);cos.push([42,7853
+]);cos.push([43,7710
+]);sin.push([44,6132
+]);cos.push([45,7522
+]);cos.push([46,7597
+]);sin.push([47,5736
+]);sin.push([48,6811
+]);sin.push([49,6433
+]);cos.push([50,7550
 ]);var options = {
             series: {
                 lines: {
@@ -69,8 +69,8 @@ $(document).ready(function() {
                 hoverable: true //IMPORTANT! this is needed for tooltip to work
             },
             yaxis: {
-                min: 984,
-                max: 1746
+                min: 5736,
+                max: 9738
             },
             tooltip: true,
             tooltipOpts: {

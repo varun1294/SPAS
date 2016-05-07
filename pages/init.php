@@ -4,6 +4,8 @@
 		session_start(); 
 	}
 	
+	$con = $_SESSION['con'];
+	
 	$loginUsn = $_SESSION['loginUsn'];
 	$month = "2016-01";
 	$loginName = 	$_SESSION['loginName'];
@@ -14,11 +16,11 @@
 	$ia3ExamDate = 84;
 	$eseExamDate = 112;
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
 
-	mysql_select_db("SPAS",$con);
+	mysql_select_db("SPAS",$con);*/
 	
 	$sql = "SELECT COUNT(DISTINCT usn) FROM activity";
 	
@@ -36,7 +38,6 @@
 	$totalDaysSinceBenOfSem = $res['count(*)'];
 	$totalDaysSinceBenOfSem = 112 - $totalDaysSinceBenOfSem;
 	
-	echo '$totalDaysSinceBenOfSem : '.$totalDaysSinceBenOfSem.'<br />';
 	if($totalDaysSinceBenOfSem >= 1 && $totalDaysSinceBenOfSem <= 7)
 		$semCurrentWeek = 1;
 	else if($totalDaysSinceBenOfSem >= 8 && $totalDaysSinceBenOfSem <= 14)
@@ -70,20 +71,20 @@
 	else
 		$semCurrentWeek = 16;
 		
-	echo '$semCurrentWeek : '.$semCurrentWeek.'<br />';
+	//echo '$semCurrentWeek : '.$semCurrentWeek.'<br />';
 	/* ****************************************************************************************** */
 		
 	$semCurrentWeek = 1;
 	
 	$loginStdSlNo = $_SESSION['loginStdSlNo'];
 	
-	echo 'loginStdSlNo : '.$loginStdSlNo.'<br />';
+	//echo 'loginStdSlNo : '.$loginStdSlNo.'<br />';
 	
-	$con = mysql_connect("localhost","Admin","pkvcobas132");
+	/*$con = mysql_connect("localhost","Admin","pkvcobas132");
 	if(!$con)
 		die("Reason : ".mysql_error());
 
-	mysql_select_db("discussionforum",$con);
+	mysql_select_db("discussionforum",$con);*/
 	
 	/* ******************************************** Read R-Results *********************************************** */
 		/* **** Read rAllStdAllActs **** */
@@ -176,6 +177,16 @@
 			fclose($file);
 			$allAct--;
 		/* ***************************** */
+		
+		/* **** Read seniorsData **** */
+			$seniorsDataCounter = 0;
+			$file = fopen("seniorsData.txt","r");
+			while(! feof($file)) {
+				$seniorsData[$seniorsDataCounter++] = fgets($file);
+			}
+			fclose($file);
+			$seniorsDataCounter--;
+		/* *************************** */
 		
 		/*echo 'DF : <br />';
 		print_r($rArrayDFCluster);
@@ -361,6 +372,88 @@
 		$assignDaysRem[$i] = $dummyVar1[$i];
 	}*/
 	//print_r($assignDaysRemPer);
+	
+	$assignDaysRem[0] = $ia1ExamDate - $totalDaysSinceBenOfSem;
+	if($assignDaysRem[0] < 0) {
+		$assignDaysRem[0] = 0;
+		$barColor[0] = "danger";
+	}
+	else {
+		$var = (100 * $assignDaysRem[0]) / 28;
+		if($var > 0 && $var <= 30)
+			$barColor[0] = "danger";
+		else if($var > 30 && $var <= 60)
+			$barColor[0] = "warning";
+		else if($var > 60 && $var <= 90)
+			$barColor[0] = "complete";
+		else
+			$barColor[0] = "success";
+			
+		$assignDaysRemPer[0] = (100 * $assignDaysRem[0]) / 28;
+		$assignDaysRemPer[0] = round($assignDaysRemPer[0],0);
+	}
+		
+	$assignDaysRem[1] = $ia2ExamDate - $totalDaysSinceBenOfSem;
+	if($assignDaysRem[1] < 0) {
+		$assignDaysRem[1] = 0;
+		$barColor[1] = "danger";
+	}
+	else {
+		$var = (100 * $assignDaysRem[1]) / 28;
+		if($var > 0 && $var <= 30)
+			$barColor[1] = "danger";
+		else if($var > 30 && $var <= 60)
+			$barColor[1] = "warning";
+		else if($var > 60 && $var <= 90)
+			$barColor[1] = "complete";
+		else
+			$barColor[1] = "success";
+			
+		$assignDaysRemPer[1] = (100 * $assignDaysRem[1]) / 56;
+		$assignDaysRemPer[1] = round($assignDaysRemPer[1],0);
+	}
+		
+	$assignDaysRem[2] = $ia3ExamDate - $totalDaysSinceBenOfSem;
+	if($assignDaysRem[2] < 0) {
+		$assignDaysRem[2] = 0;
+		$barColor[2] = "danger";
+	}
+	else {
+		$var = (100 * $assignDaysRem[2]) / 28;
+		if($var > 0 && $var <= 30)
+			$barColor[2] = "danger";
+		else if($var > 30 && $var <= 60)
+			$barColor[2] = "warning";
+		else if($var > 60 && $var <= 90)
+			$barColor[2] = "complete";
+		else
+			$barColor[2] = "success";
+			
+		$assignDaysRemPer[2] = (100 * $assignDaysRem[2]) / 84;
+		$assignDaysRemPer[2] = round($assignDaysRemPer[2],0);
+	}
+		
+	$assignDaysRem[3] = $eseExamDate - $totalDaysSinceBenOfSem;
+	if($assignDaysRem[3] < 0) {
+		$assignDaysRem[3] = 0;
+		$barColor[3] = "danger";
+	}
+	else {
+		$var = (100 * $assignDaysRem[3]) / 28;
+		if($var > 0 && $var <= 30)
+			$barColor[3] = "danger";
+		else if($var > 30 && $var <= 60)
+			$barColor[3] = "warning";
+		else if($var > 60 && $var <= 90)
+			$barColor[3] = "complete";
+		else
+			$barColor[3] = "success";
+			
+		$assignDaysRemPer[3] = (100 * $assignDaysRem[3]) / 112;
+		$assignDaysRemPer[3] = round($assignDaysRemPer[3],0);
+	}
+	//print_r($assignDaysRemPer);
+	echo '<br />';
 	/* ************************************************************************************************************************************** */
 	/* ************************************************************************************************************************************** */
 	
@@ -425,13 +518,16 @@
 	$_SESSION['rArrayALLCluster'] = $rArrayALLCluster;
 	$_SESSION['rArrayALL'] = $rArrayALL;
 	
+	$_SESSION['seniorsData'] = $seniorsData;
+	$_SESSION['seniorsDataCounter'] = $seniorsDataCounter;
+	
 	$_SESSION['totalWeeklyAct'] = $totalWeeklyAct;
 	$_SESSION['totalWeeklyActDF'] = $totalWeeklyActDF;
 	$_SESSION['totalWeeklyActRLR'] = $totalWeeklyActRLR;
 	$_SESSION['totalWeeklyActVLR'] = $totalWeeklyActVLR;
-	/*$_SESSION['activeAssigns'] = $activeAssigns;
+	//$_SESSION['activeAssigns'] = $activeAssigns;
 	$_SESSION['assignDaysRemPer'] = $assignDaysRemPer;
-	$_SESSION['barColor'] = $barColor;*/
+	$_SESSION['barColor'] = $barColor;
 	$_SESSION['loginName']= $loginName;
 	$_SESSION['notification'] = $notification;
 	$_SESSION['notificationCount'] = $notificationCount;
